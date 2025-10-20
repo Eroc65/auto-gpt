@@ -62,28 +62,29 @@ class ImprovementImplementer:
             logger.info("README.md already exists")
             return False
         
-        content = f"""# {self.repo_path.name}
-
-## Description
-
-[Add a brief description of your project here]
-
-## Installation
-
-```bash
-# Add installation instructions
-```
-
-## Usage
-
-```bash
-# Add usage examples
-```
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
+        content = (
+            f"# {self.repo_path.name}\n"
+            "\n"
+            "## Description\n"
+            "\n"
+            "[Add a brief description of your project here]\n"
+            "\n"
+            "## Installation\n"
+            "\n"
+            "```bash\n"
+            "# Add installation instructions\n"
+            "```\n"
+            "\n"
+            "## Usage\n"
+            "\n"
+            "```bash\n"
+            "# Add usage examples\n"
+            "```\n"
+            "\n"
+            "## Contributing\n"
+            "\n"
+            "Contributions are welcome! Please feel free to submit a Pull Request.\n"
+        )
 ## License
 
 [Add license information]
