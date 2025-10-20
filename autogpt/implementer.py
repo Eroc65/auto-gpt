@@ -218,23 +218,23 @@ Feel free to open an issue for any questions or concerns.
         
         # Create a sample test file
         sample_test = tests_dir / "test_sample.py"
-        content = """\"\"\"
+        content = '''"""
 Sample test file
-\"\"\"
+"""
 import unittest
 
 
 class TestSample(unittest.TestCase):
-    \"\"\"Sample test class\"\"\"
+    """Sample test class"""
     
     def test_example(self):
-        \"\"\"Example test case\"\"\"
+        """Example test case"""
         self.assertEqual(1 + 1, 2)
 
 
 if __name__ == '__main__':
     unittest.main()
-"""
+'''
         
         with open(sample_test, 'w') as f:
             f.write(content)
