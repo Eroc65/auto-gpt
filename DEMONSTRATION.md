@@ -16,7 +16,12 @@ This document demonstrates the capabilities of the Auto-GPT GitHub Agent.
 
 ### 3. Repository Analysis
 ✅ **Structure Analysis**: Identifies project structure and organization
-✅ **Purpose Detection**: Determines project type (library, app, CLI, etc.)
+✅ **Purpose Detection**: Determines project type from README content:
+  - `library` - Framework or library projects
+  - `backend` - API, server, or backend applications
+  - `frontend` - Web apps with React, Vue, or similar
+  - `cli-tool` - Command-line tools
+  - `unknown` - Type cannot be determined
 ✅ **Technology Detection**: Identifies languages and frameworks
 ✅ **Entry Point Detection**: Finds main files and entry points
 ✅ **Documentation Analysis**: Evaluates documentation quality
@@ -98,7 +103,7 @@ OK
 
 ## Sample Output
 
-When run on the Eroc65/auto-gpt repository:
+Example output when run on a repository (e.g., `https://github.com/username/example-repo`):
 
 ```
 ======================================================================
@@ -106,12 +111,14 @@ Auto-GPT GitHub Agent
 Autonomous AI for Repository Analysis and Improvement
 ======================================================================
 
-Repository: repos/auto-gpt
+Repository: repos/example-repo
 Improvements proposed: 5
 Improvements implemented: 5
 Report: output/report_20251020_054643.md
 ======================================================================
 ```
+
+**Note**: The example above shows output from running the agent on the Eroc65/auto-gpt repository as a test case.
 
 ### Proposed Improvements (Example)
 
@@ -183,15 +190,15 @@ The agent logs its reasoning at each step:
 
 The current implementation provides a solid foundation for autonomous repository analysis. Future enhancements could include:
 
-- Integration with OpenAI for enhanced analysis
-- Support for more programming languages
-- Custom improvement rules
-- Interactive mode for user feedback
-- Git commit and PR creation
-- Batch processing of multiple repositories
-- Code quality analysis
-- Security vulnerability scanning
-- Performance optimization suggestions
+- **Enhanced AI Analysis**: Integration with OpenAI API for deeper code understanding (infrastructure in place via config.py)
+- **Language Support**: Expand support for more programming languages and frameworks
+- **Custom Rules**: Allow users to define custom improvement rules
+- **Interactive Mode**: User feedback and approval for improvements
+- **Git Integration**: Automated commit and PR creation for implemented changes
+- **Batch Processing**: Analyze multiple repositories in a single run
+- **Code Quality**: Integration with linters and code quality tools
+- **Security Scanning**: Detect security vulnerabilities and suggest fixes
+- **Performance Analysis**: Identify performance bottlenecks and optimization opportunities
 
 ## Conclusion
 
