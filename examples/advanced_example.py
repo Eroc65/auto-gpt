@@ -190,7 +190,7 @@ def main():
 
     summary = agent.run(max_iterations=10)
 
-    print(f"\n✓ Execution completed:")
+    print("\n✓ Execution completed:")
     print(f"  - Iterations: {summary['iterations']}")
     print(f"  - Goals completed: {summary['completed_goals']}")
     print(f"  - Reasoning steps: {summary['reasoning_steps']}")
@@ -201,7 +201,7 @@ def main():
     print("=" * 70)
 
     status = agent.get_status()
-    print(f"\n✓ Memory statistics:")
+    print("\n✓ Memory statistics:")
     print(f"  - Short-term memories: {status['short_term_memories']}")
     print(f"  - Long-term memories: {status['long_term_memories']}")
 
@@ -216,7 +216,7 @@ def main():
     print("Reasoning History")
     print("=" * 70)
 
-    print(f"\n✓ Showing last 5 reasoning steps:")
+    print("\n✓ Showing last 5 reasoning steps:")
     for i, step in enumerate(agent.reasoning_history[-5:], 1):
         print(f"\n  Step {i}:")
         print(f"    Thought: {step.thought}")
