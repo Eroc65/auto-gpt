@@ -19,6 +19,15 @@ AI-first front desk software for small trades businesses.
 - FastAPI (Python)
 - Organization-scoped API and auth flows
 
+### Language Standard (Recommended)
+- Python for AI and backend systems.
+- JavaScript/TypeScript for web frontend systems.
+
+Rationale:
+- Python is the primary language for AI integrations, voice and NLP pipelines, backend APIs, and automation.
+- JavaScript/TypeScript is the primary language for Next.js and React interfaces, real-time dashboards, and mobile-friendly web experiences.
+- This split matches the current architecture and should remain the default for new features unless a specific exception is approved.
+
 ### Infrastructure
 - Render for web service hosting, deploy pipelines, SSL, and runtime configuration
 - Neon Postgres for persistent application data (users, organizations, jobs, customers, reminders)
@@ -67,6 +76,25 @@ AI-first front desk software for small trades businesses.
 - `backend: run` starts the FastAPI API on `http://127.0.0.1:8001`.
 - `backend: smoke auth` runs the live auth smoke script against the running backend.
 - `backend: stop` stops the local API process listening on port `8001`.
+
+## Operational Scripts
+- `powershell -ExecutionPolicy Bypass -File .\scripts\readiness_check.ps1`
+	- Runs backend tests, local auth smoke, and live apex/www checks in one command.
+- `powershell -ExecutionPolicy Bypass -File .\scripts\post_release_cutover_verify.ps1 -SkipDeployTrigger`
+	- Runs DNS and HTTPS cutover verification after Render confirms domain release.
+- `powershell -ExecutionPolicy Bypass -File .\scripts\post_release_cutover_verify.ps1 -DeployHookUrl "<RENDER_PRODUCTION_DEPLOY_HOOK_URL>"`
+	- Triggers production deploy hook and then runs cutover verification checks.
+- `powershell -ExecutionPolicy Bypass -File .\scripts\webhook_security_readiness.ps1`
+	- Runs webhook env audit in check mode + platform integration tests and prints a single readiness result.
+- `powershell -ExecutionPolicy Bypass -File .\scripts\webhook_security_readiness.ps1 -RequireSigningSecrets`
+	- Also requires HMAC signing secrets for each organization (scoped or global fallback).
+
+## GitHub Ops
+- Manual secrets verification workflow is available in GitHub Actions: `Integration Secrets Check`.
+- CLI trigger example:
+	- `gh workflow run "Integration Secrets Check" --repo Eroc65/auto-gpt`
+- One-command local helper:
+	- `powershell -ExecutionPolicy Bypass -File .\scripts\run_integration_secrets_check.ps1`
 
 ## Blockers
 - **Frontend setup/validation is currently blocked due to missing Node.js/npm.**

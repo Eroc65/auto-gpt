@@ -40,6 +40,7 @@ class Organization(Base):
     coaching_snippets = relationship("CoachingSnippet", back_populates="organization")
     comm_profile = relationship("CommunicationTenantProfile", back_populates="organization", uselist=False)
     sms_opt_outs = relationship("SmsOptOut", back_populates="organization")
+    voice_transcripts = relationship("VoiceTranscript", back_populates="organization")
 
 class User(Base):
     __tablename__ = "users"
@@ -364,3 +365,20 @@ class SmsOptOut(Base):
     source = Column(String, nullable=False, default="customer_reply")
     created_at = Column(DateTime, default=_utcnow, nullable=False)
     organization = relationship("Organization", back_populates="sms_opt_outs")
+
+
+class VoiceTranscript(Base):
+    __tablename__ = "voice_transcripts"
+    id = Column(Integer, primary_key=True, index=True)
+    organization_id = Column(Integer, ForeignKey("organizations.id"), nullable=False, index=True)
+    created_by_user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    source = Column(String, nullable=False, default="call_recording")
+    audio_filename = Column(String, nullable=False)
+    audio_content_type = Column(String)
+    caller_phone = Column(String)
+    call_id = Column(String, index=True)
+    transcription_model = Column(String, nullable=False)
+    transcript_text = Column(Text, nullable=False)
+    extraction_json = Column(Text)
+    created_at = Column(DateTime, default=_utcnow, nullable=False)
+    organization = relationship("Organization", back_populates="voice_transcripts")

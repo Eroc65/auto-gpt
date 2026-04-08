@@ -2,6 +2,7 @@
 
 Related roadmap:
 - [Fieldwise Parity and Beyond Plan](./FIELDWISE_PARITY_PLAN.md)
+- [GoFieldwise AI Audio Playbook](./GOFIELDWISE_AI_AUDIO_PLAYBOOK.md)
 
 ## Next 2 Sprints — FrontDesk Pro Execution Plan
 
@@ -77,6 +78,36 @@ Definition of Done:
 - No duplicate invoices from repeated completion actions.
 - Reminder lifecycle verified across paid/unpaid transitions.
 - Release notes updated with operational behavior and rollback notes.
+
+### Sprint C (2 weeks) — Voice Intake And Audio Agent Foundation
+Goal: operationalize voice intake and transcript reliability with organization-safe audio pipelines.
+
+Scope:
+- Add transcription-first API path for voicemail and recorded call ingestion.
+- Add structured extraction from transcript (name, service type, urgency, address, callback number).
+- Add deterministic speech output path for controlled customer messaging.
+- Add runtime model-routing policy: realtime for live calls, chained mode for deterministic script control.
+
+Stories:
+- As an owner, I can review transcript and extracted intake details immediately after a call.
+- As a dispatcher, I can use AI-assisted summaries without losing call context.
+- As an admin, I can audit which model path produced each transcript and response.
+
+Acceptance Criteria:
+- Voice/transcript records are organization-scoped and auth-protected.
+- Transcription + extraction pipeline is deterministic and test-covered.
+- Controlled speech output can be generated from approved message templates.
+- API selection logic follows the audio playbook.
+
+Validation:
+- Backend tests for auth, org scoping, and extraction correctness.
+- Smoke script for transcription -> extraction -> controlled speech roundtrip.
+- Failure-path tests for missing audio, invalid format, and provider timeout handling.
+
+Definition of Done:
+- Operational logs include model path and request identifiers.
+- Minimum one deterministic smoke command is documented and runnable.
+- Rollback/fallback path is documented for realtime transport outages.
 
 ### Dependencies and Sequence
 1. Finish Sprint A schema + API first.
@@ -202,3 +233,20 @@ Definition of Done:
 - Research/content/SEO support
 - Scheduled tasks
 - Audit logs
+
+## Deferred Roadmap — AI Visual Ads Growth Service
+- Position as an additional sellable GoFieldwise managed service.
+- Benchmark against specialized creative SaaS (including Kopa-style workflows) for speed, output quality, and measurable ROI.
+- Required capability tracks:
+	- Image generation pipeline (brand-consistent static creative at scale)
+	- Design/layout system (placement-aware templates for Meta, TikTok, Google)
+	- Video ad pipeline (short-form creative with scene timing and overlays)
+	- Competitor ad intelligence (visual pattern and trend gap detection)
+	- Creative performance analytics (attribute-level performance and refresh planning)
+- Commercialization requirements:
+	- Service packaging, checkout path, and SKU-level reporting
+	- Clear deliverables, turnaround SLAs, and upsell attachment metrics
+- Sales enablement (deferred):
+	- One-page "GoFieldwise vs Kopa" sales script for owner-operators
+	- Objection handling matrix (price, complexity, migration risk, proof)
+	- Pricing anchor and close script for AI Visual Ads Growth upsell calls

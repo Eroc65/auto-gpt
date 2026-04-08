@@ -124,3 +124,53 @@ class MarketingImageCustomCampaignPackOut(MarketingImageCampaignPackOut):
     id: int
     organization_id: int
     model_config = ConfigDict(from_attributes=True)
+
+
+class MarketingExpertOperatorRequest(BaseModel):
+    business_name: str = Field(min_length=2, max_length=120)
+    website_url: Optional[str] = Field(default=None, max_length=240)
+    vertical: str = Field(min_length=2, max_length=80)
+    service_area: str = Field(min_length=2, max_length=160)
+    weekly_ad_budget_usd: int = Field(ge=1, le=50000)
+    primary_goal: str = Field(default="book_more_jobs", min_length=4, max_length=120)
+    current_channels: list[str] = Field(default_factory=list)
+    notes: Optional[str] = Field(default=None, max_length=4000)
+
+
+class MarketingExpertOfferOut(BaseModel):
+    title: str
+    audience: str
+    hook: str
+    cta: str
+
+
+class MarketingExpertChannelPlanOut(BaseModel):
+    channel: str
+    objective: str
+    weekly_budget_usd: int
+    campaign_structure: list[str]
+
+
+class MarketingExpertContentPlanOut(BaseModel):
+    blog_titles: list[str]
+    ad_concepts: list[str]
+    social_posts: list[str]
+
+
+class MarketingExpertExecutionOut(BaseModel):
+    week_1: list[str]
+    week_2: list[str]
+    week_3: list[str]
+    week_4: list[str]
+
+
+class MarketingExpertOperatorOut(BaseModel):
+    strategy_summary: str
+    positioning: str
+    offers: list[MarketingExpertOfferOut]
+    channel_plan: list[MarketingExpertChannelPlanOut]
+    content_plan: MarketingExpertContentPlanOut
+    competitor_gaps: list[str]
+    lead_sources: list[str]
+    kpi_targets: list[str]
+    execution: MarketingExpertExecutionOut

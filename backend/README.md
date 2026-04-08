@@ -94,12 +94,115 @@ POST `/api/leads/{lead_id}/qualify` (Bearer token)
 3. `uvicorn app.main:app --reload --port 8001`
 	- API docs: http://localhost:8001/docs
 
+## OpenAI SDK Setup (Python)
+- This backend now includes the official OpenAI Python SDK.
+- Configure your API key as an environment variable.
+
+PowerShell (current shell only):
+- `$env:OPENAI_API_KEY="your_api_key_here"`
+
+PowerShell (persistent on Windows):
+- `setx OPENAI_API_KEY "your_api_key_here"`
+
+Optional model override:
+- `$env:OPENAI_MODEL="gpt-4.1-mini"`
+
+SDK smoke validation:
+- `python scripts/smoke_openai_sdk.py`
+- Expected output includes: `OPENAI_SDK_SMOKE_OK`
+
 ## Validation
 - `pytest -q`
 - `pytest -q tests/test_dispatch_flow_integration.py tests/test_dispatch.py -k "lifecycle_quick_actions_require_valid_order or conflict_next_slot_then_dispatch"`
 - `python scripts/smoke_auth.py`
+- `python scripts/smoke_openai_sdk.py`
 - `python scripts/smoke_schedule_readiness.py`
 - `python scripts/smoke_collections_readiness.py`
+
+## AI Marketing Expert Operator
+- Endpoint: `POST /api/marketing/expert/operator`
+- Purpose: generate structured autonomous growth strategy output (offers, channel plan, content plan, KPI targets, and 4-week execution checklist).
+- Auth: owner/admin/dispatcher roles via existing marketing access policy.
+- Requires `OPENAI_API_KEY` for live model orchestration.
+
+## Integration Webhooks (Twilio, Retell, Zapier)
+
+Communication profile management:
+- GET `/api/org/comm-profile`
+- PATCH `/api/org/comm-profile`
+
+Twilio:
+- POST `/api/integrations/twilio/inbound/{org_id}` (inbound SMS keywords)
+- POST `/api/integrations/twilio/status` (message delivery callbacks)
+- POST `/api/integrations/twilio/voice/{org_id}` (voice call events and missed-call recovery)
+
+Retell:
+- POST `/api/integrations/retell/call-ended/{org_id}` (call outcomes, missed-call recovery)
+
+Zapier:
+- POST `/api/integrations/zapier/leads/by-key/{intake_key}` (create lead via intake key)
+- POST `/api/integrations/zapier/push/lead/{lead_id}` (push org-scoped lead to Zapier webhook; auth required)
+
+Webhook signature verification (optional but recommended in production):
+- `TWILIO_WEBHOOK_SIGNING_SECRET`
+- `RETELL_WEBHOOK_SIGNING_SECRET`
+- `ZAPIER_WEBHOOK_SIGNING_SECRET`
+
+Twilio provider signature mode (optional strict mode):
+- `TWILIO_PROVIDER_SIGNATURE_MODE=true`
+- `TWILIO_AUTH_TOKEN` (required when provider signature mode is enabled)
+- Optional URL normalization for reverse proxy setups: `TWILIO_WEBHOOK_PUBLIC_BASE_URL`
+
+Retell provider strict mode (optional):
+- `RETELL_PROVIDER_SIGNATURE_MODE=true`
+- `RETELL_WEBHOOK_PROVIDER_TOKEN` (accepted via `x-retell-token`, `x-retell-signature`, or `Authorization: Bearer`)
+- `RETELL_API_KEY` (for Retell API operations; can also be scoped as `RETELL_API_KEY_ORG_<organization_id>`)
+
+Zapier provider strict mode (optional):
+- `ZAPIER_PROVIDER_SIGNATURE_MODE=true`
+- `ZAPIER_WEBHOOK_PROVIDER_TOKEN` (accepted via `x-zapier-token`, `x-zapier-signature`, or `Authorization: Bearer`)
+- `ZAPIER_API_KEY` (for Zapier API operations; can also be scoped as `ZAPIER_API_KEY_ORG_<organization_id>`)
+
+Signature behavior:
+- If a signing secret is set, the corresponding inbound webhook requires a valid HMAC-SHA256 signature.
+- Signature is computed over the raw request body and accepted via provider-specific header or `x-frontdesk-signature`.
+- If `TWILIO_PROVIDER_SIGNATURE_MODE` is enabled, Twilio inbound endpoints also require a valid Twilio-style auth-token signature in `x-twilio-signature`.
+- If Retell or Zapier strict provider mode is enabled, those endpoints also require a valid provider token header (or bearer token) before HMAC checks.
+
+Organization-scoped secret/token override pattern:
+- For any global variable `X`, you can define `X_ORG_<organization_id>`.
+- If present, the org-scoped value is used instead of the global value.
+- Examples: `TWILIO_AUTH_TOKEN_ORG_12`, `RETELL_WEBHOOK_PROVIDER_TOKEN_ORG_12`, `ZAPIER_WEBHOOK_SIGNING_SECRET_ORG_12`.
+
+Outbound Zapier webhook configuration:
+- `ZAPIER_LEAD_WEBHOOK_URL` (default destination for lead push endpoint)
+- `ZAPIER_OUTBOUND_SHARED_SECRET` (optional header `X-FrontDesk-Secret`)
+
+Webhook env audit helper:
+- `python scripts/webhook_env_audit.py`
+	- lists expected org-scoped variable names and whether values resolve from scoped/global env.
+- `python scripts/webhook_env_audit.py --check`
+	- fails if strict provider modes are enabled and required values are missing.
+- `python scripts/webhook_env_audit.py --check --require-signing-secrets`
+	- also requires HMAC signing secrets to be present for each organization (scoped or global fallback).
+- `python scripts/webhook_env_audit.py --check --require-retell-api-key`
+	- requires `RETELL_API_KEY` (or `RETELL_API_KEY_ORG_<id>`) to be present.
+- `python scripts/webhook_env_audit.py --check --require-zapier-api-key`
+	- requires `ZAPIER_API_KEY` (or `ZAPIER_API_KEY_ORG_<id>`) to be present.
+
+One-command webhook security readiness wrapper:
+- `powershell -ExecutionPolicy Bypass -File ..\scripts\webhook_security_readiness.ps1`
+- Optional strict check for signing secrets: `-RequireSigningSecrets`
+- Optional Retell key check: `-RequireRetellApiKey`
+- Optional Zapier key check: `-RequireZapierApiKey`
+- Optional org-only scope: `-OrgId <organization_id>`
+
+## Google Ads Specialist Helper
+
+Date-window utility for audit/reporting workflows:
+- `python scripts/google_ads_specialist_helper.py --timeframe "last week"`
+- Supports: `yesterday`, `last week`, `last month`, `last 28 days`, `last quarter`, `last year`
+- Returns current and previous-period windows for comparative analysis.
 
 ## Agent Runtime Invocation
 - Runtime entrypoints:
@@ -172,3 +275,7 @@ POST `/api/leads/{lead_id}/qualify` (Bearer token)
 - `backend: run`
 - `backend: smoke auth`
 - `backend: stop`
+- `security: webhook readiness`
+- `security: webhook readiness (strict)`
+- `security: webhook readiness (strict + retell key)`
+- `security: webhook readiness (strict + retell + zapier keys)`

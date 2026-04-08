@@ -62,7 +62,22 @@ test("platform campaign orchestrator flow works", async ({ page }) => {
       status: 200,
       contentType: "application/json",
       body: JSON.stringify([
-        { code: "growth-core", name: "Growth Core", monthly_price_usd: 1499, summary: "Core demand generation ops." },
+        {
+          code: "growth-core",
+          name: "Growth Core",
+          monthly_price_usd: 1499,
+          summary: "Core demand generation ops.",
+          includes: ["Baseline creative ops"],
+          checkout_url: null,
+        },
+        {
+          code: "ai_visual_ads_growth",
+          name: "AI Visual Ads Growth Service",
+          monthly_price_usd: 1299,
+          summary: "Sell-ready visual ad production service.",
+          includes: ["Image generation", "Video creation", "Performance analytics"],
+          checkout_url: "https://gofieldwise.com/contact?service=ai-visual-ads-growth",
+        },
       ]),
     });
   });
@@ -89,6 +104,14 @@ test("platform campaign orchestrator flow works", async ({ page }) => {
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({ active: false }),
+    });
+  });
+
+  await page.route("**/api/voice/transcriptions**", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify([]),
     });
   });
 
@@ -145,6 +168,47 @@ test("platform campaign orchestrator flow works", async ({ page }) => {
     });
   });
 
+  await page.route("**/api/marketing/expert/operator", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        strategy_summary: "Build a local lead machine with paid + organic intent capture.",
+        positioning: "Fast response, transparent pricing, and same-day reliability.",
+        offers: [
+          {
+            title: "Drain Rescue Special",
+            audience: "Homeowners with urgent clogs",
+            hook: "Dispatch in 60 minutes",
+            cta: "Call now",
+          },
+        ],
+        channel_plan: [
+          {
+            channel: "google_ads",
+            objective: "Capture high-intent search demand",
+            weekly_budget_usd: 350,
+            campaign_structure: ["Emergency", "Water Heater", "General Plumbing"],
+          },
+        ],
+        content_plan: {
+          blog_titles: ["What to do before plumber arrives"],
+          ad_concepts: ["Before/after drain clean"],
+          social_posts: ["Crew in the field same-day"],
+        },
+        competitor_gaps: ["No after-hours offer on competitor sites"],
+        lead_sources: ["Google Search", "Local Service Ads"],
+        kpi_targets: ["CPL under $55", "Booking rate above 25%"],
+        execution: {
+          week_1: ["Launch core search campaigns"],
+          week_2: ["A/B test ad hooks"],
+          week_3: ["Publish local proof content"],
+          week_4: ["Reallocate budget to winners"],
+        },
+      }),
+    });
+  });
+
   await page.goto("/platform");
 
   await expect(page.getByRole("heading", { name: "Operator Access" })).toBeVisible();
@@ -156,13 +220,15 @@ test("platform campaign orchestrator flow works", async ({ page }) => {
 
   await page.getByRole("button", { name: "Refresh Platform Data" }).click();
   await expect(page.getByText("Review Push")).toBeVisible();
+  await expect(page.getByText("AI Visual Ads Growth Service")).toBeVisible();
 
-  await page.getByLabel("Campaign Name").fill("Spring Reactivation");
-  await page.getByLabel("Kind").selectOption("reactivation");
-  await page.getByLabel("Channel").selectOption("sms");
-  await page.getByLabel("Lookback Days").fill("120");
-  await page.getByLabel("Template").fill("We can get you on the schedule this week.");
-  await page.getByRole("button", { name: "Create Campaign" }).click();
+  const campaignCard = page.locator("section.dispatch-card", { has: page.getByRole("heading", { name: "Campaign Orchestrator" }) });
+  await campaignCard.getByLabel("Campaign Name").fill("Spring Reactivation");
+  await campaignCard.getByLabel("Kind").selectOption("reactivation");
+  await campaignCard.getByLabel("Channel").selectOption("sms");
+  await campaignCard.getByLabel("Lookback Days").fill("120");
+  await campaignCard.getByLabel("Template").fill("We can get you on the schedule this week.");
+  await campaignCard.getByRole("button", { name: "Create Campaign" }).click();
 
   await expect(page.getByText("Campaign created: Spring Reactivation")).toBeVisible();
   await expect(page.getByRole("cell", { name: "Spring Reactivation", exact: true })).toBeVisible();
@@ -170,4 +236,11 @@ test("platform campaign orchestrator flow works", async ({ page }) => {
   await page.getByRole("button", { name: "Launch Spring Reactivation" }).click();
   await expect(page.getByText("Campaign launched with 7 queued recipients.")).toBeVisible();
   await expect(page.locator("tr", { hasText: "Spring Reactivation" }).getByText("launched")).toBeVisible();
+
+  await page.getByLabel("Business Name").fill("GoFieldwise Plumbing");
+  await page.getByLabel("Service Area").fill("Dallas Fort Worth");
+  await page.getByRole("button", { name: "Generate Growth Plan" }).click();
+  await expect(page.getByText("AI Marketing Expert plan generated.")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Strategy Summary" })).toBeVisible();
+  await expect(page.getByText("Drain Rescue Special")).toBeVisible();
 });

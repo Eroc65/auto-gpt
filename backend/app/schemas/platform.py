@@ -63,6 +63,7 @@ class MarketingServicePackageOut(BaseModel):
     monthly_price_usd: int
     summary: str
     includes: list[str]
+    checkout_url: Optional[str] = None
 
 
 class CommunicationTenantProfileUpdate(BaseModel):
@@ -94,3 +95,36 @@ class TwilioInboundMessageIn(BaseModel):
 class TwilioStatusEventIn(BaseModel):
     message_sid: str
     message_status: str
+
+
+class TwilioVoiceCallEventIn(BaseModel):
+    call_sid: str = Field(min_length=2, max_length=120)
+    from_phone: str = Field(min_length=7, max_length=32)
+    call_status: str = Field(default="completed", min_length=2, max_length=40)
+    caller_name: Optional[str] = Field(default=None, max_length=120)
+    recording_url: Optional[str] = Field(default=None, max_length=500)
+
+
+class RetellCallEventIn(BaseModel):
+    call_id: str = Field(min_length=2, max_length=120)
+    from_phone: str = Field(min_length=7, max_length=32)
+    caller_name: Optional[str] = Field(default=None, max_length=120)
+    call_status: str = Field(default="completed", min_length=2, max_length=40)
+    transcript: Optional[str] = Field(default=None, max_length=10000)
+    summary: Optional[str] = Field(default=None, max_length=2000)
+    missed_call: bool = False
+
+
+class ZapierLeadIn(BaseModel):
+    name: Optional[str] = Field(default=None, max_length=120)
+    phone: Optional[str] = Field(default=None, max_length=32)
+    email: Optional[str] = Field(default=None, max_length=255)
+    service: Optional[str] = Field(default=None, max_length=120)
+    notes: Optional[str] = Field(default=None, max_length=4000)
+    source: str = Field(default="zapier", min_length=2, max_length=40)
+
+
+class ZapierPushLeadIn(BaseModel):
+    workflow: str = Field(default="lead_created", min_length=2, max_length=80)
+    webhook_url: Optional[str] = Field(default=None, max_length=500)
+    include_raw_message: bool = True

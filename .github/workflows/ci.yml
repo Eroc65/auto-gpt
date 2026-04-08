@@ -7,7 +7,43 @@ on:
     branches: [main]
 
 jobs:
+  integration-secrets-gate:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Validate required integration secrets are configured
+        env:
+          RETELL_API_KEY: ${{ secrets.RETELL_API_KEY }}
+          ZAPIER_API_KEY: ${{ secrets.ZAPIER_API_KEY }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+        run: |
+          missing=0
+          check_secret () {
+            key="$1"
+            val="$2"
+            if [ -z "$val" ]; then
+              echo "[MISSING] $key"
+              missing=$((missing+1))
+            else
+              echo "[OK] $key"
+            fi
+          }
+
+          check_secret "RETELL_API_KEY" "$RETELL_API_KEY"
+          check_secret "ZAPIER_API_KEY" "$ZAPIER_API_KEY"
+          check_secret "TWILIO_ACCOUNT_SID" "$TWILIO_ACCOUNT_SID"
+          check_secret "TWILIO_AUTH_TOKEN" "$TWILIO_AUTH_TOKEN"
+
+          if [ "$missing" -gt 0 ]; then
+            echo "Integration secret validation failed with $missing missing secret(s)."
+            exit 1
+          fi
+
+          echo "Integration secret validation passed."
+
   frontend-build:
+    needs: integration-secrets-gate
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -36,6 +72,7 @@ jobs:
         run: npx playwright test tests/growth.spec.js
 
   backend-tests:
+    needs: integration-secrets-gate
     runs-on: ubuntu-latest
     defaults:
       run:

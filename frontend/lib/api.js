@@ -614,3 +614,70 @@ export async function updateCommProfile({ token, payload }) {
 export async function getPublicStatus() {
   return apiFetch("/api/status", { method: "GET" });
 }
+
+export async function listVoiceTranscriptions({ token, limit = 25 }) {
+  const query = new URLSearchParams({ limit: String(limit) });
+  return apiFetch(`/api/voice/transcriptions?${query.toString()}`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export async function createVoiceTranscription({
+  token,
+  audioFile,
+  source = "call_recording",
+  callerPhone,
+  callId,
+  language,
+}) {
+  const form = new FormData();
+  form.append("audio_file", audioFile);
+  form.append("source", source || "call_recording");
+  if (callerPhone) {
+    form.append("caller_phone", callerPhone);
+  }
+  if (callId) {
+    form.append("call_id", callId);
+  }
+  if (language) {
+    form.append("language", language);
+  }
+
+  const response = await fetch(`${API_BASE}/api/voice/transcriptions`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: form,
+  });
+
+  let payload = null;
+  try {
+    payload = await response.json();
+  } catch {
+    payload = null;
+  }
+
+  if (!response.ok) {
+    const detail = payload && payload.detail ? payload.detail : `HTTP ${response.status}`;
+    throw new Error(String(detail));
+  }
+
+  return payload;
+}
+
+export async function createLeadFromVoiceTranscript({ token, transcriptId }) {
+  return apiFetch(`/api/voice/transcriptions/${transcriptId}/create-lead`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export async function runMarketingExpertOperator({ token, payload }) {
+  return apiFetch("/api/marketing/expert/operator", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify(payload),
+  });
+}

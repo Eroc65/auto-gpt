@@ -1,13 +1,22 @@
 :root {
-  --ink: #132126;
-  --paper: #f5f2eb;
-  --panel: #fffdf8;
-  --accent: #cc4b1f;
-  --accent-dark: #a53a15;
-  --info: #0e6a7a;
-  --error: #ad2231;
-  --line: #d5c8b7;
-  --shadow: 0 10px 30px rgba(27, 25, 20, 0.16);
+  --gf-gold: #f5c542;
+  --gf-gold-deep: #d4a017;
+  --gf-black: #0b0f1a;
+  --gf-navy: #121826;
+  --gf-slate: #2a3345;
+  --gf-gray: #e5e7eb;
+  --gf-success: #22c55e;
+  --gf-info: #3b82f6;
+
+  --ink: #121826;
+  --paper: #f4f6fa;
+  --panel: #ffffff;
+  --accent: var(--gf-gold);
+  --accent-dark: var(--gf-gold-deep);
+  --info: var(--gf-info);
+  --error: #b42318;
+  --line: #d5dbea;
+  --shadow: 0 12px 28px rgba(11, 15, 26, 0.14);
 }
 
 * {
@@ -18,11 +27,11 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", "Trebuchet MS", system-ui, sans-serif;
+  font-family: Inter, "Segoe UI", "Trebuchet MS", system-ui, sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 15% 0%, #ffd8b0 0%, rgba(255, 216, 176, 0.2) 35%, rgba(255, 216, 176, 0) 70%),
-    linear-gradient(135deg, #f8efe1 0%, #f0e8d9 50%, #e6dfd2 100%);
+    radial-gradient(circle at 15% 0%, rgba(245, 197, 66, 0.25) 0%, rgba(245, 197, 66, 0.07) 35%, rgba(245, 197, 66, 0) 70%),
+    linear-gradient(135deg, #f6f8fc 0%, #edf1f8 55%, #e7ecf5 100%);
   min-height: 100%;
 }
 
@@ -35,8 +44,8 @@ body {
 }
 
 .hero {
-  background: linear-gradient(120deg, #19333c, #274f5d 60%, #2f6678);
-  color: #f8f7f1;
+  background: linear-gradient(120deg, var(--gf-black), var(--gf-navy) 58%, var(--gf-slate));
+  color: #f8fafc;
   border-radius: 18px;
   padding: 26px;
   box-shadow: var(--shadow);
@@ -45,9 +54,10 @@ body {
 
 .hero h1 {
   margin: 0;
+  font-family: Poppins, Montserrat, Inter, "Segoe UI", sans-serif;
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
   line-height: 1.1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
 .hero p {
@@ -72,13 +82,13 @@ body {
   border-radius: 11px;
   font-weight: 700;
   text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  color: #f8f7f1;
-  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(245, 197, 66, 0.7);
+  color: #fff6d6;
+  background: rgba(245, 197, 66, 0.12);
 }
 
 .ghost-link:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(245, 197, 66, 0.22);
 }
 
 .eyebrow {
@@ -116,21 +126,21 @@ body {
 .service-jump a {
   display: inline-flex;
   text-decoration: none;
-  color: #234452;
+  color: var(--gf-navy);
   font-weight: 700;
-  background: rgba(255, 255, 255, 0.76);
-  border: 1px solid #c8d6db;
+  background: #fffdf6;
+  border: 1px solid #f1db94;
   border-radius: 999px;
   padding: 8px 12px;
 }
 
 .service-jump a:hover {
-  border-color: #9fb7c0;
+  border-color: var(--gf-gold-deep);
   background: #fff;
 }
 
 .offering-card {
-  background: linear-gradient(160deg, #fffdfa, #fff5e8 60%, #f7efe4);
+  background: linear-gradient(160deg, #ffffff, #fff9eb 64%, #f6f8fc);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 18px;
@@ -148,13 +158,13 @@ body {
 
 .offering-subtitle {
   margin: 4px 0 0;
-  color: #214754;
+  color: var(--gf-slate);
   font-weight: 700;
 }
 
 .offering-description {
   margin: 0;
-  color: #35505b;
+  color: #3d4960;
 }
 
 .offering-card h3 {
@@ -184,8 +194,8 @@ body {
 }
 
 .lead-intro {
-  background: linear-gradient(145deg, #19333c, #325a68);
-  color: #f6f8f9;
+  background: linear-gradient(145deg, var(--gf-black), var(--gf-navy));
+  color: #f8fafc;
   border-radius: 16px;
   padding: 18px;
   box-shadow: var(--shadow);
@@ -208,8 +218,8 @@ body {
 
 .contact-quick-actions a {
   text-decoration: none;
-  color: #0f2f39;
-  background: #ffd9ae;
+  color: var(--gf-black);
+  background: var(--gf-gold);
   border-radius: 10px;
   padding: 10px 12px;
   font-weight: 800;
@@ -238,7 +248,7 @@ textarea {
 .submit-note {
   margin: 0;
   font-weight: 700;
-  color: #214754;
+  color: var(--gf-success);
 }
 
 .submit-error {
@@ -271,8 +281,8 @@ textarea {
 }
 
 .metric-table th {
-  background: #f7efe1;
-  color: #214754;
+  background: #f3f5f9;
+  color: var(--gf-slate);
 }
 
 .dispatch-head h2 {
@@ -330,16 +340,16 @@ button {
   padding: 11px 14px;
   font-weight: 700;
   font-size: 0.95rem;
-  color: #fff;
-  background: linear-gradient(120deg, var(--accent), #db6330);
+  color: var(--gf-black);
+  background: linear-gradient(120deg, var(--accent), #ffd46b);
   cursor: pointer;
   transition: transform 120ms ease, box-shadow 120ms ease, background 140ms ease;
 }
 
 button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 16px rgba(204, 75, 31, 0.26);
-  background: linear-gradient(120deg, var(--accent-dark), #c64f1f);
+  box-shadow: 0 8px 16px rgba(212, 160, 23, 0.32);
+  background: linear-gradient(120deg, var(--accent-dark), var(--accent));
 }
 
 button:disabled {
@@ -384,7 +394,7 @@ button:disabled {
 
 .panel p {
   margin: 0;
-  color: #4e6a74;
+  color: #44536a;
 }
 
 @keyframes rise-in {

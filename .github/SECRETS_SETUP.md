@@ -22,6 +22,8 @@ After authentication, you can set secrets directly from terminal:
 - `gh secret set PRODUCTION_API_BASE_URL --body "<value>"`
 - `gh secret set PRODUCTION_SMOKE_EMAIL --body "<value>"`
 - `gh secret set PRODUCTION_SMOKE_PASSWORD --body "<value>"`
+- `gh secret set RETELL_API_KEY --body "<value>"`
+- `gh secret set ZAPIER_API_KEY --body "<value>"`
 
 ## Automation Script (Recommended)
 Use `.github/scripts/github-ops.ps1` for repeatable operations.
@@ -64,6 +66,35 @@ Validation behavior:
 - PRODUCTION_API_BASE_URL
 - PRODUCTION_SMOKE_EMAIL
 - PRODUCTION_SMOKE_PASSWORD
+
+## Integrations (optional but recommended)
+- RETELL_API_KEY
+- ZAPIER_API_KEY
+- TWILIO_ACCOUNT_SID
+- TWILIO_AUTH_TOKEN
+
+## CI Integration Secret Gate
+- The `CI` workflow now includes a runtime secret validation gate.
+- Required secrets checked by the gate:
+	- `RETELL_API_KEY`
+	- `ZAPIER_API_KEY`
+	- `TWILIO_ACCOUNT_SID`
+	- `TWILIO_AUTH_TOKEN`
+- If any are missing, CI fails fast before frontend/backend jobs run.
+
+## Manual On-Demand Secret Validation
+- Workflow: `Integration Secrets Check`
+- Trigger from CLI:
+	- `gh workflow run "Integration Secrets Check" --repo Eroc65/auto-gpt`
+- Monitor latest run:
+	- `gh run list --workflow "Integration Secrets Check" --repo Eroc65/auto-gpt --limit 5`
+- Stream logs for a run id:
+	- `gh run view <run_id> --repo Eroc65/auto-gpt --log`
+
+One-command helper script:
+- `powershell -ExecutionPolicy Bypass -File .\scripts\run_integration_secrets_check.ps1`
+- Optional explicit ref:
+	- `powershell -ExecutionPolicy Bypass -File .\scripts\run_integration_secrets_check.ps1 -Ref main`
 
 ## Suggested values
 - API base URLs should be full HTTPS origins (for example: https://backend-staging.example.com).

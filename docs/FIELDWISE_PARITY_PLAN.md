@@ -123,6 +123,7 @@ FrontDesk Pro is AI-first front desk software for trades businesses. It must mat
 - Native mobile starter scaffold is live in `mobile/` with Expo app metadata and base app entrypoint.
 - Native release scaffolding now includes EAS build config in `mobile/eas.json`.
 - Twilio webhook and tenant communication profile APIs are live for multi-tenant messaging and STOP suppression.
+- OpenAI audio/voice decision guidance is now documented for implementation in `docs/GOFIELDWISE_AI_AUDIO_PLAYBOOK.md`.
 
 ## Build Step Completion Snapshot
 1. Twilio delivery + webhook + suppression: implemented.

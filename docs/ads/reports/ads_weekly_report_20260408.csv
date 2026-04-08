@@ -1,0 +1,6 @@
+channel,impressions,clicks,spend,revenue,leads,qualified_leads,ctr_pct,cpc_usd,cpl_usd,roas,current_budget_usd,recommended_budget_usd,action,change_pct,reason
+blog,10550.0,398.0,109.0,888.0,31.0,19.0,3.7725,0.2739,3.5161,8.1468,150.0,172.5,increase,15.0,ROAS 8.15 and CPL $3.52 beat targets
+google,49200.0,1856.0,1552.0,5760.0,138.0,95.0,3.7724,0.8362,11.2464,3.7113,1200.0,1380.0,increase,15.0,ROAS 3.71 and CPL $11.25 beat targets
+meta,138000.0,2861.0,739.0,2715.0,90.0,54.0,2.0732,0.2583,8.2111,3.6739,900.0,1035.0,increase,15.0,ROAS 3.67 and CPL $8.21 beat targets
+microsoft,25360.0,878.0,548.0,2505.0,59.0,41.0,3.4621,0.6241,9.2881,4.5712,450.0,517.5,increase,15.0,ROAS 4.57 and CPL $9.29 beat targets
+nextdoor,19810.0,487.0,236.0,1343.0,36.0,24.0,2.4584,0.4846,6.5556,5.6907,300.0,345.0,increase,15.0,ROAS 5.69 and CPL $6.56 beat targets

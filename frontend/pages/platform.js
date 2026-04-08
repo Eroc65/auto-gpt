@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 
 import {
   createMarketingCampaign,
+  runMarketingExpertOperator,
+  createLeadFromVoiceTranscript,
+  createVoiceTranscription,
   createCoachingSnippet,
   createHelpArticle,
   getAIGuideSettings,
@@ -11,6 +14,7 @@ import {
   listHelpArticles,
   listMarketingCampaigns,
   listMarketingServicePackages,
+  listVoiceTranscriptions,
   login,
   runReactivationEngine,
   updateAIGuideSettings,
@@ -31,6 +35,14 @@ export default function PlatformPage() {
   const [servicePackages, setServicePackages] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
   const [commProfile, setCommProfile] = useState({ active: false });
+  const [voiceTranscripts, setVoiceTranscripts] = useState([]);
+  const [voiceFile, setVoiceFile] = useState(null);
+  const [voiceForm, setVoiceForm] = useState({
+    source: "call_recording",
+    caller_phone: "",
+    call_id: "",
+    language: "",
+  });
 
   const [helpForm, setHelpForm] = useState({ slug: "", title: "", category: "general", context_key: "general", body: "" });
   const [coachForm, setCoachForm] = useState({ title: "", trade: "general", issue_pattern: "", senior_tip: "", checklist: "" });
@@ -41,6 +53,17 @@ export default function PlatformPage() {
     lookback_days: 90,
     template: "",
   });
+  const [marketingExpertForm, setMarketingExpertForm] = useState({
+    business_name: "",
+    website_url: "",
+    vertical: "plumbing",
+    service_area: "",
+    weekly_ad_budget_usd: 500,
+    primary_goal: "book_more_jobs",
+    current_channels: "google_ads, facebook_ads",
+    notes: "",
+  });
+  const [marketingExpertPlan, setMarketingExpertPlan] = useState(null);
 
   useEffect(() => {
     const savedToken = window.localStorage.getItem("fdp.dispatch.token") || "";
@@ -73,13 +96,14 @@ export default function PlatformPage() {
 
   async function refreshAll() {
     await withBusy(async () => {
-      const [guide, help, coach, packs, comm, campaignRows] = await Promise.all([
+      const [guide, help, coach, packs, comm, campaignRows, voiceRows] = await Promise.all([
         getAIGuideSettings({ token }),
         listHelpArticles({ token }),
         listCoachingSnippets({ token }),
         listMarketingServicePackages({ token }),
         getCommProfile({ token }),
         listMarketingCampaigns({ token }),
+        listVoiceTranscriptions({ token, limit: 20 }),
       ]);
       setAiGuide(guide);
       setHelpArticles(Array.isArray(help) ? help : []);
@@ -87,6 +111,36 @@ export default function PlatformPage() {
       setServicePackages(Array.isArray(packs) ? packs : []);
       setCommProfile(comm || { active: false });
       setCampaigns(Array.isArray(campaignRows) ? campaignRows : []);
+      setVoiceTranscripts(Array.isArray(voiceRows) ? voiceRows : []);
+    });
+  }
+
+  async function uploadVoiceTranscript() {
+    if (!voiceFile) {
+      setError("Select an audio file first.");
+      return;
+    }
+
+    await withBusy(async () => {
+      const created = await createVoiceTranscription({
+        token,
+        audioFile: voiceFile,
+        source: voiceForm.source,
+        callerPhone: voiceForm.caller_phone || undefined,
+        callId: voiceForm.call_id || undefined,
+        language: voiceForm.language || undefined,
+      });
+      const rows = await listVoiceTranscriptions({ token, limit: 20 });
+      setVoiceTranscripts(Array.isArray(rows) ? rows : []);
+      setVoiceFile(null);
+      setResult(`Voice transcript created #${created.id}.`);
+    });
+  }
+
+  async function createLeadFromTranscript(transcriptId) {
+    await withBusy(async () => {
+      const created = await createLeadFromVoiceTranscript({ token, transcriptId });
+      setResult(`Lead created from transcript #${transcriptId}: lead #${created.id}.`);
     });
   }
 
@@ -147,6 +201,36 @@ export default function PlatformPage() {
       const out = await updateCommProfile({ token, payload: commProfile });
       setCommProfile(out);
       setResult("Communication profile saved.");
+    });
+  }
+
+  async function generateMarketingExpertPlan() {
+    if (!marketingExpertForm.business_name || !marketingExpertForm.service_area) {
+      setError("Business name and service area are required.");
+      return;
+    }
+
+    const channels = marketingExpertForm.current_channels
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    await withBusy(async () => {
+      const out = await runMarketingExpertOperator({
+        token,
+        payload: {
+          business_name: marketingExpertForm.business_name,
+          website_url: marketingExpertForm.website_url || null,
+          vertical: marketingExpertForm.vertical,
+          service_area: marketingExpertForm.service_area,
+          weekly_ad_budget_usd: Number(marketingExpertForm.weekly_ad_budget_usd),
+          primary_goal: marketingExpertForm.primary_goal,
+          current_channels: channels,
+          notes: marketingExpertForm.notes || null,
+        },
+      });
+      setMarketingExpertPlan(out);
+      setResult("AI Marketing Expert plan generated.");
     });
   }
 
@@ -246,6 +330,70 @@ export default function PlatformPage() {
       </section>
 
       <section className="dispatch-card">
+        <h2>Voice Transcription Intake</h2>
+        <div className="form-grid">
+          <label>
+            Source
+            <select value={voiceForm.source} onChange={(e) => setVoiceForm((p) => ({ ...p, source: e.target.value }))}>
+              <option value="call_recording">call_recording</option>
+              <option value="voicemail">voicemail</option>
+              <option value="customer_upload">customer_upload</option>
+            </select>
+          </label>
+          <label>
+            Caller Phone
+            <input value={voiceForm.caller_phone} onChange={(e) => setVoiceForm((p) => ({ ...p, caller_phone: e.target.value }))} placeholder="555-111-2222" />
+          </label>
+          <label>
+            Call ID
+            <input value={voiceForm.call_id} onChange={(e) => setVoiceForm((p) => ({ ...p, call_id: e.target.value }))} placeholder="CALL-123" />
+          </label>
+          <label>
+            Language (optional)
+            <input value={voiceForm.language} onChange={(e) => setVoiceForm((p) => ({ ...p, language: e.target.value }))} placeholder="en" />
+          </label>
+          <label className="span-2">
+            Audio File
+            <input
+              type="file"
+              accept="audio/*"
+              onChange={(e) => {
+                const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
+                setVoiceFile(file);
+              }}
+            />
+          </label>
+        </div>
+        <div className="actions">
+          <button type="button" onClick={uploadVoiceTranscript} disabled={!token || busy || !voiceFile}>
+            Upload + Transcribe
+          </button>
+        </div>
+        <div className="results-grid">
+          {(voiceTranscripts || []).slice(0, 5).map((item) => (
+            <article className="panel" key={item.id}>
+              <h3>Transcript #{item.id}</h3>
+              <p><strong>Source:</strong> {item.source}</p>
+              <p><strong>Model:</strong> {item.transcription_model}</p>
+              <p><strong>Caller:</strong> {item.caller_phone || "unknown"}</p>
+              <p><strong>Urgency:</strong> {item.extracted?.urgency || "unknown"}</p>
+              <p><strong>Service:</strong> {item.extracted?.service_type || "unknown"}</p>
+              <p>{item.transcript_text}</p>
+              <div className="actions">
+                <button
+                  type="button"
+                  onClick={() => createLeadFromTranscript(item.id)}
+                  disabled={!token || busy}
+                >
+                  Create Lead From Transcript
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="dispatch-card">
         <h2>Contextual Help</h2>
         <div className="form-grid">
           <label>Slug<input value={helpForm.slug} onChange={(e) => setHelpForm((p) => ({ ...p, slug: e.target.value }))} /></label>
@@ -290,9 +438,121 @@ export default function PlatformPage() {
               <h3>{pkg.name}</h3>
               <p>${pkg.monthly_price_usd}/mo</p>
               <p>{pkg.summary}</p>
+              {Array.isArray(pkg.includes) && pkg.includes.length > 0 ? (
+                <ul>
+                  {pkg.includes.slice(0, 5).map((line, idx) => (
+                    <li key={`${pkg.code}-inc-${idx}`}>{line}</li>
+                  ))}
+                </ul>
+              ) : null}
+              {pkg.checkout_url ? (
+                <div className="actions">
+                  <a className="ghost-link" href={pkg.checkout_url} target="_blank" rel="noreferrer">
+                    Buy This Service
+                  </a>
+                </div>
+              ) : null}
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="dispatch-card">
+        <h2>AI Marketing Expert Operator</h2>
+        <div className="form-grid">
+          <label>
+            Business Name
+            <input value={marketingExpertForm.business_name} onChange={(e) => setMarketingExpertForm((p) => ({ ...p, business_name: e.target.value }))} />
+          </label>
+          <label>
+            Website URL
+            <input value={marketingExpertForm.website_url} onChange={(e) => setMarketingExpertForm((p) => ({ ...p, website_url: e.target.value }))} placeholder="https://example.com" />
+          </label>
+          <label>
+            Vertical
+            <input value={marketingExpertForm.vertical} onChange={(e) => setMarketingExpertForm((p) => ({ ...p, vertical: e.target.value }))} />
+          </label>
+          <label>
+            Service Area
+            <input value={marketingExpertForm.service_area} onChange={(e) => setMarketingExpertForm((p) => ({ ...p, service_area: e.target.value }))} placeholder="Phoenix metro" />
+          </label>
+          <label>
+            Weekly Ad Budget (USD)
+            <input
+              type="number"
+              min={1}
+              max={50000}
+              value={marketingExpertForm.weekly_ad_budget_usd}
+              onChange={(e) => setMarketingExpertForm((p) => ({ ...p, weekly_ad_budget_usd: Number(e.target.value) }))}
+            />
+          </label>
+          <label>
+            Primary Goal
+            <input value={marketingExpertForm.primary_goal} onChange={(e) => setMarketingExpertForm((p) => ({ ...p, primary_goal: e.target.value }))} />
+          </label>
+          <label className="span-2">
+            Current Channels (comma separated)
+            <input value={marketingExpertForm.current_channels} onChange={(e) => setMarketingExpertForm((p) => ({ ...p, current_channels: e.target.value }))} placeholder="google_ads, facebook_ads, local_seo" />
+          </label>
+          <label className="span-2">
+            Notes
+            <textarea rows={3} value={marketingExpertForm.notes} onChange={(e) => setMarketingExpertForm((p) => ({ ...p, notes: e.target.value }))} placeholder="Seasonality, promos, team capacity, margin goals" />
+          </label>
+        </div>
+        <div className="actions">
+          <button type="button" onClick={generateMarketingExpertPlan} disabled={!token || busy || !marketingExpertForm.business_name || !marketingExpertForm.service_area}>
+            Generate Growth Plan
+          </button>
+        </div>
+
+        {marketingExpertPlan ? (
+          <div className="results-grid">
+            <article className="panel">
+              <h3>Strategy Summary</h3>
+              <p>{marketingExpertPlan.strategy_summary}</p>
+              <p><strong>Positioning:</strong> {marketingExpertPlan.positioning}</p>
+            </article>
+
+            <article className="panel">
+              <h3>Offer Stack</h3>
+              <ul>
+                {(marketingExpertPlan.offers || []).map((offer, idx) => (
+                  <li key={`offer-${idx}`}>
+                    <strong>{offer.title}</strong>: {offer.audience} | {offer.hook} | CTA: {offer.cta}
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="panel">
+              <h3>Channel Plan</h3>
+              <ul>
+                {(marketingExpertPlan.channel_plan || []).map((item, idx) => (
+                  <li key={`channel-${idx}`}>
+                    <strong>{item.channel}</strong> (${item.weekly_budget_usd}/wk): {item.objective}
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="panel">
+              <h3>Execution (30 Days)</h3>
+              <p><strong>Week 1:</strong> {(marketingExpertPlan.execution?.week_1 || []).join("; ")}</p>
+              <p><strong>Week 2:</strong> {(marketingExpertPlan.execution?.week_2 || []).join("; ")}</p>
+              <p><strong>Week 3:</strong> {(marketingExpertPlan.execution?.week_3 || []).join("; ")}</p>
+              <p><strong>Week 4:</strong> {(marketingExpertPlan.execution?.week_4 || []).join("; ")}</p>
+            </article>
+
+            <article className="panel">
+              <h3>KPI Targets</h3>
+              <ul>
+                {(marketingExpertPlan.kpi_targets || []).map((line, idx) => (
+                  <li key={`kpi-${idx}`}>{line}</li>
+                ))}
+              </ul>
+            </article>
+          </div>
+        ) : null}
       </section>
 
       <section className="dispatch-card">

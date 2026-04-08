@@ -13,6 +13,7 @@ export default function SiteNav() {
           <Link href="/cleaning-services">Cleaning</Link>
           <Link href="/marketing-ai">Marketing AI</Link>
           <Link href="/platform">Platform</Link>
+          <Link href="/dispatch-assistant" className="trial-link">Live Demo</Link>
         </nav>
       </div>
       <style jsx>{`
@@ -20,9 +21,9 @@ export default function SiteNav() {
           position: sticky;
           top: 0;
           z-index: 50;
-          background: rgba(15, 23, 42, 0.92);
+          background: rgba(11, 15, 26, 0.95);
           backdrop-filter: blur(8px);
-          border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+          border-bottom: 1px solid rgba(245, 197, 66, 0.25);
         }
         .site-nav-inner {
           max-width: 1120px;
@@ -34,7 +35,7 @@ export default function SiteNav() {
           gap: 1rem;
         }
         .brand {
-          color: #ffffff;
+          color: #f5c542;
           font-weight: 800;
           letter-spacing: 0.02em;
           text-decoration: none;
@@ -48,13 +49,24 @@ export default function SiteNav() {
           justify-content: flex-end;
         }
         .links :global(a) {
-          color: #cbd5e1;
+          color: #e5e7eb;
           text-decoration: none;
           font-size: 0.92rem;
           font-weight: 600;
         }
         .links :global(a:hover) {
-          color: #93c5fd;
+          color: #f5c542;
+        }
+        .links :global(.trial-link) {
+          border: 1px solid #d4a017;
+          border-radius: 999px;
+          padding: 6px 10px;
+          color: #0b0f1a;
+          background: #f5c542;
+        }
+        .links :global(.trial-link:hover) {
+          color: #0b0f1a;
+          background: #ffd671;
         }
         @media (max-width: 840px) {
           .site-nav-inner {

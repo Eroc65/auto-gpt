@@ -209,3 +209,185 @@ def test_role_audit_log_and_csv_export(client) -> None:
 	assert csv_resp.headers["content-type"].startswith("text/csv")
 	assert "target_email" in csv_resp.text
 	assert dispatcher_email in csv_resp.text
+
+
+def test_cross_org_role_update_is_blocked(client) -> None:
+	password = "testpass123"
+	org_a_name = f"OrgA-{uuid4().hex[:6]}"
+	org_b_name = f"OrgB-{uuid4().hex[:6]}"
+
+	owner_a_email = f"owner-a-{uuid4().hex[:6]}@example.com"
+	owner_b_email = f"owner-b-{uuid4().hex[:6]}@example.com"
+	tech_b_email = f"tech-b-{uuid4().hex[:6]}@example.com"
+
+	owner_a_signup = client.post(
+		"/api/auth/signup",
+		json={
+			"email": owner_a_email,
+			"password": password,
+			"organization_name": org_a_name,
+			"role": "owner",
+		},
+	)
+	assert owner_a_signup.status_code == 200
+
+	owner_b_signup = client.post(
+		"/api/auth/signup",
+		json={
+			"email": owner_b_email,
+			"password": password,
+			"organization_name": org_b_name,
+			"role": "owner",
+		},
+	)
+	assert owner_b_signup.status_code == 200
+
+	tech_b_signup = client.post(
+		"/api/auth/signup",
+		json={
+			"email": tech_b_email,
+			"password": password,
+			"organization_name": org_b_name,
+			"role": "technician",
+		},
+	)
+	assert tech_b_signup.status_code == 200
+
+	owner_a_login = client.post("/api/auth/login", data={"username": owner_a_email, "password": password})
+	assert owner_a_login.status_code == 200
+	headers_a = {"Authorization": f"Bearer {owner_a_login.json()['access_token']}"}
+
+	resp = client.patch(
+		f"/api/auth/users/{tech_b_signup.json()['id']}/role",
+		json={"role": "dispatcher"},
+		headers=headers_a,
+	)
+	assert resp.status_code == 404
+
+
+def test_role_audit_endpoints_require_manager_role(client) -> None:
+	password = "testpass123"
+	org_name = f"AuditRoleGate-{uuid4().hex[:6]}"
+	owner_email = f"audit-owner-{uuid4().hex[:6]}@example.com"
+	tech_email = f"audit-tech-{uuid4().hex[:6]}@example.com"
+
+	owner_signup = client.post(
+		"/api/auth/signup",
+		json={
+			"email": owner_email,
+			"password": password,
+			"organization_name": org_name,
+			"role": "owner",
+		},
+	)
+	assert owner_signup.status_code == 200
+
+	tech_signup = client.post(
+		"/api/auth/signup",
+		json={
+			"email": tech_email,
+			"password": password,
+			"organization_name": org_name,
+			"role": "technician",
+		},
+	)
+	assert tech_signup.status_code == 200
+
+	tech_login = client.post("/api/auth/login", data={"username": tech_email, "password": password})
+	assert tech_login.status_code == 200
+	tech_headers = {"Authorization": f"Bearer {tech_login.json()['access_token']}"}
+
+	audit_resp = client.get("/api/auth/users/role-audit?limit=5", headers=tech_headers)
+	assert audit_resp.status_code == 403
+
+	csv_resp = client.get("/api/auth/users/role-audit/export.csv?limit=5", headers=tech_headers)
+	assert csv_resp.status_code == 403
+
+
+def test_role_audit_log_does_not_leak_other_org_events(client) -> None:
+	password = "testpass123"
+
+	org_a_name = f"AuditOrgA-{uuid4().hex[:6]}"
+	owner_a_email = f"audit-a-owner-{uuid4().hex[:6]}@example.com"
+	dispatcher_a_email = f"audit-a-disp-{uuid4().hex[:6]}@example.com"
+
+	org_b_name = f"AuditOrgB-{uuid4().hex[:6]}"
+	owner_b_email = f"audit-b-owner-{uuid4().hex[:6]}@example.com"
+	dispatcher_b_email = f"audit-b-disp-{uuid4().hex[:6]}@example.com"
+
+	owner_a_signup = client.post(
+		"/api/auth/signup",
+		json={
+			"email": owner_a_email,
+			"password": password,
+			"organization_name": org_a_name,
+			"role": "owner",
+		},
+	)
+	assert owner_a_signup.status_code == 200
+
+	dispatcher_a_signup = client.post(
+		"/api/auth/signup",
+		json={
+			"email": dispatcher_a_email,
+			"password": password,
+			"organization_name": org_a_name,
+			"role": "dispatcher",
+		},
+	)
+	assert dispatcher_a_signup.status_code == 200
+
+	owner_b_signup = client.post(
+		"/api/auth/signup",
+		json={
+			"email": owner_b_email,
+			"password": password,
+			"organization_name": org_b_name,
+			"role": "owner",
+		},
+	)
+	assert owner_b_signup.status_code == 200
+
+	dispatcher_b_signup = client.post(
+		"/api/auth/signup",
+		json={
+			"email": dispatcher_b_email,
+			"password": password,
+			"organization_name": org_b_name,
+			"role": "dispatcher",
+		},
+	)
+	assert dispatcher_b_signup.status_code == 200
+
+	owner_a_login = client.post("/api/auth/login", data={"username": owner_a_email, "password": password})
+	owner_b_login = client.post("/api/auth/login", data={"username": owner_b_email, "password": password})
+	assert owner_a_login.status_code == 200
+	assert owner_b_login.status_code == 200
+
+	headers_a = {"Authorization": f"Bearer {owner_a_login.json()['access_token']}"}
+	headers_b = {"Authorization": f"Bearer {owner_b_login.json()['access_token']}"}
+
+	change_a = client.patch(
+		f"/api/auth/users/{dispatcher_a_signup.json()['id']}/role",
+		json={"role": "admin"},
+		headers=headers_a,
+	)
+	change_b = client.patch(
+		f"/api/auth/users/{dispatcher_b_signup.json()['id']}/role",
+		json={"role": "admin"},
+		headers=headers_b,
+	)
+	assert change_a.status_code == 200
+	assert change_b.status_code == 200
+
+	log_a = client.get("/api/auth/users/role-audit?limit=50", headers=headers_a)
+	assert log_a.status_code == 200
+	body_a = log_a.json()
+	assert body_a["total"] >= 1
+	assert all(evt["organization_id"] == owner_a_signup.json()["organization_id"] for evt in body_a["events"])
+	assert all(evt["target_email"] != dispatcher_b_email for evt in body_a["events"])
+
+	csv_a = client.get("/api/auth/users/role-audit/export.csv?limit=50", headers=headers_a)
+	assert csv_a.status_code == 200
+	assert dispatcher_a_email in csv_a.text
+	assert dispatcher_b_email not in csv_a.text

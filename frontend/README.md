@@ -82,3 +82,9 @@ And a Metrics page at `/metrics`:
 - PowerShell fallback: `& "C:\Program Files\nodejs\npm.cmd" run test:e2e`
 - Lead inbox only: `npx playwright test tests/leads-inbox.spec.js`
 - Metrics only: `npx playwright test tests/metrics.spec.js`
+
+## GoFieldwise Language Direction
+
+- Frontend should continue in JavaScript/TypeScript with Next.js and React.
+- TypeScript adoption is encouraged for new UI modules with complex state, API typing, and shared component contracts.
+- Backend AI and integration logic remains Python-first in the FastAPI service.

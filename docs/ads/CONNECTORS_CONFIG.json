@@ -1,0 +1,89 @@
+{
+  "channels": {
+    "google": {
+      "mode": "http_json",
+      "endpoint_env": "GOOGLE_ADS_REPORT_URL",
+      "token_env": "GOOGLE_ADS_REPORT_TOKEN",
+      "method": "GET",
+      "data_key": "data",
+      "timeout_seconds": 30,
+      "field_map": {
+        "date": "segments.date",
+        "impressions": "metrics.impressions",
+        "clicks": "metrics.clicks",
+        "spend": "metrics.cost_micros",
+        "revenue": "metrics.conversions_value",
+        "leads": "metrics.conversions",
+        "qualified_leads": "metrics.all_conversions"
+      }
+    },
+    "microsoft": {
+      "mode": "http_json",
+      "endpoint_env": "MICROSOFT_ADS_REPORT_URL",
+      "token_env": "MICROSOFT_ADS_REPORT_TOKEN",
+      "method": "GET",
+      "data_key": "data",
+      "timeout_seconds": 30,
+      "field_map": {
+        "date": "TimePeriod",
+        "impressions": "Impressions",
+        "clicks": "Clicks",
+        "spend": "Spend",
+        "revenue": "Revenue",
+        "leads": "Conversions",
+        "qualified_leads": "QualifiedLeads"
+      }
+    },
+    "meta": {
+      "mode": "http_json",
+      "endpoint_env": "META_ADS_REPORT_URL",
+      "token_env": "META_ADS_REPORT_TOKEN",
+      "method": "GET",
+      "data_key": "data",
+      "timeout_seconds": 30,
+      "field_map": {
+        "date": "date_start",
+        "impressions": "impressions",
+        "clicks": "clicks",
+        "spend": "spend",
+        "revenue": "purchase_value",
+        "leads": "leads",
+        "qualified_leads": "qualified_leads"
+      }
+    },
+    "nextdoor": {
+      "mode": "http_json",
+      "endpoint_env": "NEXTDOOR_REPORT_URL",
+      "token_env": "NEXTDOOR_REPORT_TOKEN",
+      "method": "GET",
+      "data_key": "data",
+      "timeout_seconds": 30,
+      "field_map": {
+        "date": "date",
+        "impressions": "impressions",
+        "clicks": "clicks",
+        "spend": "spend",
+        "revenue": "revenue",
+        "leads": "leads",
+        "qualified_leads": "qualified_leads"
+      }
+    },
+    "blog": {
+      "mode": "http_json",
+      "endpoint_env": "BLOG_REPORT_URL",
+      "token_env": "BLOG_REPORT_TOKEN",
+      "method": "GET",
+      "data_key": "data",
+      "timeout_seconds": 30,
+      "field_map": {
+        "date": "date",
+        "impressions": "impressions",
+        "clicks": "clicks",
+        "spend": "spend",
+        "revenue": "revenue",
+        "leads": "leads",
+        "qualified_leads": "qualified_leads"
+      }
+    }
+  }
+}

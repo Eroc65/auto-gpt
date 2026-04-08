@@ -1,0 +1,1029 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoFieldwise Admin Dashboard</title>
+  <style>
+    :root {
+      --bg: #eef2f8;
+      --panel: #ffffff;
+      --panel-soft: #f7f9fc;
+      --ink: #0b0f1a;
+      --muted: #2a3345;
+      --brand: #f5c542;
+      --brand-dark: #d4a017;
+      --accent: #f5c542;
+      --ok: #22c55e;
+      --warn: #8b5a00;
+      --danger: #9b2121;
+      --line: #d5dbea;
+      --shadow: 0 12px 26px rgba(16, 24, 40, 0.1);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Inter, "Segoe UI", "Trebuchet MS", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 20% -15%, rgba(245, 197, 66, 0.25), transparent 30%),
+        radial-gradient(circle at 90% -10%, rgba(212, 160, 23, 0.2), transparent 30%),
+        var(--bg);
+    }
+
+    .layout {
+      width: min(1320px, 96vw);
+      margin: 18px auto;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 14px;
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, #0b0f1a 0%, #121826 100%);
+      color: #f6f8fc;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 12px;
+      height: fit-content;
+    }
+
+    .brand {
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      padding-bottom: 12px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.25rem;
+      letter-spacing: 0.2px;
+    }
+
+    .brand p {
+      margin: 6px 0 0;
+      color: #c3ccdb;
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    .nav {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .nav button {
+      width: 100%;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+      color: #f4f7fd;
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .nav button[aria-selected="true"] {
+      background: linear-gradient(135deg, #d4a017, #f5c542);
+      color: #0b0f1a;
+      border-color: transparent;
+    }
+
+    .nav button:hover {
+      transform: translateY(-1px);
+    }
+
+    .content {
+      min-width: 0;
+    }
+
+    .topbar {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .topbar p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      border: 1px solid #bfc7d3;
+      background: #fff;
+      color: #111722;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, var(--accent), #ffd671);
+      border-color: #d4a017;
+      color: #0b0f1a;
+    }
+
+    .view {
+      margin-top: 12px;
+      display: none;
+      animation: appear 220ms ease;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .kpi-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 10px;
+    }
+
+    .kpi {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .kpi .label {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .kpi .value {
+      margin-top: 4px;
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .kpi .hint {
+      margin-top: 3px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .card-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .card p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: #2d3340;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #bec8d7;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font: inherit;
+      background: #fff;
+      color: #121722;
+    }
+
+    textarea {
+      min-height: 82px;
+      resize: vertical;
+    }
+
+    .span-2 {
+      grid-column: span 2;
+    }
+
+    .bar {
+      margin-top: 8px;
+      background: #e8edf5;
+      border-radius: 999px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--brand-dark), var(--brand));
+      transition: width 220ms ease;
+    }
+
+    .mini-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 7px;
+    }
+
+    .mini-list li {
+      background: var(--panel-soft);
+      border: 1px solid #dde5f1;
+      border-radius: 10px;
+      padding: 8px 9px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .mono {
+      white-space: pre-wrap;
+      background: #0f1724;
+      color: #d9e5fb;
+      border: 1px solid #2a3852;
+      border-radius: 10px;
+      padding: 12px;
+      min-height: 120px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .chart-wrap {
+      margin-top: 8px;
+      border: 1px solid #d9e2ef;
+      border-radius: 10px;
+      background: #fbfdff;
+      padding: 10px;
+    }
+
+    .trend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+      align-items: end;
+      min-height: 150px;
+    }
+
+    .trend-col {
+      display: grid;
+      gap: 6px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .trend-bar {
+      width: 100%;
+      border-radius: 8px 8px 4px 4px;
+      background: linear-gradient(180deg, #f5c542, #d4a017);
+      min-height: 6px;
+      transition: height 220ms ease;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid #d9e2ef;
+      border-radius: 10px;
+      margin-top: 10px;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 620px;
+    }
+
+    th,
+    td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #e5ebf4;
+      text-align: left;
+      font-size: 0.86rem;
+    }
+
+    th {
+      background: #f5f8fd;
+      color: #324055;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+    .danger { color: var(--danger); }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .span-2 {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>GoFieldwise Ops</h1>
+        <p>Admin dashboard for traffic, leads, ads, automation, and AI operations.</p>
+      </div>
+      <nav class="nav" role="tablist" aria-label="Dashboard navigation">
+        <button type="button" class="nav-btn" role="tab" aria-selected="true" data-view="overview">Overview</button>
+        <button type="button" class="nav-btn" role="tab" aria-selected="false" data-view="analytics">Funnel Analytics</button>
+        <button type="button" class="nav-btn" role="tab" aria-selected="false" data-view="campaigns">Ad Performance</button>
+        <button type="button" class="nav-btn" role="tab" aria-selected="false" data-view="automation">Automation Ops</button>
+        <button type="button" class="nav-btn" role="tab" aria-selected="false" data-view="ai">AI Prompt Studio</button>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <section class="topbar">
+        <div>
+          <h2 id="viewTitle">Overview</h2>
+          <p id="viewSub">Live view of page clicks, lead generation, and ad ROI.</p>
+        </div>
+        <div class="actions">
+          <button type="button" id="saveSnapshotBtn">Save Snapshot</button>
+          <button type="button" id="importCsvBtn">Import CSV</button>
+          <button type="button" id="downloadCsvTemplateBtn">Download CSV Template</button>
+          <button type="button" id="exportJsonBtn">Export Data (.json)</button>
+          <button type="button" class="primary" id="downloadHtmlBtn">Download Dashboard (.html)</button>
+          <input type="file" id="csvFileInput" accept=".csv,text/csv" style="display:none" />
+        </div>
+      </section>
+
+      <section class="view active" id="overview" role="tabpanel">
+        <div class="kpi-grid">
+          <article class="kpi"><div class="label">Total Page Clicks</div><div class="value" id="ovClicks">0</div><div class="hint">Homepage + service + pricing</div></article>
+          <article class="kpi"><div class="label">Leads This Period</div><div class="value" id="ovLeads">0</div><div class="hint">Captured from all funnels</div></article>
+          <article class="kpi"><div class="label">Click To Lead Rate</div><div class="value" id="ovLeadRate">0%</div><div class="hint">Lead quality indicator</div></article>
+          <article class="kpi"><div class="label">ROAS</div><div class="value" id="ovRoas">0x</div><div class="hint">Revenue / ad spend</div></article>
+          <article class="kpi"><div class="label">Missed Calls Recovered</div><div class="value" id="ovRecovered">0%</div><div class="hint">Recovery automation health</div></article>
+          <article class="kpi"><div class="label">Response SLA</div><div class="value" id="ovSla">0 min</div><div class="hint">First response time</div></article>
+        </div>
+
+        <div class="card-grid">
+          <article class="card">
+            <h3>Traffic Mix</h3>
+            <p>Track click share across top pages to detect where prospects drop.</p>
+            <p><strong>Homepage:</strong> <span id="mixHomePct">0%</span></p>
+            <div class="bar"><div class="fill" id="mixHomeBar"></div></div>
+            <p><strong>Service Pages:</strong> <span id="mixServicePct">0%</span></p>
+            <div class="bar"><div class="fill" id="mixServiceBar"></div></div>
+            <p><strong>Pricing:</strong> <span id="mixPricingPct">0%</span></p>
+            <div class="bar"><div class="fill" id="mixPricingBar"></div></div>
+          </article>
+          <article class="card">
+            <h3>Operator Priorities</h3>
+            <ul class="mini-list" id="priorityList"></ul>
+          </article>
+          <article class="card">
+            <h3>8-Week Lead Trend</h3>
+            <p>Save snapshots weekly to track lead volume and conversion trend.</p>
+            <div class="chart-wrap">
+              <div class="trend-grid" id="trendBars"></div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Week</th>
+                    <th>Clicks</th>
+                    <th>Leads</th>
+                    <th>Lead Rate</th>
+                    <th>ROAS</th>
+                  </tr>
+                </thead>
+                <tbody id="snapshotTableBody"></tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="analytics" role="tabpanel">
+        <div class="card">
+          <h3>Page Clicks and Lead Generation</h3>
+          <div class="form-grid">
+            <label>Homepage clicks
+              <input id="aHomeClicks" type="number" min="0" value="1200" />
+            </label>
+            <label>Service page clicks
+              <input id="aServiceClicks" type="number" min="0" value="900" />
+            </label>
+            <label>Pricing page clicks
+              <input id="aPricingClicks" type="number" min="0" value="450" />
+            </label>
+            <label>Leads generated
+              <input id="aLeads" type="number" min="0" value="95" />
+            </label>
+            <label>Booked jobs
+              <input id="aBookedJobs" type="number" min="0" value="28" />
+            </label>
+            <label>Avg first response (min)
+              <input id="aResponseMin" type="number" min="0" value="7" />
+            </label>
+            <label>Missed calls recovered (%)
+              <input id="aRecoveredPct" type="number" min="0" max="100" value="68" />
+            </label>
+          </div>
+          <div class="actions">
+            <button type="button" id="calcFunnelBtn">Update Funnel Metrics</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="campaigns" role="tabpanel">
+        <div class="card">
+          <h3>Ad Performance Tracking</h3>
+          <div class="form-grid">
+            <label>Ad impressions
+              <input id="cImpressions" type="number" min="0" value="52000" />
+            </label>
+            <label>Ad clicks
+              <input id="cClicks" type="number" min="0" value="1460" />
+            </label>
+            <label>Ad spend ($)
+              <input id="cSpend" type="number" min="0" value="1100" />
+            </label>
+            <label>Ad-attributed revenue ($)
+              <input id="cRevenue" type="number" min="0" value="7200" />
+            </label>
+            <label>Qualified leads from ads
+              <input id="cLeads" type="number" min="0" value="49" />
+            </label>
+          </div>
+          <div class="actions">
+            <button type="button" id="calcAdsBtn">Update Ad KPIs</button>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <article class="kpi"><div class="label">CTR</div><div class="value" id="kCtr">0%</div><div class="hint">Clicks / impressions</div></article>
+          <article class="kpi"><div class="label">CPC</div><div class="value" id="kCpc">$0</div><div class="hint">Spend / clicks</div></article>
+          <article class="kpi"><div class="label">CPL</div><div class="value" id="kCpl">$0</div><div class="hint">Spend / qualified leads</div></article>
+          <article class="kpi"><div class="label">ROAS</div><div class="value" id="kRoas">0x</div><div class="hint">Revenue / spend</div></article>
+        </div>
+      </section>
+
+      <section class="view" id="automation" role="tabpanel">
+        <div class="card-grid">
+          <article class="card">
+            <h3>Heavy Listing Engine</h3>
+            <ul class="mini-list" id="listOps"></ul>
+          </article>
+          <article class="card">
+            <h3>Missed-Call Recovery</h3>
+            <ul class="mini-list" id="callOps"></ul>
+          </article>
+          <article class="card">
+            <h3>Follow-Up Workflows</h3>
+            <ul class="mini-list" id="followOps"></ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="ai" role="tabpanel">
+        <div class="card">
+          <h3>AI Prompt Studio</h3>
+          <p>Generate reusable prompts for marketing operations.</p>
+          <div class="form-grid">
+            <label>Objective
+              <select id="pObjective">
+                <option value="book_more_jobs">Book more jobs</option>
+                <option value="increase_trials">Increase free trials</option>
+                <option value="reduce_missed_calls">Reduce missed calls</option>
+                <option value="reactivate_customers">Reactivate old customers</option>
+              </select>
+            </label>
+            <label>Channel
+              <select id="pChannel">
+                <option value="landing_page">Landing page</option>
+                <option value="google_ads">Google Ads</option>
+                <option value="facebook_ads">Facebook Ads</option>
+                <option value="email">Email</option>
+                <option value="sms">SMS</option>
+              </select>
+            </label>
+            <label>Audience
+              <input id="pAudience" type="text" value="owner operators and small trade crews" />
+            </label>
+            <label class="span-2">Offer
+              <input id="pOffer" type="text" value="14 day trial with missed call recovery setup" />
+            </label>
+          </div>
+          <div class="actions">
+            <button type="button" id="genPromptBtn">Generate Prompt</button>
+            <button type="button" id="copyPromptBtn">Copy Prompt</button>
+          </div>
+          <div class="mono" id="promptOut">Prompt output will appear here.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const STORE_KEY = "gofieldwise_admin_dashboard_v1";
+    const viewMeta = {
+      overview: { title: "Overview", sub: "Live view of page clicks, lead generation, and ad ROI." },
+      analytics: { title: "Funnel Analytics", sub: "Track page clicks, leads, booked jobs, and response speed." },
+      campaigns: { title: "Ad Performance", sub: "Monitor CTR, CPC, CPL, and return on ad spend." },
+      automation: { title: "Automation Ops", sub: "Manage heavy listing, missed-call, and follow-up workflows." },
+      ai: { title: "AI Prompt Studio", sub: "Build repeatable prompts for growth and operations." }
+    };
+
+    const listItems = [
+      "Update source-of-truth listing sheet weekly",
+      "Generate Google/Yelp/Facebook/Nextdoor copy",
+      "Run monthly listing consistency sweep",
+      "Track listing response rates by channel"
+    ];
+
+    const callItems = [
+      "Send first recovery SMS inside 60 seconds",
+      "Ask 3 qualification prompts",
+      "Tag urgency and create lead automatically",
+      "Escalate urgent jobs to operator queue"
+    ];
+
+    const followItems = [
+      "Immediate lead confirmation",
+      "15-minute reminder follow-up",
+      "24-hour reactivation message",
+      "Human approval for sensitive messages"
+    ];
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch {
+        return {};
+      }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    }
+
+    function num(id) {
+      return Number(document.getElementById(id).value || 0);
+    }
+
+    function pct(n, d) {
+      if (!d) return 0;
+      return (n / d) * 100;
+    }
+
+    function money(v) {
+      return `$${v.toFixed(2)}`;
+    }
+
+    function initNavigation() {
+      const buttons = Array.from(document.querySelectorAll(".nav-btn"));
+      const views = Array.from(document.querySelectorAll(".view"));
+      const title = document.getElementById("viewTitle");
+      const sub = document.getElementById("viewSub");
+
+      function activate(btn) {
+        const target = btn.dataset.view;
+        buttons.forEach((b) => b.setAttribute("aria-selected", String(b === btn)));
+        views.forEach((v) => v.classList.toggle("active", v.id === target));
+        title.textContent = viewMeta[target].title;
+        sub.textContent = viewMeta[target].sub;
+
+        const state = loadState();
+        state.activeView = target;
+        saveState(state);
+      }
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => activate(btn));
+      });
+
+      const state = loadState();
+      const saved = state.activeView;
+      const match = buttons.find((b) => b.dataset.view === saved);
+      if (match) activate(match);
+    }
+
+    function collectCurrentMetrics() {
+      const home = num("aHomeClicks");
+      const service = num("aServiceClicks");
+      const pricing = num("aPricingClicks");
+      const leads = num("aLeads");
+      const spend = num("cSpend");
+      const revenue = num("cRevenue");
+      const clicks = home + service + pricing;
+      const leadRate = pct(leads, clicks);
+      const roas = spend > 0 ? revenue / spend : 0;
+      return { clicks, leads, leadRate, roas };
+    }
+
+    function bindPersistedInputs(ids) {
+      const state = loadState();
+      ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (state[id] != null) el.value = state[id];
+        el.addEventListener("input", () => {
+          const next = loadState();
+          next[id] = el.value;
+          saveState(next);
+        });
+      });
+    }
+
+    function initOpsLists() {
+      const map = [
+        ["listOps", listItems, "list"],
+        ["callOps", callItems, "call"],
+        ["followOps", followItems, "follow"]
+      ];
+
+      const state = loadState();
+      map.forEach(([id, items, prefix]) => {
+        const root = document.getElementById(id);
+        root.innerHTML = "";
+
+        items.forEach((text, idx) => {
+          const key = `${prefix}-${idx + 1}`;
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <input type="checkbox" id="${key}" ${state[key] ? "checked" : ""} />
+            <label for="${key}" style="margin:0; font-weight:600; font-size:0.86rem;">${text}</label>
+          `;
+          li.querySelector("input").addEventListener("change", (e) => {
+            const next = loadState();
+            next[key] = e.target.checked;
+            saveState(next);
+          });
+          root.appendChild(li);
+        });
+      });
+    }
+
+    function refreshOverview() {
+      const home = num("aHomeClicks");
+      const service = num("aServiceClicks");
+      const pricing = num("aPricingClicks");
+      const leads = num("aLeads");
+      const responseMin = num("aResponseMin");
+      const recovered = num("aRecoveredPct");
+      const spend = num("cSpend");
+      const revenue = num("cRevenue");
+
+      const totalClicks = home + service + pricing;
+      const leadRate = pct(leads, totalClicks);
+      const roas = spend > 0 ? revenue / spend : 0;
+
+      document.getElementById("ovClicks").textContent = totalClicks.toLocaleString();
+      document.getElementById("ovLeads").textContent = leads.toLocaleString();
+      document.getElementById("ovLeadRate").textContent = `${leadRate.toFixed(2)}%`;
+      document.getElementById("ovRoas").textContent = `${roas.toFixed(2)}x`;
+      document.getElementById("ovRecovered").textContent = `${recovered.toFixed(1)}%`;
+      document.getElementById("ovSla").textContent = `${responseMin.toFixed(0)} min`;
+
+      const homeShare = pct(home, totalClicks);
+      const serviceShare = pct(service, totalClicks);
+      const pricingShare = pct(pricing, totalClicks);
+
+      document.getElementById("mixHomePct").textContent = `${homeShare.toFixed(1)}%`;
+      document.getElementById("mixServicePct").textContent = `${serviceShare.toFixed(1)}%`;
+      document.getElementById("mixPricingPct").textContent = `${pricingShare.toFixed(1)}%`;
+
+      document.getElementById("mixHomeBar").style.width = `${homeShare.toFixed(1)}%`;
+      document.getElementById("mixServiceBar").style.width = `${serviceShare.toFixed(1)}%`;
+      document.getElementById("mixPricingBar").style.width = `${pricingShare.toFixed(1)}%`;
+
+      const priorities = document.getElementById("priorityList");
+      const priorityRows = [];
+      if (responseMin > 10) priorityRows.push({ text: "Reduce first response time below 10 minutes", cls: "danger" });
+      if (leadRate < 4) priorityRows.push({ text: "Improve click to lead rate with stronger page CTA", cls: "warn" });
+      if (roas < 3) priorityRows.push({ text: "Tune ad targeting and creative to push ROAS above 3x", cls: "warn" });
+      if (recovered < 70) priorityRows.push({ text: "Increase missed-call recovery sequence coverage", cls: "warn" });
+      if (!priorityRows.length) priorityRows.push({ text: "Core KPIs healthy. Scale winning channels this week.", cls: "ok" });
+
+      priorities.innerHTML = priorityRows
+        .map((row) => `<li><span class="${row.cls}">-</span><span>${row.text}</span></li>`)
+        .join("");
+
+      renderTrend();
+    }
+
+    function renderTrend() {
+      const state = loadState();
+      const snapshots = Array.isArray(state.snapshots) ? state.snapshots : [];
+      const trendBars = document.getElementById("trendBars");
+      const tbody = document.getElementById("snapshotTableBody");
+      trendBars.innerHTML = "";
+      tbody.innerHTML = "";
+
+      if (!snapshots.length) {
+        trendBars.innerHTML = '<div class="trend-col">Save your first snapshot to start trend tracking.</div>';
+        return;
+      }
+
+      const maxLeads = Math.max(...snapshots.map((s) => s.leads || 0), 1);
+      snapshots.forEach((snap, idx) => {
+        const h = Math.max(10, Math.round(((snap.leads || 0) / maxLeads) * 120));
+        const col = document.createElement("div");
+        col.className = "trend-col";
+        col.innerHTML = `
+          <div title="Leads: ${snap.leads}">${snap.leads}</div>
+          <div class="trend-bar" style="height:${h}px"></div>
+          <div>W${idx + 1}</div>
+        `;
+        trendBars.appendChild(col);
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${new Date(snap.at).toLocaleDateString()}</td>
+          <td>${snap.clicks.toLocaleString()}</td>
+          <td>${snap.leads.toLocaleString()}</td>
+          <td>${snap.leadRate.toFixed(2)}%</td>
+          <td>${snap.roas.toFixed(2)}x</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function initFunnelActions() {
+      document.getElementById("calcFunnelBtn").addEventListener("click", refreshOverview);
+    }
+
+    function refreshAds() {
+      const impressions = num("cImpressions");
+      const clicks = num("cClicks");
+      const spend = num("cSpend");
+      const revenue = num("cRevenue");
+      const leads = num("cLeads");
+
+      const ctr = pct(clicks, impressions);
+      const cpc = clicks > 0 ? spend / clicks : 0;
+      const cpl = leads > 0 ? spend / leads : 0;
+      const roas = spend > 0 ? revenue / spend : 0;
+
+      document.getElementById("kCtr").textContent = `${ctr.toFixed(2)}%`;
+      document.getElementById("kCpc").textContent = money(cpc);
+      document.getElementById("kCpl").textContent = money(cpl);
+      document.getElementById("kRoas").textContent = `${roas.toFixed(2)}x`;
+
+      refreshOverview();
+    }
+
+    function initCampaignActions() {
+      document.getElementById("calcAdsBtn").addEventListener("click", refreshAds);
+    }
+
+    function buildPrompt() {
+      const objective = document.getElementById("pObjective").value;
+      const channel = document.getElementById("pChannel").value;
+      const audience = document.getElementById("pAudience").value.trim();
+      const offer = document.getElementById("pOffer").value.trim();
+
+      const prompt = [
+        "You are an autonomous growth operator for GoFieldwise.",
+        `Goal: ${objective}`,
+        `Channel: ${channel}`,
+        `Audience: ${audience}`,
+        `Offer: ${offer}`,
+        "Write concise copy in plain language for busy trade-business owners.",
+        "Return:",
+        "1) Primary hook",
+        "2) Core message",
+        "3) Main CTA",
+        "4) 3 test variants",
+        "5) KPI targets"
+      ].join("\n");
+
+      document.getElementById("promptOut").textContent = prompt;
+    }
+
+    function initPromptStudio() {
+      document.getElementById("genPromptBtn").addEventListener("click", buildPrompt);
+      document.getElementById("copyPromptBtn").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(document.getElementById("promptOut").textContent);
+        } catch {
+          document.getElementById("promptOut").textContent += "\n\nClipboard unavailable. Copy manually.";
+        }
+      });
+      buildPrompt();
+    }
+
+    function initTopbarActions() {
+      document.getElementById("saveSnapshotBtn").addEventListener("click", () => {
+        const state = loadState();
+        const metric = collectCurrentMetrics();
+        const snapshots = Array.isArray(state.snapshots) ? state.snapshots : [];
+        snapshots.push({
+          at: new Date().toISOString(),
+          clicks: metric.clicks,
+          leads: metric.leads,
+          leadRate: metric.leadRate,
+          roas: metric.roas
+        });
+        state.snapshots = snapshots.slice(-8);
+        state.snapshotSavedAt = new Date().toISOString();
+        saveState(state);
+        alert("Snapshot saved in local browser storage.");
+        renderTrend();
+      });
+
+      document.getElementById("importCsvBtn").addEventListener("click", () => {
+        document.getElementById("csvFileInput").click();
+      });
+
+      document.getElementById("downloadCsvTemplateBtn").addEventListener("click", () => {
+        const header = "home_clicks,service_clicks,pricing_clicks,leads,booked_jobs,response_min,recovered_pct,impressions,ad_clicks,spend,revenue,qualified_leads";
+        const sample = "1200,900,450,95,28,7,68,52000,1460,1100,7200,49";
+        const csv = `${header}\n${sample}\n`;
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "gofieldwise-dashboard-template.csv";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+
+      document.getElementById("csvFileInput").addEventListener("change", async (event) => {
+        const file = event.target.files && event.target.files[0] ? event.target.files[0] : null;
+        if (!file) return;
+        const text = await file.text();
+        const rows = text.split(/\r?\n/).filter(Boolean);
+        if (rows.length < 2) {
+          alert("CSV must include a header row and at least one data row.");
+          return;
+        }
+
+        const headers = rows[0].split(",").map((h) => h.trim().toLowerCase());
+        const values = rows[1].split(",").map((v) => v.trim());
+        const data = {};
+        headers.forEach((h, i) => {
+          data[h] = values[i] || "";
+        });
+
+        const map = {
+          home_clicks: "aHomeClicks",
+          service_clicks: "aServiceClicks",
+          pricing_clicks: "aPricingClicks",
+          leads: "aLeads",
+          booked_jobs: "aBookedJobs",
+          response_min: "aResponseMin",
+          recovered_pct: "aRecoveredPct",
+          impressions: "cImpressions",
+          ad_clicks: "cClicks",
+          spend: "cSpend",
+          revenue: "cRevenue",
+          qualified_leads: "cLeads"
+        };
+
+        const state = loadState();
+        Object.keys(map).forEach((key) => {
+          if (data[key] != null && data[key] !== "") {
+            const id = map[key];
+            const el = document.getElementById(id);
+            if (el) {
+              el.value = data[key];
+              state[id] = data[key];
+            }
+          }
+        });
+        saveState(state);
+        refreshAds();
+        refreshOverview();
+        alert("CSV imported. Metrics updated.");
+      });
+
+      document.getElementById("exportJsonBtn").addEventListener("click", () => {
+        const state = loadState();
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "gofieldwise-dashboard-data.json";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+
+      document.getElementById("downloadHtmlBtn").addEventListener("click", () => {
+        const html = "<!doctype html>\n" + document.documentElement.outerHTML;
+        const blob = new Blob([html], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "gofieldwise-admin-dashboard.html";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    bindPersistedInputs([
+      "aHomeClicks",
+      "aServiceClicks",
+      "aPricingClicks",
+      "aLeads",
+      "aBookedJobs",
+      "aResponseMin",
+      "aRecoveredPct",
+      "cImpressions",
+      "cClicks",
+      "cSpend",
+      "cRevenue",
+      "cLeads",
+      "pObjective",
+      "pChannel",
+      "pAudience",
+      "pOffer"
+    ]);
+    initNavigation();
+    initOpsLists();
+    initFunnelActions();
+    initCampaignActions();
+    initPromptStudio();
+    initTopbarActions();
+    refreshAds();
+    refreshOverview();
+    renderTrend();
+  </script>
+</body>
+</html>

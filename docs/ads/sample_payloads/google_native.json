@@ -1,0 +1,15 @@
+{
+  "data": [
+    {
+      "segments": { "date": "2026-04-07" },
+      "metrics": {
+        "impressions": 8600,
+        "clicks": 332,
+        "cost_micros": 278,
+        "conversions_value": 1050,
+        "conversions": 26,
+        "all_conversions": 18
+      }
+    }
+  ]
+}

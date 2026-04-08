@@ -1,5 +1,10 @@
 # GoFieldwise Campaign Launch Kit
 
+Omnichannel assets:
+- `docs/ads/OMNICHANNEL_AD_SYSTEM.md`
+- `docs/ads/AD_COPY_OMNICHANNEL.md`
+- `docs/ads/UTM_TRACKING_TEMPLATE.csv`
+
 ## Channel Order
 1. Email sequence first (fastest launch, lowest spend)
 2. Google Ads second (high intent demand capture)

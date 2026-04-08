@@ -1,0 +1,27 @@
+{
+  "channel_budgets_usd": {
+    "google": 1200,
+    "microsoft": 450,
+    "meta": 900,
+    "nextdoor": 300,
+    "blog": 150
+  },
+  "targets": {
+    "default_cpl": 75,
+    "cpl_by_channel": {
+      "google": 70,
+      "microsoft": 65,
+      "meta": 80,
+      "nextdoor": 55,
+      "blog": 45
+    }
+  },
+  "rules": {
+    "min_leads_for_decision": 15,
+    "scale_if_roas_gte": 3.0,
+    "cut_if_roas_lte": 1.5,
+    "scale_budget_pct": 15,
+    "cut_budget_pct": 20,
+    "cpl_over_target_multiplier": 1.4
+  }
+}

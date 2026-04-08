@@ -11,4 +11,5 @@ bcrypt==4.0.1
 PyJWT==2.12.1
 httpx
 requests
+openai>=1.0.0,<2
 pytest

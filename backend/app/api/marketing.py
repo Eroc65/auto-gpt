@@ -26,9 +26,12 @@ from ..schemas.marketing import MarketingImageCustomCampaignPackCreate
 from ..schemas.marketing import MarketingImageCustomCampaignPackOut
 from ..schemas.marketing import MarketingImageCustomCampaignPackUpdate
 from ..schemas.marketing import MarketingImageTradeTemplateOut
+from ..schemas.marketing import MarketingExpertOperatorOut
+from ..schemas.marketing import MarketingExpertOperatorRequest
 from ..schemas.marketing import ReactivationRunOut
 from ..schemas.marketing import ReactivationRunRequest
 from ..services.ai_image_service import generate_marketing_image
+from ..services.marketing_expert_service import run_marketing_expert_operator
 
 
 router = APIRouter()
@@ -427,3 +430,17 @@ def generate_marketing_image_api(
         "image_base64": image.image_base64,
         "revised_prompt": image.revised_prompt,
     }
+
+
+@router.post("/marketing/expert/operator", response_model=MarketingExpertOperatorOut)
+def run_marketing_expert_operator_api(
+    payload: MarketingExpertOperatorRequest,
+    current_user: User = Depends(get_current_user),
+):
+    _ensure_marketing_access(current_user)
+    try:
+        data = run_marketing_expert_operator(payload)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+    return data
