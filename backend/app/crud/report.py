@@ -158,6 +158,20 @@ def get_lead_conversion_metrics(db, organization_id: int, days: int = 7) -> dict
         .all()
     )
 
+    source_breakdown = {
+        "web_form": 0,
+        "missed_call": 0,
+        "sms": 0,
+        "manual": 0,
+        "other": 0,
+    }
+    intake_route_breakdown = {
+        "public_intake_org": 0,
+        "public_intake_key": 0,
+        "public_missed_call": 0,
+        "unknown": 0,
+    }
+
     buckets: dict[str, dict[str, Any]] = {}
     for offset in range(days):
         day = start_day + timedelta(days=offset)
@@ -175,6 +189,21 @@ def get_lead_conversion_metrics(db, organization_id: int, days: int = 7) -> dict
         created_day = cast(str, lead.created_at.date().isoformat())
         if created_day in buckets:
             buckets[created_day]["intakes"] = int(cast(int, buckets[created_day]["intakes"])) + 1
+            lead_source = cast(str, lead.source)
+            if lead_source in source_breakdown:
+                source_breakdown[lead_source] = int(cast(int, source_breakdown[lead_source])) + 1
+            else:
+                source_breakdown["other"] = int(cast(int, source_breakdown["other"])) + 1
+
+            raw_message = cast(str | None, lead.raw_message) or ""
+            if "source_tag:public_intake_org" in raw_message:
+                intake_route_breakdown["public_intake_org"] = int(cast(int, intake_route_breakdown["public_intake_org"])) + 1
+            elif "source_tag:public_intake_key" in raw_message:
+                intake_route_breakdown["public_intake_key"] = int(cast(int, intake_route_breakdown["public_intake_key"])) + 1
+            elif "source_tag:public_missed_call" in raw_message:
+                intake_route_breakdown["public_missed_call"] = int(cast(int, intake_route_breakdown["public_missed_call"])) + 1
+            else:
+                intake_route_breakdown["unknown"] = int(cast(int, intake_route_breakdown["unknown"])) + 1
 
         qualified_at = cast(datetime | None, lead.qualified_at)
         if qualified_at is not None:
@@ -226,6 +255,8 @@ def get_lead_conversion_metrics(db, organization_id: int, days: int = 7) -> dict
             "qualification_rate": qualification_rate,
             "booking_rate": booking_rate,
         },
+        "source_breakdown": source_breakdown,
+        "intake_route_breakdown": intake_route_breakdown,
         "recommended_next_action": recommended_action,
         "timeline": timeline,
     }

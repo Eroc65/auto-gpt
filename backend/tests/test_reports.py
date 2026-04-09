@@ -153,6 +153,12 @@ def test_lead_conversion_metrics_daily_series():
     converted = client.post(f"/api/leads/{lead_id}/convert", headers=headers)
     assert converted.status_code == 200
 
+    missed = client.post(
+        f"/api/leads/intake/missed-call/{org_id}",
+        json={"phone": "555-6011", "name": "Missed Metrics", "call_sid": "CAMETRICS1"},
+    )
+    assert missed.status_code == 200
+
     report = client.get("/api/reports/lead-conversion?days=7", headers=headers)
     assert report.status_code == 200
     body = report.json()
@@ -165,3 +171,7 @@ def test_lead_conversion_metrics_daily_series():
     assert isinstance(body["recommended_next_action"], str)
     assert len(body["recommended_next_action"]) > 10
     assert len(body["timeline"]) == 7
+    assert body["source_breakdown"]["web_form"] >= 1
+    assert body["source_breakdown"]["missed_call"] >= 1
+    assert body["intake_route_breakdown"]["public_intake_org"] >= 1
+    assert body["intake_route_breakdown"]["public_missed_call"] >= 1
