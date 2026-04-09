@@ -85,6 +85,15 @@ Ingest output:
 - Updated suppression list with new unsubscribe emails
 - JSON report: `docs/ads/reports/suppression_update_report.json`
 
+Run daily compliance (ingest replies + filter outbound lists):
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\run_daily_compliance.ps1 -ReplyExportFiles "docs/ads/reports/replies_export.csv"
+
+Daily wrapper output:
+- Updated suppression list with new unsubscribe emails (when reply exports are provided)
+- Filtered outbound CSVs with `_filtered` suffix
+- JSON reports: `docs/ads/reports/suppression_update_report.json` and `docs/ads/reports/suppression_report.json`
+
 ## Outreach Workflow
 1. Generate list with script.
 2. Manually verify website quality and fit.

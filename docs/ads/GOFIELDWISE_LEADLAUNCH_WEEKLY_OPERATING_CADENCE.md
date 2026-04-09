@@ -95,8 +95,8 @@ Actions:
 - Process opt-out requests immediately and suppress future sends.
 - Send only to lawfully sourced business contacts.
 - Include sender identity and business address/footer in every email.
-- Run `scripts/run_suppression_filter.ps1` before each outbound batch or use `-ApplySuppression` in `scripts/run_lead_prospecting.ps1`.
-- Ingest unsubscribe replies daily with `scripts/run_suppression_ingest.ps1 -InputFiles <reply_export.csv>`.
+- Run `scripts/run_daily_compliance.ps1 -ReplyExportFiles <reply_export.csv>` before each outbound batch.
+- If no reply export is available for that day, run `scripts/run_daily_compliance.ps1` to apply suppression filtering only.
 
 ## Mandatory Unsubscribe Footer
 If you prefer not to hear from me, reply "unsubscribe" or use this link: {{unsubscribe_url}}

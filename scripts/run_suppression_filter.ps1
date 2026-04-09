@@ -2,8 +2,8 @@ param(
   [string]$PythonExe = "",
   [string]$SuppressionList = "docs/ads/GOFIELDWISE_SUPPRESSION_LIST.csv",
   [string[]]$InputFiles = @(
-    "docs/ads/GOFIELDWISE_LEADLAUNCH_DALLAS_COLD_EMAIL_LIST_REAL.csv",
-    "docs/ads/GOFIELDWISE_LEADLAUNCH_HOUSTON_COLD_EMAIL_LIST_REAL.csv"
+    "docs/ads/GOFIELDWISE_LEADLAUNCH_DALLAS_COLD_EMAIL_LIST.csv",
+    "docs/ads/GOFIELDWISE_LEADLAUNCH_HOUSTON_COLD_EMAIL_LIST.csv"
   ),
   [string]$OutputSuffix = "_filtered",
   [string]$ReportPath = "docs/ads/reports/suppression_report.json"
