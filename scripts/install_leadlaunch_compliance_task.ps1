@@ -5,7 +5,7 @@ param(
   [string]$ReplyExportPath = "docs/ads/reports/replies_export.csv"
 )
 
-$pipelineScript = Join-Path $RepoRoot "scripts\run_daily_compliance.ps1"
+$pipelineScript = Join-Path $RepoRoot "scripts\run_leadlaunch_morning_ops.ps1"
 if (-not (Test-Path $pipelineScript)) {
   throw "Pipeline script not found: $pipelineScript"
 }
@@ -15,13 +15,14 @@ if ($existing) {
   Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false
 }
 
-$arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$pipelineScript`" -ReplyExportFiles `"$ReplyExportPath`""
+$arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$pipelineScript`" -ReplyExportPath `"$ReplyExportPath`""
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $arguments
 $trigger = New-ScheduledTaskTrigger -Daily -At $RunAt
 $principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited
 
-Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger -Principal $principal -Description "FrontDesk Pro daily LeadLaunch compliance pipeline" | Out-Null
+Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger -Principal $principal -Description "FrontDesk Pro daily LeadLaunch morning ops pipeline" | Out-Null
 
 Write-Host "Installed scheduled task: $TaskName at $RunAt"
 Write-Host "Reply export input: $ReplyExportPath"
+Write-Host "Pipeline script: $pipelineScript"
 Write-Host "Use 'Get-ScheduledTask -TaskName $TaskName | Format-List *' to verify."

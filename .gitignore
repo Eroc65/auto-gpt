@@ -22,6 +22,8 @@ Thumbs.db
 
 # Logs
 *.log
+docs/ads/reports/ads_weekly_report_*.md
+docs/ads/reports/ads_weekly_report_*.csv
 
 # Build
 /dist/

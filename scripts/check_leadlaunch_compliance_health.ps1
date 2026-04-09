@@ -52,4 +52,20 @@ if (Test-Path $latestIngestReport) {
   Write-Host "[WARN] suppression_update_report.json not found yet."
 }
 
+$latestKpiSnapshot = Get-ChildItem -Path $reportsDir -Filter "leadlaunch_kpi_snapshot_*.json" -File -ErrorAction SilentlyContinue |
+  Sort-Object LastWriteTime -Descending |
+  Select-Object -First 1
+
+if ($latestKpiSnapshot) {
+  $kpiAge = (Get-Date) - $latestKpiSnapshot.LastWriteTime
+  $kpiAgeHours = [math]::Round($kpiAge.TotalHours, 2)
+  if ($kpiAge.TotalHours -le $MaxReportAgeHours) {
+    Write-Host "[OK] KPI snapshot updated recently: $($latestKpiSnapshot.Name) ($kpiAgeHours hours old)"
+  } else {
+    Write-Host "[WARN] KPI snapshot is stale: $($latestKpiSnapshot.Name) ($kpiAgeHours hours old)"
+  }
+} else {
+  Write-Host "[WARN] No KPI snapshot found yet."
+}
+
 Write-Host "=== Health Check Complete ==="

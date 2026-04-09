@@ -130,6 +130,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\cleanup_ads_repo
 
 ## Schedule Daily Compliance on Windows
 
+The scheduled task runs the full morning ops pipeline (compliance + KPI reports).
+
 Install 7:00 AM daily task:
 
 powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\install_leadlaunch_compliance_task.ps1 -RunAt "07:00"
