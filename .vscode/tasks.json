@@ -262,6 +262,48 @@
 			],
 			"group": "build",
 			"problemMatcher": []
+		},
+		{
+			"label": "leadlaunch: generate KPI summary",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\run_leadlaunch_kpi.ps1"
+			],
+			"group": "test",
+			"problemMatcher": []
+		},
+		{
+			"label": "leadlaunch: morning ops",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\run_leadlaunch_morning_ops.ps1"
+			],
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "ads: cleanup reports",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\cleanup_ads_reports.ps1"
+			],
+			"group": "build",
+			"problemMatcher": []
 		}
 	]
 }

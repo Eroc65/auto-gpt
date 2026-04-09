@@ -26,6 +26,10 @@ LeadLaunch plumbing launch assets:
 - Daily compliance task installer: `scripts/install_leadlaunch_compliance_task.ps1`
 - Daily compliance task health check: `scripts/check_leadlaunch_compliance_health.ps1`
 - Daily compliance task uninstaller: `scripts/uninstall_leadlaunch_compliance_task.ps1`
+- KPI report generator: `scripts/generate_leadlaunch_kpi_report.py`
+- KPI wrapper: `scripts/run_leadlaunch_kpi.ps1`
+- Morning ops wrapper: `scripts/run_leadlaunch_morning_ops.ps1`
+- Report retention cleanup: `scripts/cleanup_ads_reports.ps1`
 
 ## Channel Order
 1. Email sequence first (fastest launch, lowest spend)

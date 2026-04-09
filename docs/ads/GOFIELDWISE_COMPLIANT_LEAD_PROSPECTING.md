@@ -103,6 +103,30 @@ Daily wrapper output:
 VS Code task options:
 - `leadlaunch: daily compliance` (auto-detects `docs/ads/reports/replies_export.csv` when present)
 - `leadlaunch: daily compliance (explicit replies_export)` (always passes explicit reply export path)
+- `leadlaunch: generate KPI summary` (writes daily and weekly KPI reports)
+- `leadlaunch: morning ops` (runs daily compliance + KPI summary in one command)
+
+Generate KPI summaries manually:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\run_leadlaunch_kpi.ps1
+
+KPI outputs:
+- `docs/ads/reports/leadlaunch_kpi_snapshot_YYYYMMDD.json`
+- `docs/ads/reports/leadlaunch_kpi_daily_YYYYMMDD.md`
+- `docs/ads/reports/leadlaunch_kpi_weekly_YYYYMMDD.md`
+
+One-click morning ops:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\run_leadlaunch_morning_ops.ps1
+
+Morning ops output:
+- Daily compliance reports
+- KPI daily/weekly summaries
+- Run log: `docs/ads/reports/leadlaunch_morning_ops_YYYYMMDD.log`
+
+Cleanup old automation artifacts (default retention: 30 days):
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\cleanup_ads_reports.ps1
 
 ## Schedule Daily Compliance on Windows
 
