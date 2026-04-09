@@ -77,6 +77,14 @@ Outputs:
 - Filtered files with `_filtered` suffix
 - JSON report: `docs/ads/reports/suppression_report.json`
 
+Auto-ingest unsubscribe replies from export CSVs:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\run_suppression_ingest.ps1 -InputFiles "docs/ads/reports/replies_export.csv"
+
+Ingest output:
+- Updated suppression list with new unsubscribe emails
+- JSON report: `docs/ads/reports/suppression_update_report.json`
+
 ## Outreach Workflow
 1. Generate list with script.
 2. Manually verify website quality and fit.

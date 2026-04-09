@@ -96,6 +96,7 @@ Actions:
 - Send only to lawfully sourced business contacts.
 - Include sender identity and business address/footer in every email.
 - Run `scripts/run_suppression_filter.ps1` before each outbound batch or use `-ApplySuppression` in `scripts/run_lead_prospecting.ps1`.
+- Ingest unsubscribe replies daily with `scripts/run_suppression_ingest.ps1 -InputFiles <reply_export.csv>`.
 
 ## Mandatory Unsubscribe Footer
 If you prefer not to hear from me, reply "unsubscribe" or use this link: {{unsubscribe_url}}

@@ -20,6 +20,8 @@ LeadLaunch plumbing launch assets:
 - Suppression list: `docs/ads/GOFIELDWISE_SUPPRESSION_LIST.csv`
 - Suppression filter script: `scripts/apply_email_suppression.py`
 - Suppression wrapper: `scripts/run_suppression_filter.ps1`
+- Suppression ingest parser: `scripts/update_suppression_from_replies.py`
+- Suppression ingest wrapper: `scripts/run_suppression_ingest.ps1`
 
 ## Channel Order
 1. Email sequence first (fastest launch, lowest spend)
