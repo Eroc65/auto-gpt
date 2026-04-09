@@ -21,5 +21,9 @@ module.exports = defineConfig({
     url: "http://localhost:3000",
     reuseExistingServer: true,
     timeout: 120000,
+    env: {
+      ...process.env,
+      NEXT_PUBLIC_INTAKE_KEY: process.env.NEXT_PUBLIC_INTAKE_KEY || "org_test",
+    },
   },
 });

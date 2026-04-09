@@ -1,12 +1,29 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { submitPublicLeadIntake } from "../lib/api";
+
+const INTAKE_KEY = process.env.NEXT_PUBLIC_INTAKE_KEY || "";
+const LEGACY_INTAKE_ORG_ID = process.env.NEXT_PUBLIC_INTAKE_ORG_ID || "";
 
 export default function LeadLaunchPage() {
   const [monthlyLeads, setMonthlyLeads] = useState(80);
   const [missedRate, setMissedRate] = useState(22);
   const [avgJobValue, setAvgJobValue] = useState(450);
   const [closeRate, setCloseRate] = useState(55);
+  const [leadForm, setLeadForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    company: "",
+    city: "",
+    trade: "Plumbing",
+    monthlyLeads: "",
+    details: "",
+  });
+  const [isSubmittingLead, setIsSubmittingLead] = useState(false);
+  const [leadSubmitMessage, setLeadSubmitMessage] = useState("");
+  const [leadSubmitError, setLeadSubmitError] = useState("");
 
   const roi = useMemo(() => {
     const leadsLost = Math.round(monthlyLeads * (missedRate / 100));
@@ -27,6 +44,59 @@ export default function LeadLaunchPage() {
       currency: "USD",
       maximumFractionDigits: 0,
     }).format(value);
+
+  function onLeadFieldChange(field, value) {
+    setLeadForm((prev) => ({ ...prev, [field]: value }));
+  }
+
+  async function onLeadSubmit(event) {
+    event.preventDefault();
+    setLeadSubmitMessage("");
+    setLeadSubmitError("");
+    setIsSubmittingLead(true);
+
+    try {
+      if (!INTAKE_KEY && !LEGACY_INTAKE_ORG_ID) {
+        throw new Error("Lead intake is not configured. Set NEXT_PUBLIC_INTAKE_KEY.");
+      }
+
+      const details = [
+        leadForm.city ? `City: ${leadForm.city}` : "",
+        leadForm.trade ? `Trade: ${leadForm.trade}` : "",
+        leadForm.monthlyLeads ? `Monthly leads: ${leadForm.monthlyLeads}` : "",
+        leadForm.details ? `Notes: ${leadForm.details}` : "",
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      await submitPublicLeadIntake({
+        intakeKey: INTAKE_KEY,
+        orgId: LEGACY_INTAKE_ORG_ID,
+        name: leadForm.name,
+        phone: leadForm.phone,
+        email: leadForm.email,
+        service: `LeadLaunch ${leadForm.trade}`,
+        company: leadForm.company,
+        details,
+      });
+
+      setLeadSubmitMessage("LeadLaunch request received. We will contact you with a rollout plan shortly.");
+      setLeadForm({
+        name: "",
+        phone: "",
+        email: "",
+        company: "",
+        city: "",
+        trade: "Plumbing",
+        monthlyLeads: "",
+        details: "",
+      });
+    } catch (error) {
+      setLeadSubmitError(error instanceof Error ? error.message : "Failed to submit request.");
+    } finally {
+      setIsSubmittingLead(false);
+    }
+  }
 
   return (
     <>
@@ -171,6 +241,96 @@ export default function LeadLaunchPage() {
         </section>
 
         <section className="dispatch-card">
+          <h2>Get Your LeadLaunch Rollout Plan</h2>
+          <p>Share your current pipeline details and we will send your first 14-day execution map.</p>
+          <form className="leadlaunch-form" onSubmit={onLeadSubmit}>
+            <label>
+              Full Name
+              <input
+                required
+                value={leadForm.name}
+                onChange={(e) => onLeadFieldChange("name", e.target.value)}
+                placeholder="Alex Owner"
+              />
+            </label>
+            <label>
+              Phone
+              <input
+                required
+                value={leadForm.phone}
+                onChange={(e) => onLeadFieldChange("phone", e.target.value)}
+                placeholder="(555) 010-2024"
+              />
+            </label>
+            <label>
+              Email
+              <input
+                type="email"
+                required
+                value={leadForm.email}
+                onChange={(e) => onLeadFieldChange("email", e.target.value)}
+                placeholder="owner@shop.com"
+              />
+            </label>
+            <label>
+              Company
+              <input
+                value={leadForm.company}
+                onChange={(e) => onLeadFieldChange("company", e.target.value)}
+                placeholder="Precision Plumbing"
+              />
+            </label>
+            <label>
+              City / Service Area
+              <input
+                value={leadForm.city}
+                onChange={(e) => onLeadFieldChange("city", e.target.value)}
+                placeholder="Dallas, TX"
+              />
+            </label>
+            <label>
+              Trade
+              <select
+                value={leadForm.trade}
+                onChange={(e) => onLeadFieldChange("trade", e.target.value)}
+              >
+                <option>Plumbing</option>
+                <option>HVAC</option>
+                <option>Electrical</option>
+                <option>Cleaning</option>
+                <option>Landscaping</option>
+              </select>
+            </label>
+            <label>
+              Monthly Lead Volume
+              <input
+                type="number"
+                min="0"
+                value={leadForm.monthlyLeads}
+                onChange={(e) => onLeadFieldChange("monthlyLeads", e.target.value)}
+                placeholder="80"
+              />
+            </label>
+            <label className="span-2">
+              Notes
+              <textarea
+                rows={4}
+                value={leadForm.details}
+                onChange={(e) => onLeadFieldChange("details", e.target.value)}
+                placeholder="What is breaking right now in your lead flow?"
+              />
+            </label>
+            <div className="span-2 form-actions">
+              <button type="submit" disabled={isSubmittingLead}>
+                {isSubmittingLead ? "Submitting..." : "Send My Rollout Plan Request"}
+              </button>
+            </div>
+            {leadSubmitMessage ? <p className="submit-note span-2">{leadSubmitMessage}</p> : null}
+            {leadSubmitError ? <p className="submit-error span-2">{leadSubmitError}</p> : null}
+          </form>
+        </section>
+
+        <section className="dispatch-card">
           <h2>LeadLaunch FAQ</h2>
           <div className="faq-grid">
             <article className="panel">
@@ -291,6 +451,53 @@ export default function LeadLaunchPage() {
           gap: 10px;
         }
 
+        .leadlaunch-form {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
+        }
+
+        .leadlaunch-form label {
+          display: grid;
+          gap: 6px;
+          font-weight: 700;
+        }
+
+        .leadlaunch-form input,
+        .leadlaunch-form select,
+        .leadlaunch-form textarea {
+          border: 1px solid #d5dbea;
+          border-radius: 10px;
+          padding: 10px 12px;
+          font-size: 0.95rem;
+          background: #fff;
+        }
+
+        .leadlaunch-form textarea {
+          resize: vertical;
+        }
+
+        .span-2 {
+          grid-column: 1 / -1;
+        }
+
+        .form-actions {
+          display: flex;
+          justify-content: flex-start;
+        }
+
+        .submit-note {
+          margin: 0;
+          color: #1f7a36;
+          font-weight: 700;
+        }
+
+        .submit-error {
+          margin: 0;
+          color: #b42318;
+          font-weight: 700;
+        }
+
         .final-cta {
           text-align: center;
         }
@@ -305,6 +512,10 @@ export default function LeadLaunchPage() {
           }
 
           .faq-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .leadlaunch-form {
             grid-template-columns: 1fr;
           }
 
