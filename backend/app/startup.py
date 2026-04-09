@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 from fastapi import FastAPI
-from sqlalchemy import inspect
 
 from .core.db import Base, engine
 
 
 def _assert_schema_compatibility() -> None:
+    from sqlalchemy import inspect
+
     required_technician_columns = {
         "availability_start_hour_utc",
         "availability_end_hour_utc",

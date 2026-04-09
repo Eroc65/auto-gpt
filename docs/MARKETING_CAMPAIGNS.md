@@ -4,6 +4,19 @@ Omnichannel assets:
 - `docs/ads/OMNICHANNEL_AD_SYSTEM.md`
 - `docs/ads/AD_COPY_OMNICHANNEL.md`
 - `docs/ads/UTM_TRACKING_TEMPLATE.csv`
+- `docs/ads/GOFIELDWISE_LEADLAUNCH_COLD_EMAIL_LIST_TEMPLATE.csv`
+- `docs/ads/GOFIELDWISE_LEADLAUNCH_EMAIL_NURTURE_CAMPAIGN.md`
+
+LeadLaunch plumbing launch assets:
+- Cold list template: `docs/ads/GOFIELDWISE_LEADLAUNCH_COLD_EMAIL_LIST_TEMPLATE.csv`
+- 21-day nurture sequence: `docs/ads/GOFIELDWISE_LEADLAUNCH_EMAIL_NURTURE_CAMPAIGN.md`
+- Dallas cold list starter: `docs/ads/GOFIELDWISE_LEADLAUNCH_DALLAS_COLD_EMAIL_LIST.csv`
+- Dallas send calendar: `docs/ads/GOFIELDWISE_LEADLAUNCH_DALLAS_SEND_CALENDAR.md`
+- Houston cold list starter: `docs/ads/GOFIELDWISE_LEADLAUNCH_HOUSTON_COLD_EMAIL_LIST.csv`
+- Houston send calendar: `docs/ads/GOFIELDWISE_LEADLAUNCH_HOUSTON_SEND_CALENDAR.md`
+- Compliant lead prospecting workflow: `docs/ads/GOFIELDWISE_COMPLIANT_LEAD_PROSPECTING.md`
+- Prospecting wrapper script: `scripts/run_lead_prospecting.ps1`
+- Weekly operating cadence: `docs/ads/GOFIELDWISE_LEADLAUNCH_WEEKLY_OPERATING_CADENCE.md`
 
 ## Channel Order
 1. Email sequence first (fastest launch, lowest spend)
