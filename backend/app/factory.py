@@ -51,6 +51,11 @@ def create_app(*, testing: bool = False) -> FastAPI:
     app.state.settings = settings
     app.state.routers_registered = False
 
+    # Register routes eagerly so bare TestClient(app) calls can resolve endpoints
+    # even when lifespan hooks are not entered by the caller.
+    register_routers(app)
+    app.state.routers_registered = True
+
     @app.get("/")
     def read_root():
         return {"message": "FrontDesk Pro API is running"}

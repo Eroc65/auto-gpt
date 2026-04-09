@@ -132,7 +132,7 @@ test("dispatch assistant full flow works", async ({ page }) => {
 
   await page.goto("/dispatch-assistant");
 
-  await expect(page.getByRole("heading", { name: "Dispatch Assistant" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Dispatch Assistant", level: 1 })).toBeVisible();
 
   await page.getByLabel("Auth Email").fill("operator@example.com");
   await page.getByLabel("Auth Password").fill("testpass123");
