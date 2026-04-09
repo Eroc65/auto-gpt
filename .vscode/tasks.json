@@ -204,6 +204,22 @@
 			],
 			"group": "build",
 			"problemMatcher": []
+		},
+		{
+			"label": "leadlaunch: daily compliance (explicit replies_export)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\run_daily_compliance.ps1",
+				"-ReplyExportFiles",
+				"docs/ads/reports/replies_export.csv"
+			],
+			"group": "build",
+			"problemMatcher": []
 		}
 	]
 }

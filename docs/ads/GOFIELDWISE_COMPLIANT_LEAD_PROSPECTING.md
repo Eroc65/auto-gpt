@@ -100,6 +100,10 @@ Daily wrapper output:
 - Filtered outbound CSVs with `_filtered` suffix
 - JSON reports: `docs/ads/reports/suppression_update_report.json` and `docs/ads/reports/suppression_report.json`
 
+VS Code task options:
+- `leadlaunch: daily compliance` (auto-detects `docs/ads/reports/replies_export.csv` when present)
+- `leadlaunch: daily compliance (explicit replies_export)` (always passes explicit reply export path)
+
 ## Outreach Workflow
 1. Generate list with script.
 2. Manually verify website quality and fit.
