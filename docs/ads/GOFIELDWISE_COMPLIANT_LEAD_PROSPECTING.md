@@ -61,6 +61,22 @@ Custom result size:
 
 powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\run_lead_prospecting.ps1 -MaxResults 100
 
+Run both cities + apply suppression list:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\run_lead_prospecting.ps1 -ApplySuppression
+
+## Suppression Automation
+Suppression list file:
+- [docs/ads/GOFIELDWISE_SUPPRESSION_LIST.csv](docs/ads/GOFIELDWISE_SUPPRESSION_LIST.csv)
+
+Manual suppression filter run:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\run_suppression_filter.ps1
+
+Outputs:
+- Filtered files with `_filtered` suffix
+- JSON report: `docs/ads/reports/suppression_report.json`
+
 ## Outreach Workflow
 1. Generate list with script.
 2. Manually verify website quality and fit.
@@ -72,3 +88,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\run_lead_prospec
 - Add one virtual assistant SOP for contact verification.
 - Run weekly list refresh for each city.
 - Track conversion by city and segment (A/B/C).
+- Keep suppression list updated daily from unsubscribe replies.

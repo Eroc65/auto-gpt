@@ -34,6 +34,7 @@ Who to contact:
 
 Actions:
 - Generate or refresh city prospect lists.
+- Run suppression filter before any outbound send.
 - Verify business name, site, and contact route.
 - Send Email 1 to all new contacts.
 - Process all same-day replies.
@@ -94,6 +95,7 @@ Actions:
 - Process opt-out requests immediately and suppress future sends.
 - Send only to lawfully sourced business contacts.
 - Include sender identity and business address/footer in every email.
+- Run `scripts/run_suppression_filter.ps1` before each outbound batch or use `-ApplySuppression` in `scripts/run_lead_prospecting.ps1`.
 
 ## Mandatory Unsubscribe Footer
 If you prefer not to hear from me, reply "unsubscribe" or use this link: {{unsubscribe_url}}

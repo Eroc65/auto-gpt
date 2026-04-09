@@ -222,6 +222,7 @@ Goal: final response and list hygiene.
 - Respect unsubscribe requests immediately
 - Use only legally sourced business contact data
 - Follow applicable laws (CAN-SPAM, CASL, GDPR where relevant)
+- Update `docs/ads/GOFIELDWISE_SUPPRESSION_LIST.csv` daily and run `scripts/run_suppression_filter.ps1` before outbound sends.
 
 ## Required Footer on Every Outbound Email
 Use this exact footer line in all cold and nurture emails:

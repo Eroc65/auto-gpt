@@ -17,6 +17,9 @@ LeadLaunch plumbing launch assets:
 - Compliant lead prospecting workflow: `docs/ads/GOFIELDWISE_COMPLIANT_LEAD_PROSPECTING.md`
 - Prospecting wrapper script: `scripts/run_lead_prospecting.ps1`
 - Weekly operating cadence: `docs/ads/GOFIELDWISE_LEADLAUNCH_WEEKLY_OPERATING_CADENCE.md`
+- Suppression list: `docs/ads/GOFIELDWISE_SUPPRESSION_LIST.csv`
+- Suppression filter script: `scripts/apply_email_suppression.py`
+- Suppression wrapper: `scripts/run_suppression_filter.ps1`
 
 ## Channel Order
 1. Email sequence first (fastest launch, lowest spend)

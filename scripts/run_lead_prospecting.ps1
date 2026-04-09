@@ -3,7 +3,8 @@ param(
   [string]$ApiKeyEnv = "GOOGLE_MAPS_API_KEY",
   [int]$MaxResults = 60,
   [switch]$Dallas,
-  [switch]$Houston
+  [switch]$Houston,
+  [switch]$ApplySuppression
 )
 
 $ErrorActionPreference = "Stop"
@@ -81,6 +82,21 @@ try {
 
   if ($runHouston) {
     Invoke-Prospector -Python $python -Query "plumber in Houston, TX" -City "Houston" -State "TX" -Trade "Plumbing" -Limit $MaxResults -ApiEnvName $ApiKeyEnv -OutputPath "docs/ads/GOFIELDWISE_LEADLAUNCH_HOUSTON_COLD_EMAIL_LIST_REAL.csv"
+  }
+
+  if ($ApplySuppression) {
+    Write-Host "=== START Suppression Filter ==="
+    & $python "scripts/apply_email_suppression.py" `
+      --suppression-list "docs/ads/GOFIELDWISE_SUPPRESSION_LIST.csv" `
+      --inputs "docs/ads/GOFIELDWISE_LEADLAUNCH_DALLAS_COLD_EMAIL_LIST_REAL.csv" "docs/ads/GOFIELDWISE_LEADLAUNCH_HOUSTON_COLD_EMAIL_LIST_REAL.csv" `
+      --suffix "_filtered" `
+      --report "docs/ads/reports/suppression_report.json"
+
+    if ($LASTEXITCODE -ne 0) {
+      throw "Suppression filter failed with exit code $LASTEXITCODE."
+    }
+
+    Write-Host "=== OK Suppression Filter ==="
   }
 
   Write-Host "LEAD_PROSPECTING_OK"
