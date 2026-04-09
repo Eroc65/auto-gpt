@@ -89,6 +89,12 @@ Run daily compliance (ingest replies + filter outbound lists):
 
 powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\run_daily_compliance.ps1 -ReplyExportFiles "docs/ads/reports/replies_export.csv"
 
+Or run daily compliance with automatic default reply export detection:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\run_daily_compliance.ps1
+
+If `docs/ads/reports/replies_export.csv` exists, it is auto-ingested.
+
 Daily wrapper output:
 - Updated suppression list with new unsubscribe emails (when reply exports are provided)
 - Filtered outbound CSVs with `_filtered` suffix

@@ -17,6 +17,7 @@ $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $ingestWrapper = Join-Path $PSScriptRoot "run_suppression_ingest.ps1"
 $filterWrapper = Join-Path $PSScriptRoot "run_suppression_filter.ps1"
+$defaultReplyExport = "docs/ads/reports/replies_export.csv"
 $didRunIngest = $false
 $didRunFilter = $false
 
@@ -35,12 +36,21 @@ if (-not (Test-Path $filterWrapper)) {
 Push-Location $repoRoot
 try {
   if (-not $SkipIngest) {
+    $effectiveReplyExportFiles = @()
     if ($ReplyExportFiles -and $ReplyExportFiles.Count -gt 0) {
+      $effectiveReplyExportFiles = $ReplyExportFiles
+    }
+    elseif (Test-Path $defaultReplyExport) {
+      $effectiveReplyExportFiles = @($defaultReplyExport)
+      Write-Host "No -ReplyExportFiles provided. Using default export: $defaultReplyExport"
+    }
+
+    if ($effectiveReplyExportFiles.Count -gt 0) {
       Write-Host "Running unsubscribe reply ingest..."
       & $ingestWrapper `
         -PythonExe $PythonExe `
         -SuppressionList $SuppressionList `
-        -InputFiles $ReplyExportFiles `
+        -InputFiles $effectiveReplyExportFiles `
         -ReportPath $IngestReportPath
 
       if ($LASTEXITCODE -ne 0) {
@@ -50,7 +60,7 @@ try {
       $didRunIngest = $true
     }
     else {
-      Write-Host "No -ReplyExportFiles provided. Skipping ingest step."
+      Write-Host "No reply export files found. Skipping ingest step."
     }
   }
 

@@ -95,8 +95,8 @@ Actions:
 - Process opt-out requests immediately and suppress future sends.
 - Send only to lawfully sourced business contacts.
 - Include sender identity and business address/footer in every email.
-- Run `scripts/run_daily_compliance.ps1 -ReplyExportFiles <reply_export.csv>` before each outbound batch.
-- If no reply export is available for that day, run `scripts/run_daily_compliance.ps1` to apply suppression filtering only.
+- Run `scripts/run_daily_compliance.ps1` before each outbound batch.
+- The wrapper auto-ingests `docs/ads/reports/replies_export.csv` if present, or you can pass `-ReplyExportFiles <reply_export.csv>` explicitly.
 
 ## Mandatory Unsubscribe Footer
 If you prefer not to hear from me, reply "unsubscribe" or use this link: {{unsubscribe_url}}
