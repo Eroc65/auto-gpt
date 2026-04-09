@@ -220,6 +220,48 @@
 			],
 			"group": "build",
 			"problemMatcher": []
+		},
+		{
+			"label": "leadlaunch: install daily compliance task",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\install_leadlaunch_compliance_task.ps1"
+			],
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "leadlaunch: check daily compliance health",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\check_leadlaunch_compliance_health.ps1"
+			],
+			"group": "test",
+			"problemMatcher": []
+		},
+		{
+			"label": "leadlaunch: uninstall daily compliance task",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\uninstall_leadlaunch_compliance_task.ps1"
+			],
+			"group": "build",
+			"problemMatcher": []
 		}
 	]
 }

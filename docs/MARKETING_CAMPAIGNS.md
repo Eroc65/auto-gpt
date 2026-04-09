@@ -23,6 +23,9 @@ LeadLaunch plumbing launch assets:
 - Suppression ingest parser: `scripts/update_suppression_from_replies.py`
 - Suppression ingest wrapper: `scripts/run_suppression_ingest.ps1`
 - Daily compliance wrapper: `scripts/run_daily_compliance.ps1`
+- Daily compliance task installer: `scripts/install_leadlaunch_compliance_task.ps1`
+- Daily compliance task health check: `scripts/check_leadlaunch_compliance_health.ps1`
+- Daily compliance task uninstaller: `scripts/uninstall_leadlaunch_compliance_task.ps1`
 
 ## Channel Order
 1. Email sequence first (fastest launch, lowest spend)

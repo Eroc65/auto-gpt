@@ -104,6 +104,20 @@ VS Code task options:
 - `leadlaunch: daily compliance` (auto-detects `docs/ads/reports/replies_export.csv` when present)
 - `leadlaunch: daily compliance (explicit replies_export)` (always passes explicit reply export path)
 
+## Schedule Daily Compliance on Windows
+
+Install 7:00 AM daily task:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\install_leadlaunch_compliance_task.ps1 -RunAt "07:00"
+
+Health check:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\check_leadlaunch_compliance_health.ps1
+
+Remove task:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\uninstall_leadlaunch_compliance_task.ps1
+
 ## Outreach Workflow
 1. Generate list with script.
 2. Manually verify website quality and fit.
