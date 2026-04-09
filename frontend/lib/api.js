@@ -176,6 +176,7 @@ export async function submitPublicLeadIntake({
   service,
   company,
   details,
+  website,
 }) {
   const serviceLine = service ? `Service interest: ${service}` : "";
   const companyLine = company ? `Business: ${company}` : "";
@@ -193,6 +194,7 @@ export async function submitPublicLeadIntake({
       email: email || null,
       source: "web_form",
       raw_message: rawMessage || null,
+      website: website || null,
     }),
   });
 }

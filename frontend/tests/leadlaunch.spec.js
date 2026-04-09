@@ -2,6 +2,15 @@ const { test, expect } = require("@playwright/test");
 
 test("leadlaunch intake form submits and shows confirmation", async ({ page }) => {
   await page.route("**/api/leads/intake/by-key/**", async (route) => {
+    const payload = route.request().postDataJSON();
+    if (payload.website !== null) {
+      await route.fulfill({
+        status: 422,
+        contentType: "application/json",
+        body: JSON.stringify({ detail: "Rejected as spam." }),
+      });
+      return;
+    }
     await route.fulfill({
       status: 201,
       contentType: "application/json",

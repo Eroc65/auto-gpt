@@ -20,6 +20,7 @@ export default function LeadLaunchPage() {
     trade: "Plumbing",
     monthlyLeads: "",
     details: "",
+    website: "",
   });
   const [isSubmittingLead, setIsSubmittingLead] = useState(false);
   const [leadSubmitMessage, setLeadSubmitMessage] = useState("");
@@ -78,6 +79,7 @@ export default function LeadLaunchPage() {
         service: `LeadLaunch ${leadForm.trade}`,
         company: leadForm.company,
         details,
+        website: leadForm.website,
       });
 
       setLeadSubmitMessage("LeadLaunch request received. We will contact you with a rollout plan shortly.");
@@ -90,6 +92,7 @@ export default function LeadLaunchPage() {
         trade: "Plumbing",
         monthlyLeads: "",
         details: "",
+        website: "",
       });
     } catch (error) {
       setLeadSubmitError(error instanceof Error ? error.message : "Failed to submit request.");
@@ -318,6 +321,16 @@ export default function LeadLaunchPage() {
                 value={leadForm.details}
                 onChange={(e) => onLeadFieldChange("details", e.target.value)}
                 placeholder="What is breaking right now in your lead flow?"
+              />
+            </label>
+            <label style={{ display: "none" }} aria-hidden="true">
+              Website
+              <input
+                tabIndex={-1}
+                autoComplete="off"
+                value={leadForm.website}
+                onChange={(e) => onLeadFieldChange("website", e.target.value)}
+                placeholder="Leave blank"
               />
             </label>
             <div className="span-2 form-actions">
