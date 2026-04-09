@@ -1,0 +1,209 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "backend: migrate",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Set-Location \"backend\"; & \"../.venv/Scripts/python.exe\" -m alembic upgrade head"
+			],
+			"group": "build"
+		},
+		{
+			"label": "backend: test",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Set-Location \"backend\"; & \"../.venv/Scripts/python.exe\" -m pytest -q"
+			],
+			"group": "test"
+		},
+		{
+			"label": "backend: run",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Set-Location \"backend\"; & \"../.venv/Scripts/python.exe\" -m uvicorn app.main:app --host 127.0.0.1 --port 8001"
+			],
+			"isBackground": true,
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "backend: smoke auth",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Set-Location \"backend\"; & \"../.venv/Scripts/python.exe\" scripts/smoke_auth.py"
+			],
+			"group": "test"
+		},
+		{
+			"label": "backend: stop",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$connections = Get-NetTCPConnection -LocalPort 8001 -State Listen -ErrorAction SilentlyContinue; if ($connections) { $connections | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force } }"
+			],
+			"group": "build"
+		},
+		{
+			"label": "ollama-smoke-check",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$exe='C:\\Users\\erock\\AppData\\Local\\Programs\\Ollama\\ollama.exe'; if (!(Test-Path $exe)) { Write-Output 'MISSING_EXE'; exit 1 }; Start-Process -FilePath $exe -ArgumentList @('serve') -WindowStyle Hidden -ErrorAction SilentlyContinue | Out-Null; Start-Sleep -Seconds 2; try { $r=Invoke-RestMethod -Method GET -Uri 'http://127.0.0.1:11434/api/tags' -TimeoutSec 5; Write-Output 'HEALTH_OK'; $r | ConvertTo-Json -Depth 4 } catch { Write-Output ('HEALTH_ERR ' + $_.Exception.Message) }; & $exe list"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "ollama-smoke-check",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"\"C:\\Users\\erock\\AppData\\Local\\Programs\\Ollama\\ollama.exe\" --version"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "launch-ollama-app",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Start-Process -FilePath \"C:\\Users\\erock\\AppData\\Local\\Programs\\Ollama\\ollama app.exe\"; Write-Output \"LAUNCHED\""
+			],
+			"isBackground": false
+		},
+		{
+			"label": "run-backend-pytest",
+			"type": "shell",
+			"command": "cd backend && \"c:/Users/erock/FrontDesk Pro/.venv/Scripts/python.exe\" -m pytest",
+			"isBackground": false
+		},
+		{
+			"label": "tmp: diagnose-test-imports",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Set-Location \"backend\"; & \"..\\.venv\\Scripts\\python.exe\" .\\scripts\\diagnose_test_imports.py .\\tests\\test_auth_flow.py; exit $LASTEXITCODE"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "security: webhook readiness",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\webhook_security_readiness.ps1"
+			],
+			"group": "test"
+		},
+		{
+			"label": "security: webhook readiness (strict)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\webhook_security_readiness.ps1",
+				"-RequireSigningSecrets"
+			],
+			"group": "test"
+		},
+		{
+			"label": "security: webhook readiness (strict + retell key)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\webhook_security_readiness.ps1",
+				"-RequireSigningSecrets",
+				"-RequireRetellApiKey"
+			],
+			"group": "test"
+		},
+		{
+			"label": "security: webhook readiness (strict + retell + zapier keys)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\webhook_security_readiness.ps1",
+				"-RequireSigningSecrets",
+				"-RequireRetellApiKey",
+				"-RequireZapierApiKey"
+			],
+			"group": "test"
+		},
+		{
+			"label": "github: integration secrets check",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\run_integration_secrets_check.ps1"
+			],
+			"group": "test"
+		},
+		{
+			"label": "leadlaunch: generate prospect lists (dallas+houston)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\run_lead_prospecting.ps1"
+			],
+			"group": "build"
+		},
+		{
+			"label": "leadlaunch: daily compliance",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\scripts\\run_daily_compliance.ps1"
+			],
+			"group": "build",
+			"problemMatcher": []
+		}
+	]
+}
