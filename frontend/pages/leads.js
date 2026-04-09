@@ -363,6 +363,22 @@ export default function LeadInboxPage() {
                 <h3>Booking Rate</h3>
                 <p>{conversionSummary.totals?.booking_rate ?? 0}%</p>
               </article>
+              <article className="panel">
+                <h3>Web Form</h3>
+                <p>{conversionSummary.source_breakdown?.web_form ?? 0}</p>
+              </article>
+              <article className="panel">
+                <h3>Missed Call</h3>
+                <p>{conversionSummary.source_breakdown?.missed_call ?? 0}</p>
+              </article>
+              <article className="panel">
+                <h3>Org Route</h3>
+                <p>{conversionSummary.intake_route_breakdown?.public_intake_org ?? 0}</p>
+              </article>
+              <article className="panel">
+                <h3>Missed Call Route</h3>
+                <p>{conversionSummary.intake_route_breakdown?.public_missed_call ?? 0}</p>
+              </article>
             </div>
           </>
         ) : null}

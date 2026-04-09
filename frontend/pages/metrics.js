@@ -25,6 +25,8 @@ export default function MetricsPage() {
   const [busyAction, setBusyAction] = useState("");
 
   const totals = useMemo(() => metrics?.totals || {}, [metrics]);
+  const sourceBreakdown = useMemo(() => metrics?.source_breakdown || {}, [metrics]);
+  const intakeRouteBreakdown = useMemo(() => metrics?.intake_route_breakdown || {}, [metrics]);
   const invoiceSummary = useMemo(() => dashboard?.invoice_summary || {}, [dashboard]);
   const overdueInvoices = useMemo(() => dashboard?.overdue_invoices || {}, [dashboard]);
   const agingBuckets = useMemo(() => overdueInvoices.aging_buckets || {}, [overdueInvoices]);
@@ -233,6 +235,49 @@ export default function MetricsPage() {
               <h3>Booking Rate</h3>
               <p>{totals.booking_rate ?? 0}%</p>
             </article>
+          </section>
+
+          <section className="dispatch-card">
+            <header className="dispatch-head">
+              <h2>Intake Source Mix</h2>
+              <p>Where recent lead volume is coming from and how it entered intake.</p>
+            </header>
+            <div className="results-grid">
+              <article className="panel">
+                <h3>Web Form</h3>
+                <p>{sourceBreakdown.web_form ?? 0}</p>
+              </article>
+              <article className="panel">
+                <h3>Missed Call</h3>
+                <p>{sourceBreakdown.missed_call ?? 0}</p>
+              </article>
+              <article className="panel">
+                <h3>SMS</h3>
+                <p>{sourceBreakdown.sms ?? 0}</p>
+              </article>
+              <article className="panel">
+                <h3>Manual</h3>
+                <p>{sourceBreakdown.manual ?? 0}</p>
+              </article>
+            </div>
+            <div className="results-grid">
+              <article className="panel">
+                <h3>Org Route</h3>
+                <p>{intakeRouteBreakdown.public_intake_org ?? 0}</p>
+              </article>
+              <article className="panel">
+                <h3>Key Route</h3>
+                <p>{intakeRouteBreakdown.public_intake_key ?? 0}</p>
+              </article>
+              <article className="panel">
+                <h3>Missed Call Route</h3>
+                <p>{intakeRouteBreakdown.public_missed_call ?? 0}</p>
+              </article>
+              <article className="panel">
+                <h3>Unknown Route</h3>
+                <p>{intakeRouteBreakdown.unknown ?? 0}</p>
+              </article>
+            </div>
           </section>
 
           <section className="dispatch-card">

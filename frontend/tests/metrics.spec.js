@@ -50,6 +50,19 @@ test("metrics dashboard flow works", async ({ page }) => {
           qualification_rate: 75.0,
           booking_rate: 41.7,
         },
+        source_breakdown: {
+          web_form: 7,
+          missed_call: 4,
+          sms: 1,
+          manual: 0,
+          other: 0,
+        },
+        intake_route_breakdown: {
+          public_intake_org: 6,
+          public_intake_key: 2,
+          public_missed_call: 4,
+          unknown: 0,
+        },
         recommended_next_action: "Maintain current process and monitor booked volume for consistency.",
         timeline: [
           {
@@ -207,12 +220,15 @@ test("metrics dashboard flow works", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Recommended Next Action" })).toBeVisible();
   await expect(page.getByText("Maintain current process and monitor booked volume for consistency.")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Daily Timeline" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Intake Source Mix" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Collections Snapshot" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Operator Priority Queue" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Queue History" })).toBeVisible();
   await expect(page.getByText("Intakes").first()).toBeVisible();
   await expect(page.locator(".results-grid .panel").filter({ hasText: "Intakes" }).getByText("12", { exact: true })).toBeVisible();
   await expect(page.locator(".results-grid .panel").filter({ hasText: "Qualification Rate" }).getByText("75%", { exact: true })).toBeVisible();
+  await expect(page.locator(".results-grid .panel").filter({ hasText: "Web Form" }).getByText("7", { exact: true })).toBeVisible();
+  await expect(page.locator(".results-grid .panel").filter({ hasText: "Missed Call Route" }).getByText("4", { exact: true })).toBeVisible();
   await expect(page.locator(".results-grid .panel").filter({ hasText: "Unpaid Total" }).getByText("$1450.50", { exact: true })).toBeVisible();
   await expect(page.locator(".results-grid .panel").filter({ hasText: "Overdue Count" }).getByText("2", { exact: true })).toBeVisible();
   await expect(page.locator(".results-grid .panel").filter({ hasText: "8 To 14 Days" }).getByText("1", { exact: true })).toBeVisible();
