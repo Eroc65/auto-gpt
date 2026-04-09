@@ -6,6 +6,7 @@ export default function SiteNav() {
       <div className="site-nav-inner">
         <Link href="/" className="brand">GoFieldwise</Link>
         <nav className="links" aria-label="Primary">
+          <Link href="/leadlaunch">LeadLaunch</Link>
           <Link href="/plumbing">Plumbing</Link>
           <Link href="/hvac">HVAC</Link>
           <Link href="/electrical">Electrical</Link>

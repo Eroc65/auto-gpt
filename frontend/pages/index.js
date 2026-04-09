@@ -24,7 +24,7 @@ export default function Home() {
             books jobs, follows up, and helps you get paid faster.
           </p>
           <div className="hero-actions">
-            <Link href="/platform" className="hero-cta-primary">Start 14-Day Trial</Link>
+            <Link href="/leadlaunch" className="hero-cta-primary">Launch Lead Machine</Link>
             <Link href="/dispatch-assistant" className="ghost-link">See Interactive Demo</Link>
             <button type="button" onClick={() => setShowCallModal(true)}>Call AI Receptionist</button>
           </div>
@@ -59,6 +59,18 @@ export default function Home() {
               <h3>AI Follows Up + Gets You Paid</h3>
               <p>Automate reminders, reactivation, invoice nudges, and payment collection.</p>
             </article>
+          </div>
+        </section>
+
+        <section className="dispatch-card">
+          <h2>LeadLaunch For Home Service Teams</h2>
+          <p>
+            Need a focused website and follow-up engine first? LeadLaunch is the fastest path to more booked jobs
+            without adding office overhead.
+          </p>
+          <div className="actions">
+            <Link href="/leadlaunch" className="hero-cta-primary">See LeadLaunch Plans</Link>
+            <Link href="/marketing-ai" className="ghost-link">Generate Outreach Assets</Link>
           </div>
         </section>
 
