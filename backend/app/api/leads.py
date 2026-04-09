@@ -1,5 +1,6 @@
 from typing import List, cast
 from datetime import datetime
+import re
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
@@ -38,6 +39,13 @@ router = APIRouter()
 
 LEAD_QUALIFY_ROLES = {"owner", "admin", "dispatcher"}
 LEAD_BOOK_ROLES = {"owner", "admin", "dispatcher"}
+_URL_PATTERN = re.compile(r"https?://", re.IGNORECASE)
+_SPAM_PHRASES = (
+    "viagra",
+    "casino",
+    "crypto",
+    "loan approval",
+)
 
 
 def _ensure_user_role(current_user: User, allowed_roles: set[str], action: str) -> None:
@@ -63,8 +71,46 @@ def _resolve_org_for_intake(db: Session, *, org_id: int | None = None, intake_ke
     return organization
 
 
-def _create_intake_lead(db: Session, payload: LeadIntake, org_id: int):
+def _is_non_empty(value: str | None) -> bool:
+    return bool(value and value.strip())
+
+
+def _assert_intake_not_spam(*, name: str | None, phone: str | None, email: str | None, raw_message: str | None, website: str | None) -> None:
+    if _is_non_empty(website):
+        raise HTTPException(status_code=422, detail="Rejected as spam.")
+
+    if not any((_is_non_empty(name), _is_non_empty(phone), _is_non_empty(email), _is_non_empty(raw_message))):
+        raise HTTPException(status_code=422, detail="Provide at least one contact detail or message.")
+
+    if raw_message:
+        if len(_URL_PATTERN.findall(raw_message)) >= 2:
+            raise HTTPException(status_code=422, detail="Rejected as spam.")
+        lowered = raw_message.lower()
+        if any(phrase in lowered for phrase in _SPAM_PHRASES):
+            raise HTTPException(status_code=422, detail="Rejected as spam.")
+
+
+def _append_source_tag(raw_message: str | None, tag: str) -> str:
+    marker = f"source_tag:{tag}"
+    if raw_message and marker in raw_message:
+        return raw_message
+    if raw_message and raw_message.strip():
+        return f"{raw_message.strip()}\n{marker}"
+    return marker
+
+
+def _create_intake_lead(db: Session, payload: LeadIntake, org_id: int, *, source: str, source_tag: str):
+    _assert_intake_not_spam(
+        name=payload.name,
+        phone=payload.phone,
+        email=payload.email,
+        raw_message=payload.raw_message,
+        website=payload.website,
+    )
     data = payload.model_dump()
+    data["source"] = source
+    data["raw_message"] = _append_source_tag(payload.raw_message, source_tag)
+    data.pop("website", None)
     lead = create_lead(db, data, org_id)
     # Auto-schedule a follow-up reminder so the lead doesn't slip through the cracks.
     create_lead_followup_reminder(
@@ -77,10 +123,18 @@ def _create_intake_lead(db: Session, payload: LeadIntake, org_id: int):
 
 
 def _recover_missed_call_lead(db: Session, payload: MissedCallIntake, org_id: int) -> MissedCallRecoveryOut:
+    _assert_intake_not_spam(
+        name=payload.name,
+        phone=payload.phone,
+        email=None,
+        raw_message=payload.raw_message,
+        website=payload.website,
+    )
     raw_message = payload.raw_message
     if payload.call_sid:
         sid_line = f"Call SID: {payload.call_sid}"
         raw_message = f"{sid_line}\n{raw_message}" if raw_message else sid_line
+    raw_message = _append_source_tag(raw_message, "public_missed_call")
 
     lead, created_new = upsert_missed_call_lead(
         db=db,
@@ -123,7 +177,13 @@ def _recover_missed_call_lead(db: Session, payload: MissedCallIntake, org_id: in
 )
 def intake(org_id: int, payload: LeadIntake, db: Session = Depends(get_db)):
     org = _resolve_org_for_intake(db, org_id=org_id)
-    return _create_intake_lead(db, payload, int(cast(int, org.id)))
+    return _create_intake_lead(
+        db,
+        payload,
+        int(cast(int, org.id)),
+        source="web_form",
+        source_tag="public_intake_org",
+    )
 
 
 @router.post(
@@ -134,7 +194,13 @@ def intake(org_id: int, payload: LeadIntake, db: Session = Depends(get_db)):
 )
 def intake_by_key(intake_key: str, payload: LeadIntake, db: Session = Depends(get_db)):
     org = _resolve_org_for_intake(db, intake_key=intake_key)
-    return _create_intake_lead(db, payload, int(cast(int, org.id)))
+    return _create_intake_lead(
+        db,
+        payload,
+        int(cast(int, org.id)),
+        source="web_form",
+        source_tag="public_intake_key",
+    )
 
 
 @router.post(

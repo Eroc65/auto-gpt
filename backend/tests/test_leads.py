@@ -131,6 +131,8 @@ def test_public_intake_creates_lead(client, org_id):
     assert body["status"] == "new"
     assert body["name"] == "John Plumber"
     assert body["organization_id"] == org_id
+    assert body["source"] == "web_form"
+    assert "source_tag:public_intake_org" in (body["raw_message"] or "")
 
 
 def test_public_intake_unknown_org_returns_404(client):
@@ -153,12 +155,33 @@ def test_public_intake_no_auth_needed(client, org_id):
 def test_public_intake_by_key_creates_lead(client, org_intake_key):
     resp = client.post(
         f"/api/leads/intake/by-key/{org_intake_key}",
-        json={"name": "Key Routed", "phone": "555-0199", "source": "web_form"},
+        json={"name": "Key Routed", "phone": "555-0199", "source": "manual"},
     )
     assert resp.status_code == 201
     body = resp.json()
     assert body["status"] == "new"
     assert body["name"] == "Key Routed"
+    assert body["source"] == "web_form"
+    assert "source_tag:public_intake_key" in (body["raw_message"] or "")
+
+
+def test_public_intake_rejects_honeypot_spam(client, org_id):
+    resp = client.post(
+        f"/api/leads/intake/{org_id}",
+        json={"name": "Spam Bot", "phone": "555-7777", "website": "https://spam.example"},
+    )
+    assert resp.status_code == 422
+
+
+def test_public_intake_rejects_link_spam(client, org_id):
+    resp = client.post(
+        f"/api/leads/intake/{org_id}",
+        json={
+            "name": "Spam Links",
+            "raw_message": "Visit https://a.example now and https://b.example fast",
+        },
+    )
+    assert resp.status_code == 422
 
 
 def test_public_intake_by_key_unknown_org_returns_404(client):

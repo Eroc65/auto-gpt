@@ -67,6 +67,7 @@ def test_missed_call_creates_lead_and_immediate_reminder():
     assert body["deduplicated"] is False
     assert body["reminder_created"] is True
     assert body["lead"]["source"] == "missed_call"
+    assert "source_tag:public_missed_call" in (body["lead"]["raw_message"] or "")
 
     lead_id = body["lead"]["id"]
     reminders = client.get(f"/api/reminders?lead_id={lead_id}", headers=headers)
@@ -123,3 +124,14 @@ def test_missed_call_by_key_creates_lead():
     body = resp.json()
     assert body["deduplicated"] is False
     assert body["lead"]["source"] == "missed_call"
+
+
+def test_missed_call_rejects_honeypot_spam():
+    client = TestClient(app)
+    org_id = _get_org_id()
+
+    resp = client.post(
+        f"/api/leads/intake/missed-call/{org_id}",
+        json={"phone": "555-4998", "website": "https://spam.example"},
+    )
+    assert resp.status_code == 422

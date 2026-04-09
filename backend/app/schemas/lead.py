@@ -11,6 +11,7 @@ class LeadIntake(BaseModel):
     email: Optional[str] = None
     source: str = "web_form"
     raw_message: Optional[str] = None
+    website: Optional[str] = None
 
 
 class MissedCallIntake(BaseModel):
@@ -18,6 +19,7 @@ class MissedCallIntake(BaseModel):
     name: Optional[str] = None
     raw_message: Optional[str] = None
     call_sid: Optional[str] = None
+    website: Optional[str] = None
 
 
 class LeadStatusUpdate(BaseModel):
