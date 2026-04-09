@@ -1,7 +1,33 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useMemo, useState } from "react";
 
 export default function LeadLaunchPage() {
+  const [monthlyLeads, setMonthlyLeads] = useState(80);
+  const [missedRate, setMissedRate] = useState(22);
+  const [avgJobValue, setAvgJobValue] = useState(450);
+  const [closeRate, setCloseRate] = useState(55);
+
+  const roi = useMemo(() => {
+    const leadsLost = Math.round(monthlyLeads * (missedRate / 100));
+    const recoverableLeads = Math.round(leadsLost * 0.6);
+    const additionalJobs = Math.round(recoverableLeads * (closeRate / 100));
+    const addedRevenue = additionalJobs * avgJobValue;
+    return {
+      leadsLost,
+      recoverableLeads,
+      additionalJobs,
+      addedRevenue,
+    };
+  }, [monthlyLeads, missedRate, avgJobValue, closeRate]);
+
+  const formatUSD = (value) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }).format(value);
+
   return (
     <>
       <Head>
@@ -82,6 +108,86 @@ export default function LeadLaunchPage() {
           </div>
         </section>
 
+        <section className="dispatch-card">
+          <h2>Estimate Your Monthly Revenue Lift</h2>
+          <p>
+            Use your own numbers to see what faster response and tighter follow-up could recover.
+          </p>
+          <div className="roi-grid">
+            <div className="panel roi-controls">
+              <label>
+                Monthly inbound leads
+                <input
+                  type="number"
+                  min="1"
+                  value={monthlyLeads}
+                  onChange={(e) => setMonthlyLeads(Number(e.target.value || 0))}
+                />
+              </label>
+              <label>
+                Current missed lead rate (%)
+                <input
+                  type="number"
+                  min="0"
+                  max="100"
+                  value={missedRate}
+                  onChange={(e) => setMissedRate(Number(e.target.value || 0))}
+                />
+              </label>
+              <label>
+                Average job value ($)
+                <input
+                  type="number"
+                  min="50"
+                  value={avgJobValue}
+                  onChange={(e) => setAvgJobValue(Number(e.target.value || 0))}
+                />
+              </label>
+              <label>
+                Close rate on recovered leads (%)
+                <input
+                  type="number"
+                  min="0"
+                  max="100"
+                  value={closeRate}
+                  onChange={(e) => setCloseRate(Number(e.target.value || 0))}
+                />
+              </label>
+            </div>
+
+            <div className="panel roi-results">
+              <h3>Projected Impact</h3>
+              <ul>
+                <li>Leads currently slipping: <strong>{roi.leadsLost}</strong></li>
+                <li>Leads potentially recovered: <strong>{roi.recoverableLeads}</strong></li>
+                <li>Extra jobs booked: <strong>{roi.additionalJobs}</strong></li>
+                <li>Estimated monthly revenue lift: <strong>{formatUSD(roi.addedRevenue)}</strong></li>
+              </ul>
+              <p>
+                Conservative model based on recovering 60% of currently missed leads.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="dispatch-card">
+          <h2>LeadLaunch FAQ</h2>
+          <div className="faq-grid">
+            <article className="panel">
+              <h3>How fast can we go live?</h3>
+              <p>Most shops launch in 10-14 days once assets and service areas are confirmed.</p>
+            </article>
+            <article className="panel">
+              <h3>Do I need a full office team?</h3>
+              <p>No. The workflow is designed for owner-operators and small crews without dedicated office staff.</p>
+            </article>
+            <article className="panel">
+              <h3>Can this work with my current tools?</h3>
+              <p>Yes. We can start with lightweight integrations and keep your existing booking and invoicing stack.</p>
+            </article>
+          </div>
+        </section>
+
         <section className="dispatch-card final-cta">
           <h2>Stop losing jobs to slow follow-up.</h2>
           <p>LeadLaunch helps you answer faster and book more of the work you already paid to generate.</p>
@@ -151,12 +257,54 @@ export default function LeadLaunchPage() {
           grid-template-columns: repeat(3, minmax(0, 1fr));
         }
 
+        .roi-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
+        }
+
+        .roi-controls {
+          display: grid;
+          gap: 10px;
+        }
+
+        .roi-controls label {
+          font-weight: 700;
+          color: #1d2b3f;
+        }
+
+        .roi-results ul {
+          margin: 0;
+          padding-left: 18px;
+          display: grid;
+          gap: 8px;
+        }
+
+        .roi-results p {
+          margin-top: 12px;
+          color: #44536a;
+        }
+
+        .faq-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 10px;
+        }
+
         .final-cta {
           text-align: center;
         }
 
         @media (max-width: 860px) {
           .leadlaunch-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .roi-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .faq-grid {
             grid-template-columns: 1fr;
           }
 
