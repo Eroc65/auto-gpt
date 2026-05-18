@@ -1,0 +1,69 @@
+:root {
+  --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --border-radius-md: 10px;
+  --border-radius-lg: 14px;
+
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f6f7fb;
+  --color-background-tertiary: #eef1f6;
+  --color-background-info: #e8f1ff;
+  --color-background-success: #eaf8ef;
+  --color-background-warning: #fff8e9;
+  --color-background-danger: #feeff1;
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #5b6475;
+  --color-text-info: #1f4ec9;
+  --color-text-success: #187947;
+  --color-text-warning: #9a6500;
+  --color-text-danger: #b42335;
+
+  --color-border-primary: #d8dde7;
+  --color-border-secondary: #b9c4d6;
+  --color-border-tertiary: #dfe4ed;
+  --color-border-info: #b8cdfb;
+  --color-border-success: #b9e8c9;
+  --color-border-warning: #f5dfae;
+  --color-border-danger: #f3b7c0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: var(--font-sans);
+}
+
+input,
+select,
+textarea {
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--border-radius-md);
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--color-text-primary);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-border-info);
+  box-shadow: 0 0 0 3px rgba(31, 78, 201, 0.12);
+}
