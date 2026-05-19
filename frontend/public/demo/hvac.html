@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Superior Air Services | HVAC Repair Tulsa OK</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a1628;--navy2:#0f2040;--orange:#ff6a00;--orange2:#ff8c38;--white:#f5f7fa;--muted:#8a9ab5}
+body{background:var(--navy);color:var(--white);font-family:'Barlow',sans-serif}
+a{color:inherit;text-decoration:none}
+
+/* Sticky CTA bar */
+.sticky-bar{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--orange);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.sticky-bar p{font-size:14px;font-weight:600;letter-spacing:.02em}
+.sticky-bar a{background:#fff;color:var(--orange);padding:8px 20px;border-radius:4px;font-weight:800;font-size:14px;letter-spacing:.03em}
+
+/* Hero */
+.hero{padding:120px 24px 80px;text-align:center;background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,106,0,.15) 0%,transparent 70%)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,106,0,.15);border:1px solid rgba(255,106,0,.3);padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;color:var(--orange);margin-bottom:20px;letter-spacing:.05em}
+.hero-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--orange);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(48px,8vw,88px);font-weight:900;line-height:.95;letter-spacing:-1px;margin-bottom:16px;text-transform:uppercase}
+h1 span{color:var(--orange);display:block}
+.hero-sub{font-size:18px;color:var(--muted);max-width:520px;margin:0 auto 36px;line-height:1.6}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--orange);color:#fff;padding:16px 36px;border-radius:4px;font-weight:800;font-size:16px;letter-spacing:.03em;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:var(--orange2)}
+.btn-ghost{border:2px solid rgba(255,255,255,.2);padding:16px 32px;border-radius:4px;font-weight:600;font-size:15px}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--navy2);margin:0 24px 60px;border-radius:8px;overflow:hidden;max-width:800px;margin-left:auto;margin-right:auto}
+.stat{background:rgba(255,255,255,.03);padding:28px 20px;text-align:center}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:900;color:var(--orange);line-height:1}
+.stat-label{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* Services */
+section{padding:70px 24px;max-width:1000px;margin:0 auto}
+.section-eyebrow{font-size:12px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-.5px;margin-bottom:40px;text-transform:uppercase}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.service-card{background:var(--navy2);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--orange)}
+.service-icon{font-size:32px;margin-bottom:12px}
+.service-name{font-weight:700;font-size:16px;margin-bottom:6px}
+.service-desc{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* Reviews */
+.reviews-section{background:var(--navy2);padding:70px 24px}
+.reviews-inner{max-width:1000px;margin:0 auto}
+.stars{color:var(--orange);font-size:20px;margin-bottom:8px}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:40px}
+.review-card{background:var(--navy);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:22px}
+.review-text{font-size:14px;line-height:1.6;color:var(--muted);margin-bottom:14px}
+.reviewer{font-weight:600;font-size:14px}
+.reviewer-location{font-size:12px;color:var(--muted)}
+
+/* CTA section */
+.cta-section{background:linear-gradient(135deg,var(--orange) 0%,#c94a00 100%);padding:70px 24px;text-align:center}
+.cta-section h2{color:#fff;margin-bottom:12px}
+.cta-section p{color:rgba(255,255,255,.8);font-size:16px;margin-bottom:32px}
+.btn-white{background:#fff;color:var(--orange);padding:16px 36px;border-radius:4px;font-weight:800;font-size:16px;display:inline-flex;align-items:center;gap:8px}
+
+/* Footer */
+footer{background:#05101f;padding:24px;text-align:center;font-size:12px;color:var(--muted)}
+footer a{color:var(--orange)}
+</style>
+</head>
+<body>
+<div class="sticky-bar">
+  <p>🌡️ AC out? We're available 24/7 — same-day service</p>
+  <a href="tel:9185550100">📞 (918) 555-0100</a>
+</div>
+
+<div class="hero">
+  <div class="hero-badge">✓ Tulsa's #1 Rated HVAC Company</div>
+  <h1>AC Out?<span>We Fix It Today.</span></h1>
+  <p class="hero-sub">Same-day AC repair, heating, and installation for Tulsa homes. Available 24/7. No overtime charges. 100% satisfaction guaranteed.</p>
+  <div class="hero-cta">
+    <a class="btn-primary" href="tel:9185550100">📞 Call Now — (918) 555-0100</a>
+    <a class="btn-ghost" href="#services">See Our Services</a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Emergency service</div></div>
+  <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">142 Google reviews</div></div>
+  <div class="stat"><div class="stat-num">$0</div><div class="stat-label">Overtime charge</div></div>
+</div>
+
+<section id="services">
+  <div class="section-eyebrow">What we do</div>
+  <h2>HVAC Services in Tulsa</h2>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">❄️</div><div class="service-name">AC Repair</div><div class="service-desc">Same-day repair for all makes and models. If we can't fix it today, you don't pay the diagnostic fee.</div></div>
+    <div class="service-card"><div class="service-icon">🔥</div><div class="service-name">Furnace Repair</div><div class="service-desc">Heat out in winter? We prioritize emergency heating calls and carry parts for most common systems.</div></div>
+    <div class="service-card"><div class="service-icon">🏗️</div><div class="service-name">New Installation</div><div class="service-desc">Free in-home estimates. We install all major brands with manufacturer warranties + our own 2-year labor guarantee.</div></div>
+    <div class="service-card"><div class="service-icon">🔧</div><div class="service-name">Maintenance Plans</div><div class="service-desc">Bi-annual tune-ups keep your system running efficiently and catch issues before they become expensive repairs.</div></div>
+    <div class="service-card"><div class="service-icon">💨</div><div class="service-name">Air Quality</div><div class="service-desc">Filters, UV systems, humidity control. Cleaner air for your family — especially important for allergy season.</div></div>
+    <div class="service-card"><div class="service-icon">🌡️</div><div class="service-name">Heat Pumps</div><div class="service-desc">Installation and repair of heat pump systems. More efficient than traditional AC+furnace in Oklahoma's climate.</div></div>
+  </div>
+</section>
+
+<div class="reviews-section">
+  <div class="reviews-inner">
+    <div class="section-eyebrow">What customers say</div>
+    <h2>142 Five-Star Reviews</h2>
+    <div class="reviews-grid">
+      <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"AC went out at 9pm on the hottest day of the year. They were here by 11pm and had it fixed before midnight. Amazing service."</p><div class="reviewer">Jennifer M. <span class="reviewer-location">— Broken Arrow</span></div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Honest pricing, no surprise fees. The tech walked me through exactly what was wrong and what it would cost before touching anything."</p><div class="reviewer">Marcus T. <span class="reviewer-location">— South Tulsa</span></div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Been using them for 3 years now. Always on time, always professional, always fair prices. Won't call anyone else."</p><div class="reviewer">Sandra K. <span class="reviewer-location">— Owasso</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>READY WHEN YOUR AC ISN'T</h2>
+  <p>Same-day service available 7 days a week. No overtime charges. Honest pricing.</p>
+  <a class="btn-white" href="tel:9185550100">📞 Call (918) 555-0100</a>
+</div>
+
+<footer>
+  <p style="margin-bottom:8px">Superior Air Services · Tulsa, OK · (918) 555-0100</p>
+  <p>Website by <a href="https://gofieldwise.com">GoFieldWise</a> — Oklahoma Trades SEO & Web Design</p>
+</footer>
+</body>
+</html>

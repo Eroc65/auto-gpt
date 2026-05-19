@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Greenfield Landscaping | Lawn & Landscape Tulsa OK</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--earth:#1c1a14;--earth2:#252218;--green:#2d6a30;--green2:#3a8a3e;--green-light:#e8f2e8;--gold:#c8a04a;--white:#f4f2ed;--muted:#7a7560}
+body{background:var(--white);color:var(--earth);font-family:'Inter',sans-serif}
+a{color:inherit;text-decoration:none}
+header{background:var(--earth);padding:18px 32px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--white)}
+.logo span{color:var(--gold)}
+.header-cta{background:var(--green);color:#fff;padding:10px 22px;border-radius:30px;font-weight:600;font-size:14px}
+.hero{background:var(--earth);padding:100px 32px 80px;color:var(--white)}
+.hero-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
+@media(max-width:700px){.hero-inner{grid-template-columns:1fr}}
+.hero-leaf{font-size:48px;margin-bottom:14px}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(200,160,74,.15);border:1px solid rgba(200,160,74,.25);color:var(--gold);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:18px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(38px,5.5vw,60px);line-height:1.1;margin-bottom:16px}
+h1 em{font-style:italic;color:var(--gold)}
+.hero p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:28px}
+.btn-gold{background:var(--gold);color:#000;padding:14px 28px;border-radius:30px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:6px}
+.hero-stats{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:28px}
+.hero-stats h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);margin-bottom:20px}
+.stat-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:14px}
+.stat-row:last-child{border-bottom:none}
+.stat-row .label{color:rgba(255,255,255,.5)}
+.stat-row .val{font-weight:600;color:var(--white)}
+.services-section{padding:70px 32px;max-width:1000px;margin:0 auto}
+.section-label{font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);margin-bottom:36px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.svc{border:1px solid rgba(0,0,0,.08);border-radius:10px;overflow:hidden}
+.svc-img{height:8px;background:var(--green)}
+.svc-body{padding:22px}
+.svc-icon{font-size:28px;margin-bottom:10px}
+.svc h3{font-weight:700;font-size:15px;margin-bottom:6px}
+.svc p{font-size:13px;color:var(--muted);line-height:1.6}
+.reviews-section{background:var(--earth);padding:70px 32px}
+.reviews-inner{max-width:1000px;margin:0 auto}
+.reviews-inner .section-label{color:var(--gold)}
+.reviews-inner h2{color:var(--white)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:36px}
+.review{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:22px}
+.stars{color:var(--gold);font-size:15px;margin-bottom:10px}
+.review p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:12px;font-style:italic}
+.reviewer{font-size:13px;font-weight:600;color:var(--white)}
+.cta-section{background:var(--green);padding:70px 32px;text-align:center;color:#fff}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);margin-bottom:12px}
+.cta-section p{font-size:16px;color:rgba(255,255,255,.75);margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+.btn-white{background:#fff;color:var(--green);padding:15px 34px;border-radius:30px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:6px}
+footer{background:var(--earth2);padding:24px;text-align:center;font-size:12px;color:var(--muted)}
+footer a{color:var(--gold)}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">🌿 Greenfield <span>Landscaping</span></div>
+  <a class="header-cta" href="tel:9185550600">Free estimate →</a>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">🌱 Tulsa's outdoor specialists</div>
+      <h1>A yard you'll <em>actually</em> love coming home to</h1>
+      <p>From weekly lawn maintenance to complete landscape design — we make your outdoor space look as good as the inside of your home.</p>
+      <a class="btn-gold" href="tel:9185550600">📞 Free Estimate — (918) 555-0600</a>
+    </div>
+    <div class="hero-stats">
+      <h3>Why Tulsa chooses Greenfield</h3>
+      <div class="stat-row"><span class="label">Google rating</span><span class="val">4.9 ★ (78 reviews)</span></div>
+      <div class="stat-row"><span class="label">Years in Tulsa</span><span class="val">12 years</span></div>
+      <div class="stat-row"><span class="label">Services</span><span class="val">Lawn, landscape & irrigation</span></div>
+      <div class="stat-row"><span class="label">Response time</span><span class="val">Same-day estimates</span></div>
+      <div class="stat-row"><span class="label">Contracts</span><span class="val">Monthly, no lock-in</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="services-section" id="services">
+  <div class="section-label">Our services</div>
+  <h2>Everything your yard needs</h2>
+  <div class="services-grid">
+    <div class="svc"><div class="svc-img"></div><div class="svc-body"><div class="svc-icon">🌿</div><h3>Lawn Maintenance</h3><p>Weekly or bi-weekly mowing, edging, blowing, and seasonal cleanup. Consistent schedule, reliable crew.</p></div></div>
+    <div class="svc"><div class="svc-img"></div><div class="svc-body"><div class="svc-icon">🌳</div><h3>Landscape Design</h3><p>Transform a plain yard into a designed outdoor space. Beds, borders, trees, and hardscaping planned around your life.</p></div></div>
+    <div class="svc"><div class="svc-img"></div><div class="svc-body"><div class="svc-icon">💧</div><h3>Irrigation</h3><p>System installation, repair, and seasonal startup/shutdown. Efficient watering that keeps your lawn green without waste.</p></div></div>
+    <div class="svc"><div class="svc-img"></div><div class="svc-body"><div class="svc-icon">🍂</div><h3>Seasonal Cleanup</h3><p>Spring and fall cleanup — leaf removal, bed prep, pruning, and mulching. Start and end the season right.</p></div></div>
+    <div class="svc"><div class="svc-img"></div><div class="svc-body"><div class="svc-icon">🌺</div><h3>Planting</h3><p>Flowers, shrubs, ornamental grasses, and trees. Native Oklahoma plants for low-maintenance beauty.</p></div></div>
+    <div class="svc"><div class="svc-img"></div><div class="svc-body"><div class="svc-icon">🧱</div><h3>Hardscaping</h3><p>Patios, walkways, retaining walls, and raised beds. Add structure and function to your outdoor space.</p></div></div>
+  </div>
+</div>
+
+<div class="reviews-section">
+  <div class="reviews-inner">
+    <div class="section-label">Reviews</div>
+    <h2>78 five-star reviews</h2>
+    <div class="reviews-grid">
+      <div class="review"><div class="stars">★★★★★</div><p>"Our yard looks completely different. They designed a whole planting plan, explained every choice, and finished on time. Neighbors keep asking who did it."</p><div class="reviewer">Patricia W. — Jenks</div></div>
+      <div class="review"><div class="stars">★★★★★</div><p>"Consistent, reliable, and actually show up when they say they will. That's surprisingly rare. Our lawn has never looked better."</p><div class="reviewer">Mark & Diane F. — South Tulsa</div></div>
+      <div class="review"><div class="stars">★★★★★</div><p>"Had them install an irrigation system and replant all our front beds. Cut our watering time to zero and everything is thriving."</p><div class="reviewer">James R. — Owasso</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Ready to love your yard again?</h2>
+  <p>Free estimates, same-day response. Monthly service with no long-term contracts.</p>
+  <a class="btn-white" href="tel:9185550600">📞 Call (918) 555-0600</a>
+</div>
+
+<footer>
+  <p style="margin-bottom:8px">Greenfield Landscaping · Tulsa, OK · Licensed & Insured · (918) 555-0600</p>
+  <p>Website by <a href="https://gofieldwise.com">GoFieldWise</a> — Oklahoma Trades SEO & Web Design</p>
+</footer>
+</body>
+</html>
