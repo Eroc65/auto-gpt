@@ -11,16 +11,16 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>GoFieldWise | Local SEO & Websites for Oklahoma Trades</title>
+        <title>AI Receptionist for HVAC, Plumbing & Home Service Businesses | GoFieldWise</title>
         <meta
-          name="description" content="GoFieldWise helps HVAC, plumbing, electrical & cleaning companies in Oklahoma rank #1 on Google, get more calls, and grow without paid ads. Free audit included."
+          name="description" content="GoFieldWise answers every call, books jobs, and follows up automatically — 24/7. Built for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No contracts."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://gofieldwise.com/" />
-        <meta property="og:title" content="GoFieldWise | Local SEO & Websites for Oklahoma Trades" />
+        <meta property="og:title" content="AI Receptionist for HVAC, Plumbing & Home Service Businesses | GoFieldWise" />
         <meta
           property="og:description"
-          content="GoFieldWise helps HVAC, plumbing, electrical & cleaning companies in Oklahoma rank #1 on Google, get more calls, and grow without paid ads."
+          content="GoFieldWise answers every call, books jobs, and follows up automatically — 24/7. Built for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No contracts."
         />
         <meta property="og:url" content="https://gofieldwise.com/" />
         <meta property="og:type" content="website" />
@@ -47,11 +47,11 @@ export default function Home() {
       <main className="page-shell">
         <section className="hero home-hero">
           <p className="eyebrow">AI Front Office for Home Service Businesses</p>
-          <h1>More calls from Google for your Oklahoma trades business - without paid ads</h1>
+          <h1>Never Lose a Job to a Missed Call Again</h1>
           <p>
-            GoFieldWise gets HVAC, plumbing, electrical & cleaning companies in Oklahoma to page 1
-            of Google organically. No ad spend. Free audit shows exactly what&apos;s holding your site
-            back.
+            GoFieldWise answers every call, books jobs, and follows up automatically - 24/7. Built
+            for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No
+            contracts.
           </p>
           <div className="actions">
             <Link href="/demo" className="hero-cta-primary" onClick={() => trackIntentClick("try_live_demo", "home")}>
