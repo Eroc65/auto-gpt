@@ -1,84 +1,20 @@
 name: Deploy Render Blueprint
-
 on:
   workflow_dispatch:
     inputs:
       render_api_key:
-        description: 'Render API Key'
+        description: Render API Key
         required: true
       anthropic_api_key:
-        description: 'Anthropic API Key'
+        description: Anthropic API Key
         required: true
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Create Render Service
+      - name: Deploy to Render
         env:
           RENDER_API_KEY: ${{ github.event.inputs.render_api_key }}
           ANTHROPIC_API_KEY: ${{ github.event.inputs.anthropic_api_key }}
-        run: |
-          echo "Fetching owner ID..."
-          OWNER=$(curl -s "https://api.render.com/v1/owners?limit=1" \
-            -H "Authorization: Bearer $RENDER_API_KEY" \
-            -H "Accept: application/json")
-          echo "Owner response: $OWNER"
-          OWNER_ID=$(echo "$OWNER" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['owner']['id'] if d else '')" 2>/dev/null || echo "")
-          echo "Owner ID: $OWNER_ID"
-
-          echo "Checking for existing service..."
-          SERVICES=$(curl -s "https://api.render.com/v1/services?limit=100" \
-            -H "Authorization: Bearer $RENDER_API_KEY" \
-            -H "Accept: application/json")
-          SERVICE_ID=$(echo "$SERVICES" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-for item in data:
-    if isinstance(item, dict) and item.get('service', {}).get('name') == 'oklahoma-seo-growth-engine':
-        print(item['service']['id'])
-        sys.exit(0)
-print('')
-" 2>/dev/null || echo "")
-          echo "Existing service ID: '$SERVICE_ID'"
-
-          if [ -n "$SERVICE_ID" ]; then
-            echo "Service exists - triggering redeploy"
-            curl -s -X POST "https://api.render.com/v1/services/$SERVICE_ID/deploys" \
-              -H "Authorization: Bearer $RENDER_API_KEY" \
-              -H "Content-Type: application/json" \
-              -d '{"clearCache":"do_not_clear"}'
-          else
-            echo "Creating new service..."
-            RESULT=$(curl -s -X POST "https://api.render.com/v1/services" \
-              -H "Authorization: Bearer $RENDER_API_KEY" \
-              -H "Content-Type: application/json" \
-              -d "{
-                \"type\": \"web_service\",
-                \"name\": \"oklahoma-seo-growth-engine\",
-                \"ownerId\": \"$OWNER_ID\",
-                \"repo\": \"https://github.com/Eroc65/auto-gpt\",
-                \"branch\": \"main\",
-                \"serviceDetails\": {
-                  \"env\": \"node\",
-                  \"buildCommand\": \"npm ci && npm run build\",
-                  \"startCommand\": \"npm run start\",
-                  \"healthCheckPath\": \"/api/health\",
-                  \"numInstances\": 1,
-                  \"plan\": \"free\"
-                },
-                \"envVars\": [
-                  {\"key\": \"ANTHROPIC_API_KEY\", \"value\": \"$ANTHROPIC_API_KEY\"}
-                ]
-              }")
-            echo "Create result: $RESULT"
-            NEW_ID=$(echo "$RESULT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('service',{}).get('id',''))" 2>/dev/null || echo "")
-            if [ -n "$NEW_ID" ]; then
-              echo "SUCCESS: Created service $NEW_ID"
-            else
-              echo "FAILED to create service"
-              exit 1
-            fi
-          fi
+        run: python3 scripts/render_deploy.py
