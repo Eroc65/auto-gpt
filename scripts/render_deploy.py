@@ -1,6 +1,7 @@
 import os
 import json
 import urllib.request
+import urllib.error
 import sys
 
 api_key = os.environ['RENDER_API_KEY']
@@ -18,9 +19,13 @@ def api(path, method='GET', body=None):
     req = urllib.request.Request(url, data=data, headers=headers, method=method)
     try:
         resp = urllib.request.urlopen(req, timeout=30)
-        return json.loads(resp.read())
+        raw = resp.read()
+        if not raw.strip():
+            return {}
+        return json.loads(raw)
     except urllib.error.HTTPError as e:
-        print(f'HTTP {e.code}: {e.read().decode()}')
+        body_text = e.read().decode()
+        print(f'HTTP {e.code}: {body_text}')
         raise
 
 print('Getting owner ID...')
@@ -31,15 +36,20 @@ print(f'Owner: {owner_id}')
 print('Checking for existing service...')
 services = api('/services?limit=100')
 existing_id = None
+existing_name = None
 for s in services:
     if isinstance(s, dict) and s.get('service', {}).get('name') == SERVICE_NAME:
         existing_id = s['service']['id']
+        existing_name = s['service']['name']
         break
 
 if existing_id:
-    print(f'Service {existing_id} exists - redeploying')
+    print(f'Service {existing_id} ({existing_name}) already exists - triggering redeploy')
     result = api(f'/services/{existing_id}/deploys', method='POST', body={'clearCache': 'do_not_clear'})
-    print(f'Deploy: {result}')
+    deploy_id = result.get('id', 'unknown') if result else 'triggered'
+    print(f'Deploy triggered: {deploy_id}')
+    print(f'Dashboard: https://dashboard.render.com/web/{existing_id}')
+    print('SUCCESS: Service exists and redeploy triggered')
 else:
     print('Creating new service...')
     payload = {
