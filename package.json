@@ -8,10 +8,10 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "cd frontend && npm ci && npm run build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "node server.js",
+    "start": "cd frontend && npm run start",
     "start:prod": "npm run build && node server.js"
   },
   "dependencies": {
