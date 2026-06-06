@@ -11,7 +11,7 @@
     "build": "cd frontend && npm ci && npm run build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "cd frontend && npm run start",
+    "start": "cd frontend && npm run start -- -p $PORT",
     "start:prod": "npm run build && node server.js"
   },
   "dependencies": {
