@@ -1,5 +1,15 @@
 # GoFieldWise Growth Engine (React + Vite)
 
+## Production Source Of Truth
+
+- Canonical production app/domain: https://gofieldwise.com
+- Canonical repo for live app behavior: https://github.com/Eroc65/auto-gpt (branch: main)
+- Canonical runtime host: Render web service `oklahoma-seo-growth-engine` (srv-d89pc0bbc2fs73ff6bo0)
+
+Operational rule:
+- Any user-facing homepage, navigation, Field Notes, webhook, or API behavior intended for gofieldwise.com must be changed here first.
+- The `gofieldwise-production` repository may still exist for staging/backup, but is not the primary source for live domain behavior.
+
 ## Local setup
 
 1. Install dependencies:
