@@ -19,7 +19,10 @@ Then edit `.env` and set:
 ```env
 ANTHROPIC_API_KEY=your_real_key_here
 PORT=4173
+KB_TELEMETRY_ADMIN_TOKEN=replace_with_a_long_random_token
 ```
+
+Use the same `KB_TELEMETRY_ADMIN_TOKEN` value in the frontend server env so the Connect telemetry panel can authenticate summary requests.
 
 3. Run dev server:
 

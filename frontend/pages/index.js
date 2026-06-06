@@ -1,12 +1,51 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
 
 import { trackIntentClick } from "../lib/analytics";
+import { getLatestPosts, formatPostDate } from "../lib/posts";
 
 export default function Home() {
   const facebookUrl = process.env.NEXT_PUBLIC_FACEBOOK_URL || "https://www.facebook.com";
   const xUrl = process.env.NEXT_PUBLIC_X_URL || "https://x.com";
   const twitterUrl = "https://twitter.com";
+  const [email, setEmail] = useState("");
+  const [subscribeState, setSubscribeState] = useState({ status: "idle", message: "" });
+  const latestPosts = getLatestPosts(3);
+
+  async function handleSubscribe(event) {
+    event.preventDefault();
+    if (!email.trim()) {
+      setSubscribeState({ status: "error", message: "Enter a valid email address." });
+      return;
+    }
+
+    try {
+      setSubscribeState({ status: "loading", message: "Subscribing..." });
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), source: "field-notes-home" }),
+      });
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        setSubscribeState({
+          status: "error",
+          message: payload.error || "Subscription failed. Try again.",
+        });
+        return;
+      }
+
+      setSubscribeState({
+        status: "success",
+        message: payload.message || "You are subscribed to Field Notes.",
+      });
+      setEmail("");
+    } catch (error) {
+      setSubscribeState({ status: "error", message: "Network error. Please retry." });
+    }
+  }
 
   return (
     <>
@@ -45,6 +84,16 @@ export default function Home() {
       </Head>
 
       <main className="page-shell">
+        <nav className="top-nav">
+          <Link href="/" className="brand">GoFieldwise</Link>
+          <div className="nav-links">
+            <Link href="/demo">Demo</Link>
+            <Link href="/pricing">Pricing</Link>
+            <Link href="/connect">Connect</Link>
+            <Link href="/field-notes">Field Notes</Link>
+          </div>
+        </nav>
+
         <section className="hero home-hero">
           <p className="eyebrow">AI Front Office for Home Service Businesses</p>
           <h1>Never Lose a Job to a Missed Call Again</h1>
@@ -162,6 +211,67 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="dispatch-card field-notes-teaser">
+          <div className="teaser-header">
+            <h2>Field Notes</h2>
+            <Link href="/field-notes" className="see-all">See all →</Link>
+          </div>
+          <p>Short, practical playbooks for operators. New every week.</p>
+          <div className="results-grid teaser-grid">
+            {latestPosts.map((post) => (
+              <article key={post.slug} className="panel teaser-card">
+                <div className="teaser-meta">
+                  <span className="tag">{post.category}</span>
+                  <span className="date">{formatPostDate(post.date)}</span>
+                </div>
+                <h3>
+                  <Link href={`/field-notes/${post.slug}`}>{post.title}</Link>
+                </h3>
+                <p>{post.summary}</p>
+                <Link href={`/field-notes/${post.slug}`} className="read-more">
+                  Read more →
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="field-notes" className="dispatch-card field-notes">
+          <h2>Subscribe to Field Notes</h2>
+          <p>Short, practical playbooks for operators: speed-to-lead fixes, call script upgrades, dispatch process wins, and lessons from the field.</p>
+          <div className="results-grid">
+            <article className="panel">
+              <h3>What you get</h3>
+              <p>Action-first updates built for home service teams, not generic marketing fluff.</p>
+            </article>
+            <article className="panel">
+              <h3>Frequency</h3>
+              <p>One concise update each week with templates you can apply the same day.</p>
+            </article>
+          </div>
+          <form className="field-notes-form" onSubmit={handleSubscribe}>
+            <label htmlFor="field-notes-email">Email address</label>
+            <div className="field-notes-input-row">
+              <input
+                id="field-notes-email"
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="you@company.com"
+                required
+              />
+              <button type="submit" disabled={subscribeState.status === "loading"}>
+                {subscribeState.status === "loading" ? "Subscribing..." : "Subscribe"}
+              </button>
+            </div>
+            {subscribeState.message ? (
+              <p className={`field-notes-message ${subscribeState.status === "success" ? "success" : "error"}`}>
+                {subscribeState.message}
+              </p>
+            ) : null}
+          </form>
+        </section>
+
         <section className="dispatch-card final-cta">
           <h2>Ready to Stop Losing Jobs to Missed Calls?</h2>
           <p>Start with the live demo and see how GoFieldwise handles real customer requests from first contact to booked job.</p>
@@ -233,9 +343,92 @@ export default function Home() {
         }
         .socials a:hover { background: rgba(245,197,66,0.12); }
         .socials svg { width: 18px; height: 18px; fill: currentColor; }
+        .field-notes { border: 1px solid rgba(245, 197, 66, 0.22); background: rgba(11, 15, 26, 0.55); }
+        .field-notes h2, .field-notes h3 { color: #f8fafc; }
+        .field-notes p { color: rgba(248, 250, 252, 0.88); }
+        .field-notes-form { margin-top: 12px; display: grid; gap: 8px; }
+        .field-notes-form label { font-weight: 700; color: #f5c542; }
+        .field-notes-input-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .field-notes-input-row input {
+          flex: 1 1 240px;
+          min-height: 42px;
+          padding: 0 12px;
+          border-radius: 10px;
+          border: 1px solid rgba(245, 197, 66, 0.35);
+          background: rgba(255, 255, 255, 0.06);
+          color: #f8fafc;
+        }
+        .field-notes-input-row input::placeholder { color: rgba(248, 250, 252, 0.56); }
+        .field-notes-input-row button {
+          min-height: 42px;
+          border: 0;
+          border-radius: 10px;
+          padding: 0 14px;
+          font-weight: 700;
+          cursor: pointer;
+          color: #0b0f1a;
+          background: linear-gradient(120deg, #f5c542, #ffd671);
+        }
+        .field-notes-input-row button[disabled] { opacity: 0.65; cursor: not-allowed; }
+        .field-notes-message { margin: 0; font-size: 0.92rem; }
+        .field-notes-message.success { color: #6ee7b7; }
+        .field-notes-message.error { color: #fca5a5; }
+        .top-nav {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 12px 16px;
+          margin-bottom: 16px;
+          border: 1px solid rgba(245, 197, 66, 0.22);
+          border-radius: 12px;
+          background: rgba(11, 15, 26, 0.55);
+        }
+        .top-nav .brand {
+          font-weight: 800;
+          color: #f5c542;
+          text-decoration: none;
+          font-size: 1.05rem;
+        }
+        .top-nav .nav-links {
+          display: flex;
+          gap: 14px;
+          flex-wrap: wrap;
+        }
+        .top-nav .nav-links :global(a) {
+          color: rgba(248, 250, 252, 0.88);
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+        .top-nav .nav-links :global(a:hover) { color: #f5c542; }
+        .field-notes-teaser { border: 1px solid rgba(245, 197, 66, 0.22); background: rgba(11, 15, 26, 0.55); }
+        .field-notes-teaser h2, .field-notes-teaser h3 { color: #f8fafc; }
+        .field-notes-teaser p { color: rgba(248, 250, 252, 0.88); }
+        .teaser-header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+        .see-all { color: #f5c542; text-decoration: none; font-weight: 700; font-size: 0.95rem; }
+        .see-all:hover { text-decoration: underline; }
+        .teaser-grid { margin-top: 12px; }
+        .teaser-card { display: flex; flex-direction: column; gap: 8px; }
+        .teaser-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        .teaser-meta .tag {
+          color: #0b0f1a;
+          background: linear-gradient(120deg, #f5c542, #ffd671);
+          padding: 3px 8px;
+          border-radius: 999px;
+          font-weight: 700;
+        }
+        .teaser-meta .date { color: rgba(248, 250, 252, 0.65); }
+        .teaser-card h3 { margin: 0; font-size: 1.05rem; }
+        .teaser-card h3 :global(a) { color: #f8fafc; text-decoration: none; }
+        .teaser-card h3 :global(a:hover) { color: #f5c542; }
+        .teaser-card .read-more { color: #f5c542; text-decoration: none; font-weight: 700; margin-top: auto; }
+        .teaser-card .read-more:hover { text-decoration: underline; }
         @media (max-width: 760px) {
           .hero-kpis { grid-template-columns: 1fr; }
           .landing-social-footer { flex-direction: column; align-items: flex-start; }
+          .field-notes-input-row { flex-direction: column; }
+          .field-notes-input-row button { width: 100%; }
+          .top-nav { flex-direction: column; align-items: flex-start; gap: 8px; }
         }
       `}</style>
     </>
