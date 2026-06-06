@@ -1,10 +1,10 @@
 services:
   - type: web
     name: oklahoma-seo-growth-engine
-    env: node
+    runtime: node
     autoDeploy: true
-    buildCommand: npm ci && npm run build
-    startCommand: npm run start
+    buildCommand: cd frontend && npm ci && npm run build
+    startCommand: cd frontend && npm run start -- -p $PORT
     healthCheckPath: /api/health
     envVars:
       - key: ANTHROPIC_API_KEY
