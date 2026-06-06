@@ -2,13 +2,20 @@
 
 Use this checklist for every production release.
 
+Role of this repo:
+- This is the canonical source for gofieldwise.com production behavior.
+- Vercel previews or non-canonical repo previews are not release truth for gofieldwise.com.
+
 1. Confirm Canonical Target
 - Confirm change belongs to this repo (`auto-gpt`) for `gofieldwise.com` production behavior.
 - Confirm branch is `main` and working tree is clean enough for an intentional commit.
+- Route ownership lookup:
+- If route is user-facing (`/`, `/field-notes`, `/connect`) or production API (`/api/health`, webhooks), it belongs here.
+- If unsure, verify production headers first: `curl -I https://gofieldwise.com/` should include `x-render-origin-server: Render`.
 
 2. Validate Changes Locally
-- Run targeted tests for changed areas.
-- Run app build (`frontend`/root as applicable).
+- Run targeted tests for changed areas (example: `cd frontend && npm run test` if tests exist).
+- Run app build from repo root: `npm run build` (or `cd frontend && npm run build` if the change is frontend-only).
 - Fix lint/type/runtime errors in changed files before pushing.
 
 3. Verify Config And Secrets
@@ -23,7 +30,12 @@ Use this checklist for every production release.
 
 5. Smoke Test Production
 - Check `https://gofieldwise.com/api/health` returns `200`.
-- Verify homepage and primary nav routes load.
+- Verify these minimum routes return expected content:
+- `https://gofieldwise.com/`
+- `https://gofieldwise.com/field-notes`
+- `https://gofieldwise.com/field-notes/never-miss-after-hours-call`
+- `https://gofieldwise.com/field-notes/real-dispatch-summary`
+- `https://gofieldwise.com/field-notes/software-for-one-van-shops`
 - Verify changed endpoints/pages (example: `/field-notes`, key API routes) return expected behavior.
 
 6. Post-Deploy Record
