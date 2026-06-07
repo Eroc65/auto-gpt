@@ -52,22 +52,14 @@ export default function Home() {
       <Head>
         <title>AI Receptionist for HVAC, Plumbing & Home Service Businesses | GoFieldWise</title>
         <meta
-          name="description" content="GoFieldWise answers every call, books jobs, and follows up automatically — 24/7. Built for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No contracts."
+          name="description" content="GoFieldWise answers every call, books jobs, and follows up automatically â€” 24/7. Built for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No contracts."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://gofieldwise.com/" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <meta name="theme-color" content="#0B0F1A" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" />
         <meta property="og:title" content="AI Receptionist for HVAC, Plumbing & Home Service Businesses | GoFieldWise" />
         <meta
           property="og:description"
-          content="GoFieldWise answers every call, books jobs, and follows up automatically — 24/7. Built for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No contracts."
+          content="GoFieldWise answers every call, books jobs, and follows up automatically â€” 24/7. Built for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No contracts."
         />
         <meta property="og:url" content="https://gofieldwise.com/" />
         <meta property="og:type" content="website" />
@@ -127,8 +119,8 @@ export default function Home() {
         </section>
 
         <section className="dispatch-card connect-highlight">
-          <h2>GoFieldWise Connect — Keep Your CRM, Add an AI Front Office</h2>
-          <p>Already using Jobber, Housecall Pro, QuickBooks, or Google Calendar? GoFieldWise Connect layers AI answering, lead recovery, and automated follow-up on top of your existing tools — no rip-and-replace.</p>
+          <h2>GoFieldWise Connect â€” Keep Your CRM, Add an AI Front Office</h2>
+          <p>Already using Jobber, Housecall Pro, QuickBooks, or Google Calendar? GoFieldWise Connect layers AI answering, lead recovery, and automated follow-up on top of your existing tools â€” no rip-and-replace.</p>
           <div className="results-grid">
             <article className="panel"><h3>Sidecar Mode</h3><p>GoFieldWise answers calls and qualifies leads while your current CRM stays the system of record for jobs and invoices.</p></article>
             <article className="panel"><h3>Hybrid Mode</h3><p>AI call handling and missed-call recovery stack on top of your existing dispatch and invoicing workflow.</p></article>
@@ -215,14 +207,14 @@ export default function Home() {
             <article className="panel"><h3>Is there a contract?</h3><p>No. Month-to-month. Cancel anytime.</p></article>
             <article className="panel"><h3>Do I pay per user?</h3><p>No. Unlimited users are included.</p></article>
             <article className="panel"><h3>Can I keep my current tools?</h3><p>Yes. GoFieldwise can run alongside your existing setup as you transition.</p></article>
-            <article className="panel"><h3>What if AI can’t handle a request?</h3><p>Escalation rules route complex issues to your team with full context.</p></article>
+            <article className="panel"><h3>What if AI canâ€™t handle a request?</h3><p>Escalation rules route complex issues to your team with full context.</p></article>
           </div>
         </section>
 
         <section className="dispatch-card field-notes-teaser">
           <div className="teaser-header">
             <h2>Field Notes</h2>
-            <Link href="/field-notes" className="see-all">See all →</Link>
+            <Link href="/field-notes" className="see-all">See all â†’</Link>
           </div>
           <p>Short, practical playbooks for operators. New every week.</p>
           <div className="results-grid teaser-grid">
@@ -237,7 +229,7 @@ export default function Home() {
                 </h3>
                 <p>{post.summary}</p>
                 <Link href={`/field-notes/${post.slug}`} className="read-more">
-                  Read more →
+                  Read more â†’
                 </Link>
               </article>
             ))}
@@ -304,240 +296,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      <style jsx global>{`
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-          margin: 0;
-          color: #f8fafc;
-          font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-          line-height: 1.6;
-          -webkit-font-smoothing: antialiased;
-          background:
-            radial-gradient(1200px 600px at 50% -10%, rgba(245,197,66,0.10), transparent 60%),
-            radial-gradient(900px 480px at 88% 8%, rgba(59,130,246,0.06), transparent 55%),
-            #0B0F1A;
-          background-attachment: fixed;
-        }
-        h1, h2, h3 { font-family: 'Poppins', 'Inter', sans-serif; line-height: 1.14; letter-spacing: -0.01em; }
-
-        .page-shell { max-width: 1140px; margin: 0 auto; padding: 0 20px 72px; }
-
-        a { text-decoration: none; }
-        .top-nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); margin-top: 14px; }
-        .top-nav .brand { color: #F5C542 !important; font-weight: 800; font-size: 1.05rem; }
-        .top-nav .nav-links a { color: rgba(248,250,252,0.9); font-weight: 600; }
-        .top-nav .nav-links a:hover { color: #F5C542; }
-
-        /* Hero */
-        .hero {
-          text-align: center;
-          padding: 72px 28px 44px;
-          margin: 18px 0 22px;
-          border-radius: 26px;
-          border: 1px solid rgba(245,197,66,0.18);
-          background:
-            radial-gradient(760px 340px at 50% -5%, rgba(245,197,66,0.13), transparent 70%),
-            linear-gradient(180deg, rgba(18,24,38,0.92), rgba(11,15,26,0.55));
-        }
-        .hero .eyebrow {
-          display: inline-block; margin: 0 0 18px;
-          text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.76rem; font-weight: 700;
-          color: #F5C542; background: rgba(245,197,66,0.10);
-          border: 1px solid rgba(245,197,66,0.30); padding: 6px 14px; border-radius: 999px;
-        }
-        .hero h1 {
-          font-size: clamp(2.1rem, 5.2vw, 3.5rem); font-weight: 800; margin: 0 auto 16px; max-width: 17ch;
-          background: linear-gradient(180deg, #ffffff, #c8d2e2);
-          -webkit-background-clip: text; background-clip: text; color: transparent;
-        }
-        .hero > p { max-width: 60ch; margin: 0 auto 24px; font-size: clamp(1rem, 1.6vw, 1.18rem); color: rgba(248,250,252,0.82); }
-        .hero .actions { justify-content: center; }
-
-        /* Buttons */
-        .hero-cta-primary {
-          display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
-          padding: 12px 22px; border-radius: 11px; font-weight: 700; color: #0b0f1a;
-          background: linear-gradient(120deg, #f5c542, #ffd671);
-          box-shadow: 0 10px 26px rgba(245,197,66,0.24); transition: transform .15s ease, box-shadow .15s ease;
-        }
-        .hero-cta-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(245,197,66,0.34); }
-        .ghost-link {
-          display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
-          padding: 11px 18px; border-radius: 11px; font-weight: 700; color: #f8fafc;
-          border: 1px solid rgba(248,250,252,0.22); background: rgba(255,255,255,0.03); transition: all .15s ease;
-        }
-        .ghost-link:hover { border-color: rgba(245,197,66,0.55); color: #F5C542; background: rgba(245,197,66,0.06); }
-
-        /* Section cards */
-        .dispatch-card {
-          background: linear-gradient(180deg, rgba(18,24,38,0.70), rgba(18,24,38,0.40));
-          border: 1px solid rgba(255,255,255,0.07);
-          border-radius: 20px; padding: 40px 30px; margin: 18px 0;
-        }
-        .dispatch-card > h2 { font-size: clamp(1.55rem, 3vw, 2.15rem); font-weight: 800; margin: 0 0 10px; text-align: center; }
-        .dispatch-card > p { text-align: center; max-width: 66ch; margin: 0 auto 24px; color: rgba(248,250,252,0.78); }
-        .dispatch-card strong { color: #F5C542; }
-        .connect-highlight { border-color: rgba(245,197,66,0.30); background: linear-gradient(180deg, rgba(245,197,66,0.07), rgba(18,24,38,0.40)); }
-        .final-cta { text-align: center; border-color: rgba(245,197,66,0.30); background: linear-gradient(180deg, rgba(245,197,66,0.10), rgba(18,24,38,0.5)); }
-
-        /* Card grid */
-        .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); gap: 16px; }
-        .panel {
-          background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 14px; padding: 22px; transition: transform .18s ease, border-color .18s ease, background .18s ease;
-        }
-        .panel:hover { transform: translateY(-3px); border-color: rgba(245,197,66,0.38); background: rgba(245,197,66,0.045); }
-        .panel h3 { margin: 0 0 8px; font-size: 1.06rem; font-weight: 700; color: #ffffff; }
-        .panel p { margin: 0; color: rgba(248,250,252,0.74); font-size: 0.96rem; }
-        .testimonial p { font-size: 1.06rem; font-style: italic; color: #ffffff; }
-        .testimonial span { display: block; margin-top: 10px; color: #F5C542; font-weight: 700; font-size: 0.9rem; }
-
-        @media (max-width: 760px) {
-          .page-shell { padding: 0 14px 56px; }
-          .hero { padding: 46px 18px 32px; border-radius: 18px; }
-          .dispatch-card { padding: 26px 18px; border-radius: 16px; }
-          .results-grid { grid-template-columns: 1fr; }
-          .hero .actions, .dispatch-card .actions, .final-cta .actions { flex-direction: column; align-items: stretch; }
-          .hero .actions a, .dispatch-card .actions a, .final-cta .actions a { width: 100%; }
-        }
-      `}</style>
-
-      <style jsx>{`
-        .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-        .hero-cta-primary {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-          border-radius: 11px;
-          padding: 11px 14px;
-          font-weight: 700;
-          color: #0b0f1a;
-          background: linear-gradient(120deg, #f5c542, #ffd671);
-        }
-        .hero-kpis { margin-top: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-        .hero-kpis article { border: 1px solid rgba(245,197,66,0.35); border-radius: 12px; padding: 10px; display: grid; gap: 2px; }
-        .hero-kpis strong { font-size: 1.15rem; color: #f5c542; }
-        .hero-kpis span { font-size: 0.88rem; color: rgba(255,255,255,0.86); }
-        .trust-line { margin: 8px 0 0; color: rgba(255,255,255,0.86); font-size: 0.93rem; }
-        .pain-band {
-          background: #111827;
-          color: #fff;
-          border: 1px solid rgba(245, 197, 66, 0.2);
-          border-radius: 12px;
-          padding: 16px;
-        }
-        .pain-band :global(.panel) { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
-        .pain-band h2, .pain-band h3, .pain-band p { color: #fff; }
-        .landing-social-footer {
-          margin: 6px 0 18px;
-          border: 1px solid rgba(245, 197, 66, 0.24);
-          border-radius: 12px;
-          padding: 12px 14px;
-          background: rgba(11, 15, 26, 0.88);
-          color: #f8fafc;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
-        }
-        .socials { display: inline-flex; align-items: center; gap: 8px; }
-        .socials a {
-          width: 34px; height: 34px; border-radius: 8px; border: 1px solid rgba(245,197,66,0.35);
-          display: inline-flex; align-items: center; justify-content: center; color: #f5c542; background: rgba(255,255,255,0.04);
-        }
-        .socials a:hover { background: rgba(245,197,66,0.12); }
-        .socials svg { width: 18px; height: 18px; fill: currentColor; }
-        .field-notes { border: 1px solid rgba(245, 197, 66, 0.22); background: rgba(11, 15, 26, 0.55); }
-        .field-notes h2, .field-notes h3 { color: #f8fafc; }
-        .field-notes p { color: rgba(248, 250, 252, 0.88); }
-        .field-notes-form { margin-top: 12px; display: grid; gap: 8px; }
-        .field-notes-form label { font-weight: 700; color: #f5c542; }
-        .field-notes-input-row { display: flex; gap: 8px; flex-wrap: wrap; }
-        .field-notes-input-row input {
-          flex: 1 1 240px;
-          min-height: 42px;
-          padding: 0 12px;
-          border-radius: 10px;
-          border: 1px solid rgba(245, 197, 66, 0.35);
-          background: rgba(255, 255, 255, 0.06);
-          color: #f8fafc;
-        }
-        .field-notes-input-row input::placeholder { color: rgba(248, 250, 252, 0.56); }
-        .field-notes-input-row button {
-          min-height: 42px;
-          border: 0;
-          border-radius: 10px;
-          padding: 0 14px;
-          font-weight: 700;
-          cursor: pointer;
-          color: #0b0f1a;
-          background: linear-gradient(120deg, #f5c542, #ffd671);
-        }
-        .field-notes-input-row button[disabled] { opacity: 0.65; cursor: not-allowed; }
-        .field-notes-message { margin: 0; font-size: 0.92rem; }
-        .field-notes-message.success { color: #6ee7b7; }
-        .field-notes-message.error { color: #fca5a5; }
-        .top-nav {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 12px 16px;
-          margin-bottom: 16px;
-          border: 1px solid rgba(245, 197, 66, 0.22);
-          border-radius: 12px;
-          background: rgba(11, 15, 26, 0.55);
-        }
-        .top-nav .brand {
-          font-weight: 800;
-          color: #f5c542;
-          text-decoration: none;
-          font-size: 1.05rem;
-        }
-        .top-nav .nav-links {
-          display: flex;
-          gap: 14px;
-          flex-wrap: wrap;
-        }
-        .top-nav .nav-links :global(a) {
-          color: rgba(248, 250, 252, 0.88);
-          text-decoration: none;
-          font-weight: 600;
-          font-size: 0.95rem;
-        }
-        .top-nav .nav-links :global(a:hover) { color: #f5c542; }
-        .field-notes-teaser { border: 1px solid rgba(245, 197, 66, 0.22); background: rgba(11, 15, 26, 0.55); }
-        .field-notes-teaser h2, .field-notes-teaser h3 { color: #f8fafc; }
-        .field-notes-teaser p { color: rgba(248, 250, 252, 0.88); }
-        .teaser-header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-        .see-all { color: #f5c542; text-decoration: none; font-weight: 700; font-size: 0.95rem; }
-        .see-all:hover { text-decoration: underline; }
-        .teaser-grid { margin-top: 12px; }
-        .teaser-card { display: flex; flex-direction: column; gap: 8px; }
-        .teaser-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
-        .teaser-meta .tag {
-          color: #0b0f1a;
-          background: linear-gradient(120deg, #f5c542, #ffd671);
-          padding: 3px 8px;
-          border-radius: 999px;
-          font-weight: 700;
-        }
-        .teaser-meta .date { color: rgba(248, 250, 252, 0.65); }
-        .teaser-card h3 { margin: 0; font-size: 1.05rem; }
-        .teaser-card h3 :global(a) { color: #f8fafc; text-decoration: none; }
-        .teaser-card h3 :global(a:hover) { color: #f5c542; }
-        .teaser-card .read-more { color: #f5c542; text-decoration: none; font-weight: 700; margin-top: auto; }
-        .teaser-card .read-more:hover { text-decoration: underline; }
-        @media (max-width: 760px) {
-          .hero-kpis { grid-template-columns: 1fr; }
-          .landing-social-footer { flex-direction: column; align-items: flex-start; }
-          .field-notes-input-row { flex-direction: column; }
-          .field-notes-input-row button { width: 100%; }
-          .top-nav { flex-direction: column; align-items: flex-start; gap: 8px; }
-        }
-      `}</style>
     </>
   );
 }
