@@ -8,9 +8,16 @@ export default function CleaningPage() {
       canonical="https://gofieldwise.com/cleaning"
       ogTitle="AI Answering Service for Cleaning Companies | GoFieldWise"
       breadcrumb="Cleaning"
-      eyebrow="AI Answering Service"
+      accent="#4ADE80"
+      icon="✨"
+      eyebrow="AI Answering Service for Cleaning Pros"
       h1="AI Answering Service for Cleaning Companies"
       intro="People searching for a cleaning service want to book fast. If they call and hit voicemail, they move on. GoFieldWise answers instantly, qualifies the job, and gets them booked."
+      kpis={[
+        { stat: "< 60 sec", label: "From call to booked" },
+        { stat: "24/7", label: "Nights & weekends covered" },
+        { stat: "$200/mo", label: "Flat pricing" },
+      ]}
       bullets={{
         title: "GoFieldWise for cleaning businesses",
         items: [

@@ -8,9 +8,16 @@ export default function ElectricalPage() {
       canonical="https://gofieldwise.com/electrical"
       ogTitle="AI Answering Service for Electricians | GoFieldWise"
       breadcrumb="Electrical"
-      eyebrow="AI Answering Service"
+      accent="#FDE047"
+      icon="⚡"
+      eyebrow="AI Answering Service for Electricians"
       h1="AI Answering Service for Electrical Contractors"
       intro="Panel upgrades, EV charger installs, whole-home rewiring — these are high-value jobs that start with a phone call. GoFieldWise makes sure every one of those calls gets answered and booked."
+      kpis={[
+        { stat: "$3,000+", label: "Average panel upgrade job" },
+        { stat: "24/7", label: "Every call answered" },
+        { stat: "$200/mo", label: "Pays for itself on one job" },
+      ]}
       bullets={{
         title: "How GoFieldWise handles electrical calls",
         items: [

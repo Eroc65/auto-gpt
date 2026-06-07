@@ -8,9 +8,16 @@ export default function RoofingPage() {
       canonical="https://gofieldwise.com/roofing"
       ogTitle="AI Answering Service for Roofing Companies | GoFieldWise"
       breadcrumb="Roofing"
-      eyebrow="AI Answering Service"
+      accent="#FB923C"
+      icon="🏠"
+      eyebrow="AI Answering Service for Roofers"
       h1="AI Answering Service for Roofing Companies"
       intro="After a storm, every roofing company in your market gets flooded with calls at the same time. GoFieldWise answers every single one — capturing lead details while competitors send them to voicemail."
+      kpis={[
+        { stat: "100%", label: "Storm-surge calls answered" },
+        { stat: "24/7", label: "Weekend storm coverage" },
+        { stat: "$200/mo", label: "Flat, no per-lead fees" },
+      ]}
       bullets={{
         title: "Why roofing companies need GoFieldWise",
         items: [

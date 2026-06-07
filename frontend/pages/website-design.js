@@ -8,6 +8,7 @@ export default function WebsiteDesign() {
       canonical="https://gofieldwise.com/website-design"
       ogTitle="Contractor Website Design Oklahoma | GoFieldWise"
       breadcrumb="Contractor Website Design Oklahoma"
+      icon="🌐"
       eyebrow="Built to rank on Google"
       h1="Contractor Website Design in Oklahoma — Built to Rank From Day One"
       intro="Most contractor websites look good but don't rank. GoFieldWise builds websites for Oklahoma trades businesses engineered to show up on Google."

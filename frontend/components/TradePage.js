@@ -6,6 +6,7 @@ export default function TradePage({
   breadcrumb, eyebrow, h1, intro,
   bullets, chips, prices, kpis,
   cta, related,
+  accent = "#F5C542", icon,
 }) {
   return (
     <>
@@ -34,8 +35,18 @@ export default function TradePage({
           </p>
         )}
 
-        <section className="hero">
-          {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+        <section
+          className="hero"
+          style={{
+            borderColor: `${accent}30`,
+            background: `radial-gradient(760px 340px at 50% -5%, ${accent}21, transparent 70%), linear-gradient(180deg, rgba(18,24,38,0.92), rgba(11,15,26,0.55))`,
+          }}
+        >
+          {eyebrow && (
+            <p className="eyebrow" style={{ color: accent, borderColor: `${accent}4D`, background: `${accent}1A` }}>
+              {icon ? `${icon} ` : ""}{eyebrow}
+            </p>
+          )}
           <h1>{h1}</h1>
           <p>{intro}</p>
           <div className="actions">
@@ -48,7 +59,7 @@ export default function TradePage({
           <div className="results-grid" style={{ marginBottom: 18 }}>
             {kpis.map((k, i) => (
               <div key={i} className="panel" style={{ textAlign: "center" }}>
-                <p style={{ fontSize: "1.8rem", fontWeight: 800, color: "#F5C542", margin: "0 0 4px" }}>{k.stat}</p>
+                <p style={{ fontSize: "1.8rem", fontWeight: 800, color: accent, margin: "0 0 4px" }}>{k.stat}</p>
                 <p style={{ margin: 0, color: "rgba(248,250,252,0.7)", fontSize: "0.9rem" }}>{k.label}</p>
               </div>
             ))}
@@ -81,7 +92,7 @@ export default function TradePage({
             <h2>Searches we help you win</h2>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
               {chips.map((c, i) => (
-                <span key={i} style={{ background: "rgba(245,197,66,0.10)", border: "1px solid rgba(245,197,66,0.3)", color: "#F5C542", borderRadius: 999, padding: "5px 13px", fontSize: "0.85rem" }}>{c}</span>
+                <span key={i} style={{ background: `${accent}1A`, border: `1px solid ${accent}4D`, color: accent, borderRadius: 999, padding: "5px 13px", fontSize: "0.85rem" }}>{c}</span>
               ))}
             </div>
           </section>

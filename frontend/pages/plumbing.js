@@ -8,9 +8,16 @@ export default function PlumbingPage() {
       canonical="https://gofieldwise.com/plumbing"
       ogTitle="AI Answering Service for Plumbers | GoFieldWise"
       breadcrumb="Plumbing"
-      eyebrow="AI Answering Service"
+      accent="#38BDF8"
+      icon="🔧"
+      eyebrow="AI Answering Service for Plumbers"
       h1="AI Answering Service for Plumbing Companies"
       intro="Plumbing emergencies don't wait for business hours. GoFieldWise answers every call instantly, day or night — capturing job details and booking appointments while you're on the job."
+      kpis={[
+        { stat: "< 3 sec", label: "Average answer time" },
+        { stat: "24/7", label: "Emergency coverage, nights & weekends" },
+        { stat: "$200/mo", label: "Flat pricing, no per-call fees" },
+      ]}
       bullets={{
         title: "Built for plumbing businesses",
         items: [

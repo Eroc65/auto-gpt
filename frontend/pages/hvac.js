@@ -8,7 +8,9 @@ export default function HvacPage() {
       canonical="https://gofieldwise.com/hvac"
       ogTitle="AI Answering Service for HVAC Companies | GoFieldWise"
       breadcrumb="HVAC"
-      eyebrow="AI Answering Service"
+      accent="#60A5FA"
+      icon="🌡️"
+      eyebrow="AI Answering Service for HVAC"
       h1="AI Answering Service for HVAC Companies"
       intro="When your tech is under a house and a new customer calls, GoFieldWise answers. It qualifies the lead, captures job details, and books the appointment — automatically, 24/7."
       kpis={[
