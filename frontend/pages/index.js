@@ -324,7 +324,11 @@ export default function Home() {
 
         .page-shell { max-width: 1140px; margin: 0 auto; padding: 0 20px 72px; }
 
+        a { text-decoration: none; }
         .top-nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); margin-top: 14px; }
+        .top-nav .brand { color: #F5C542 !important; font-weight: 800; font-size: 1.05rem; }
+        .top-nav .nav-links a { color: rgba(248,250,252,0.9); font-weight: 600; }
+        .top-nav .nav-links a:hover { color: #F5C542; }
 
         /* Hero */
         .hero {
@@ -352,7 +356,12 @@ export default function Home() {
         .hero .actions { justify-content: center; }
 
         /* Buttons */
-        .hero-cta-primary { box-shadow: 0 10px 26px rgba(245,197,66,0.24); transition: transform .15s ease, box-shadow .15s ease; }
+        .hero-cta-primary {
+          display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+          padding: 12px 22px; border-radius: 11px; font-weight: 700; color: #0b0f1a;
+          background: linear-gradient(120deg, #f5c542, #ffd671);
+          box-shadow: 0 10px 26px rgba(245,197,66,0.24); transition: transform .15s ease, box-shadow .15s ease;
+        }
         .hero-cta-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(245,197,66,0.34); }
         .ghost-link {
           display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
