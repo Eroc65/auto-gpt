@@ -281,6 +281,18 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="dispatch-card" style={{ padding: "20px 24px" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 14, justifyContent: "center", alignItems: "center" }}>
+            <span style={{ color: "rgba(248,250,252,0.6)", fontWeight: 600 }}>Built for your trade:</span>
+            <Link href="/hvac" style={{ color: "#F5C542", fontWeight: 600 }}>HVAC</Link>
+            <Link href="/plumbing" style={{ color: "#F5C542", fontWeight: 600 }}>Plumbing</Link>
+            <Link href="/electrical" style={{ color: "#F5C542", fontWeight: 600 }}>Electrical</Link>
+            <Link href="/roofing" style={{ color: "#F5C542", fontWeight: 600 }}>Roofing</Link>
+            <Link href="/cleaning" style={{ color: "#F5C542", fontWeight: 600 }}>Cleaning</Link>
+            <Link href="/website-design" style={{ color: "#F5C542", fontWeight: 600 }}>Websites</Link>
+          </div>
+        </section>
+
         <section className="landing-social-footer">
           <span>Follow GoFieldwise</span>
           <div className="socials">
