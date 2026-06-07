@@ -8,6 +8,7 @@ export default function HvacSeo() {
       canonical="https://gofieldwise.com/hvac-seo"
       ogTitle="HVAC SEO Services Oklahoma | GoFieldWise"
       breadcrumb="HVAC SEO Oklahoma"
+      ogImage="/images/og/gofieldwise-og-hvac-seo.webp"
       eyebrow="Local SEO for HVAC"
       h1="HVAC SEO Services in Oklahoma — Get More AC Repair Calls From Google"
       intro="When someone in Tulsa searches “AC repair near me,” your competitors show up on page 1. GoFieldWise fixes that — without running ads."

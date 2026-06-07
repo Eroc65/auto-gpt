@@ -200,7 +200,9 @@ export default function SupportPage() {
           content="Get help with your GoFieldwise account, setup, and troubleshooting."
         />
         <meta property="og:url" content="https://gofieldwise.com/support" />
-        <meta property="og:image" content="https://gofieldwise.com/social/support-og.svg" />
+        <meta property="og:image" content="https://gofieldwise.com/images/og/gofieldwise-og-support.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://gofieldwise.com/images/og/gofieldwise-og-support.webp" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="GoFieldwise support social preview" />

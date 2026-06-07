@@ -84,7 +84,9 @@ export default function PricingPage() {
           content="One simple GoFieldwise plan with everything included for AI front-office operations."
         />
         <meta property="og:url" content="https://gofieldwise.com/pricing" />
-        <meta property="og:image" content="https://gofieldwise.com/social/pricing-og.svg" />
+        <meta property="og:image" content="https://gofieldwise.com/images/og/gofieldwise-og-pricing.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://gofieldwise.com/images/og/gofieldwise-og-pricing.webp" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="GoFieldwise pricing social preview" />

@@ -308,6 +308,12 @@ export default function ConnectPage() {
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://gofieldwise.com/connect" />
+        <meta property="og:image" content="https://gofieldwise.com/images/og/gofieldwise-og-connect.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="GoFieldWise Connect — keep your CRM and add an AI front office" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://gofieldwise.com/images/og/gofieldwise-og-connect.webp" />
       </Head>
 
       <main className="connect-shell">

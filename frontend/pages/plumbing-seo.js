@@ -8,6 +8,7 @@ export default function PlumbingSeo() {
       canonical="https://gofieldwise.com/plumbing-seo"
       ogTitle="Plumbing SEO Services Oklahoma | GoFieldWise"
       breadcrumb="Plumbing SEO Oklahoma"
+      ogImage="/images/og/gofieldwise-og-plumbing-seo.webp"
       eyebrow="Local SEO for Plumbers"
       h1="Plumbing SEO Services Oklahoma — Page 1 Rankings Without Paid Ads"
       intro="When a pipe bursts at 2am, homeowners call whoever shows up first on Google. GoFieldWise makes sure that's your plumbing company."

@@ -8,6 +8,7 @@ export default function CleaningSeo() {
       canonical="https://gofieldwise.com/cleaning-seo"
       ogTitle="Cleaning Company SEO Oklahoma | GoFieldWise"
       breadcrumb="Cleaning Company SEO Oklahoma"
+      ogImage="/images/og/gofieldwise-og-cleaning-seo.webp"
       eyebrow="Local SEO for Cleaners"
       h1="Local SEO for Oklahoma Cleaning Companies — More Clients From Google"
       intro="People searching “house cleaning near me” are ready to book. GoFieldWise makes sure your cleaning company is who they find."

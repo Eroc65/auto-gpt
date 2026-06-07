@@ -8,6 +8,7 @@ export default function ElectricianSeo() {
       canonical="https://gofieldwise.com/electrician-seo"
       ogTitle="Electrician SEO Services Oklahoma | GoFieldWise"
       breadcrumb="Electrician SEO Oklahoma"
+      ogImage="/images/og/gofieldwise-og-electrician-seo.webp"
       eyebrow="Local SEO for Electricians"
       h1="Electrician SEO Services Oklahoma — Get Found on Google Without Ads"
       intro="Panel upgrades, EV charger installs, whole-home rewiring — high-value jobs that start with a Google search. GoFieldWise puts your electrical company in front of Oklahoma homeowners when they're ready to hire."

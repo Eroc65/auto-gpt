@@ -195,7 +195,9 @@ const secondaryCtaStyle = {
             content="Watch how GoFieldwise automates lead capture, dispatching, scheduling, and customer communication."
           />
           <meta property="og:url" content="https://gofieldwise.com/demo" />
-          <meta property="og:image" content="https://gofieldwise.com/social/demo-og.svg" />
+          <meta property="og:image" content="https://gofieldwise.com/images/og/gofieldwise-og-demo.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://gofieldwise.com/images/og/gofieldwise-og-demo.webp" />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
           <meta property="og:image:alt" content="GoFieldwise live demo social preview" />
