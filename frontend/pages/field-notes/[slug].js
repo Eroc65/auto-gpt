@@ -19,6 +19,7 @@ export async function getStaticProps({ params }) {
 export default function FieldNotePost({ post }) {
   const canonical = `https://gofieldwise.com/field-notes/${post.slug}`;
   const paragraphs = post.body.split("\n\n");
+  const coverUrl = post.cover ? `https://gofieldwise.com${post.cover}` : null;
 
   return (
     <>
@@ -30,6 +31,13 @@ export default function FieldNotePost({ post }) {
         <meta property="og:description" content={post.summary} />
         <meta property="og:url" content={canonical} />
         <meta property="og:type" content="article" />
+        {coverUrl && <meta property="og:image" content={coverUrl} />}
+        {coverUrl && <meta property="og:image:width" content="1200" />}
+        {coverUrl && <meta property="og:image:height" content="630" />}
+        {coverUrl && <meta property="og:image:alt" content={post.coverAlt || post.title} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        {coverUrl && <meta name="twitter:image" content={coverUrl} />}
+        {coverUrl && <meta name="twitter:image:alt" content={post.coverAlt || post.title} />}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -39,6 +47,7 @@ export default function FieldNotePost({ post }) {
               headline: post.title,
               description: post.summary,
               datePublished: post.date,
+              ...(coverUrl ? { image: coverUrl } : {}),
               author: { "@type": "Organization", name: "GoFieldwise" },
               publisher: { "@type": "Organization", name: "GoFieldwise" },
               url: canonical
@@ -64,6 +73,16 @@ export default function FieldNotePost({ post }) {
             <span className="date">{formatPostDate(post.date)}</span>
           </div>
           <h1>{post.title}</h1>
+          {post.cover && (
+            <img
+              className="cover"
+              src={post.cover}
+              alt={post.coverAlt || post.title}
+              width={1200}
+              height={630}
+              loading="eager"
+            />
+          )}
           <p className="summary">{post.summary}</p>
 
           <div className="body">
@@ -142,6 +161,15 @@ export default function FieldNotePost({ post }) {
           color: #f8fafc;
           margin: 4px 0 8px;
           line-height: 1.2;
+        }
+        .cover {
+          display: block;
+          width: 100%;
+          height: auto;
+          aspect-ratio: 1200 / 630;
+          border-radius: 12px;
+          border: 1px solid rgba(245, 197, 66, 0.22);
+          margin: 6px 0 16px;
         }
         .summary {
           color: rgba(248, 250, 252, 0.9);

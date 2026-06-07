@@ -7,6 +7,8 @@ export const posts = [
     title: "How to never miss an after-hours call",
     category: "Speed-to-lead",
     date: "2026-06-04",
+    cover: "/images/blog/gofieldwise-never-miss-after-hours-call.webp",
+    coverAlt: "GoFieldWise Field Notes cover — how home service businesses can stop missing after-hours calls",
     summary:
       "The cost of one missed call after 5 PM is bigger than most owners think. Here are three checks to run tonight.",
     body: [
@@ -26,6 +28,8 @@ export const posts = [
     title: "What a real dispatch summary should look like",
     category: "Dispatch",
     date: "2026-05-28",
+    cover: "/images/blog/gofieldwise-real-dispatch-summary.webp",
+    coverAlt: "GoFieldWise Field Notes cover — what a real dispatch summary should include for field service techs",
     summary:
       "Most dispatch summaries fail one test: can the tech walk in and start working? Here is the six-field template that passes.",
     body: [
@@ -50,6 +54,8 @@ export const posts = [
     title: "Why most field service software fails one-van shops",
     category: "Tools that work",
     date: "2026-05-21",
+    cover: "/images/blog/gofieldwise-field-service-software-one-van-shops.webp",
+    coverAlt: "GoFieldWise Field Notes cover — why most field service software fails one-van home service shops",
     summary:
       "Most platforms were built for 30-tech shops. When a one-van operator adopts the same tool, the math stops working.",
     body: [

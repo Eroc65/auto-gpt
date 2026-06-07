@@ -51,6 +51,18 @@ export default function FieldNotesIndex() {
         <section className="posts-grid">
           {posts.map((post) => (
             <article key={post.slug} className="post-card panel">
+              {post.cover && (
+                <Link href={`/field-notes/${post.slug}`}>
+                  <img
+                    src={post.cover}
+                    alt={post.coverAlt || post.title}
+                    width={1200}
+                    height={630}
+                    loading="lazy"
+                    style={{ display: "block", width: "100%", height: "auto", aspectRatio: "1200 / 630", borderRadius: 10, border: "1px solid rgba(245,197,66,0.18)", marginBottom: 12 }}
+                  />
+                </Link>
+              )}
               <div className="post-meta">
                 <span className="tag">{post.category}</span>
                 <span className="date">{formatPostDate(post.date)}</span>
