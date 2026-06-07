@@ -56,6 +56,11 @@ export default function Home() {
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://gofieldwise.com/" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#ff6b35" />
         <meta property="og:title" content="AI Receptionist for HVAC, Plumbing & Home Service Businesses | GoFieldWise" />
         <meta
           property="og:description"
