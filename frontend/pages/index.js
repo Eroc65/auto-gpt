@@ -63,7 +63,12 @@ export default function Home() {
         />
         <meta property="og:url" content="https://gofieldwise.com/" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://gofieldwise.com/social/home-og.svg" />
+        <meta property="og:image" content="https://gofieldwise.com/images/og/gofieldwise-og-home.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="GoFieldWise — AI front office that answers calls, books jobs, and follows up 24/7 for home service businesses" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://gofieldwise.com/images/og/gofieldwise-og-home.webp" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

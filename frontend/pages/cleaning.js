@@ -10,6 +10,7 @@ export default function CleaningPage() {
       breadcrumb="Cleaning"
       accent="#4ADE80"
       icon="✨"
+      ogImage="/images/og/gofieldwise-og-cleaning.webp"
       eyebrow="AI Answering Service for Cleaning Pros"
       h1="AI Answering Service for Cleaning Companies"
       intro="People searching for a cleaning service want to book fast. If they call and hit voicemail, they move on. GoFieldWise answers instantly, qualifies the job, and gets them booked."

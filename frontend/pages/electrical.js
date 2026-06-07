@@ -10,6 +10,7 @@ export default function ElectricalPage() {
       breadcrumb="Electrical"
       accent="#FDE047"
       icon="⚡"
+      ogImage="/images/og/gofieldwise-og-electrical.webp"
       eyebrow="AI Answering Service for Electricians"
       h1="AI Answering Service for Electrical Contractors"
       intro="Panel upgrades, EV charger installs, whole-home rewiring — these are high-value jobs that start with a phone call. GoFieldWise makes sure every one of those calls gets answered and booked."

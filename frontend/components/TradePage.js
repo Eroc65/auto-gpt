@@ -6,8 +6,9 @@ export default function TradePage({
   breadcrumb, eyebrow, h1, intro,
   bullets, chips, prices, kpis,
   cta, related,
-  accent = "#F5C542", icon,
+  accent = "#F5C542", icon, ogImage,
 }) {
+  const ogUrl = ogImage ? `https://gofieldwise.com${ogImage}` : null;
   return (
     <>
       <Head>
@@ -16,6 +17,12 @@ export default function TradePage({
         {canonical && <link rel="canonical" href={canonical} />}
         <meta property="og:title" content={ogTitle || title} />
         {canonical && <meta property="og:url" content={canonical} />}
+        {ogUrl && <meta property="og:image" content={ogUrl} />}
+        {ogUrl && <meta property="og:image:width" content="1200" />}
+        {ogUrl && <meta property="og:image:height" content="630" />}
+        {ogUrl && <meta property="og:image:alt" content={ogTitle || title} />}
+        {ogUrl && <meta name="twitter:card" content="summary_large_image" />}
+        {ogUrl && <meta name="twitter:image" content={ogUrl} />}
       </Head>
 
       <main className="page-shell">

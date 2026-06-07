@@ -10,6 +10,7 @@ export default function RoofingPage() {
       breadcrumb="Roofing"
       accent="#FB923C"
       icon="🏠"
+      ogImage="/images/og/gofieldwise-og-roofing.webp"
       eyebrow="AI Answering Service for Roofers"
       h1="AI Answering Service for Roofing Companies"
       intro="After a storm, every roofing company in your market gets flooded with calls at the same time. GoFieldWise answers every single one — capturing lead details while competitors send them to voicemail."

@@ -10,6 +10,7 @@ export default function PlumbingPage() {
       breadcrumb="Plumbing"
       accent="#38BDF8"
       icon="🔧"
+      ogImage="/images/og/gofieldwise-og-plumbing.webp"
       eyebrow="AI Answering Service for Plumbers"
       h1="AI Answering Service for Plumbing Companies"
       intro="Plumbing emergencies don't wait for business hours. GoFieldWise answers every call instantly, day or night — capturing job details and booking appointments while you're on the job."
