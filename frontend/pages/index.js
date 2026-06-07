@@ -60,7 +60,10 @@ export default function Home() {
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        <meta name="theme-color" content="#ff6b35" />
+        <meta name="theme-color" content="#0B0F1A" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" />
         <meta property="og:title" content="AI Receptionist for HVAC, Plumbing & Home Service Businesses | GoFieldWise" />
         <meta
           property="og:description"
@@ -301,6 +304,96 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <style jsx global>{`
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+          margin: 0;
+          color: #f8fafc;
+          font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+          line-height: 1.6;
+          -webkit-font-smoothing: antialiased;
+          background:
+            radial-gradient(1200px 600px at 50% -10%, rgba(245,197,66,0.10), transparent 60%),
+            radial-gradient(900px 480px at 88% 8%, rgba(59,130,246,0.06), transparent 55%),
+            #0B0F1A;
+          background-attachment: fixed;
+        }
+        h1, h2, h3 { font-family: 'Poppins', 'Inter', sans-serif; line-height: 1.14; letter-spacing: -0.01em; }
+
+        .page-shell { max-width: 1140px; margin: 0 auto; padding: 0 20px 72px; }
+
+        .top-nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); margin-top: 14px; }
+
+        /* Hero */
+        .hero {
+          text-align: center;
+          padding: 72px 28px 44px;
+          margin: 18px 0 22px;
+          border-radius: 26px;
+          border: 1px solid rgba(245,197,66,0.18);
+          background:
+            radial-gradient(760px 340px at 50% -5%, rgba(245,197,66,0.13), transparent 70%),
+            linear-gradient(180deg, rgba(18,24,38,0.92), rgba(11,15,26,0.55));
+        }
+        .hero .eyebrow {
+          display: inline-block; margin: 0 0 18px;
+          text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.76rem; font-weight: 700;
+          color: #F5C542; background: rgba(245,197,66,0.10);
+          border: 1px solid rgba(245,197,66,0.30); padding: 6px 14px; border-radius: 999px;
+        }
+        .hero h1 {
+          font-size: clamp(2.1rem, 5.2vw, 3.5rem); font-weight: 800; margin: 0 auto 16px; max-width: 17ch;
+          background: linear-gradient(180deg, #ffffff, #c8d2e2);
+          -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .hero > p { max-width: 60ch; margin: 0 auto 24px; font-size: clamp(1rem, 1.6vw, 1.18rem); color: rgba(248,250,252,0.82); }
+        .hero .actions { justify-content: center; }
+
+        /* Buttons */
+        .hero-cta-primary { box-shadow: 0 10px 26px rgba(245,197,66,0.24); transition: transform .15s ease, box-shadow .15s ease; }
+        .hero-cta-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(245,197,66,0.34); }
+        .ghost-link {
+          display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+          padding: 11px 18px; border-radius: 11px; font-weight: 700; color: #f8fafc;
+          border: 1px solid rgba(248,250,252,0.22); background: rgba(255,255,255,0.03); transition: all .15s ease;
+        }
+        .ghost-link:hover { border-color: rgba(245,197,66,0.55); color: #F5C542; background: rgba(245,197,66,0.06); }
+
+        /* Section cards */
+        .dispatch-card {
+          background: linear-gradient(180deg, rgba(18,24,38,0.70), rgba(18,24,38,0.40));
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 20px; padding: 40px 30px; margin: 18px 0;
+        }
+        .dispatch-card > h2 { font-size: clamp(1.55rem, 3vw, 2.15rem); font-weight: 800; margin: 0 0 10px; text-align: center; }
+        .dispatch-card > p { text-align: center; max-width: 66ch; margin: 0 auto 24px; color: rgba(248,250,252,0.78); }
+        .dispatch-card strong { color: #F5C542; }
+        .connect-highlight { border-color: rgba(245,197,66,0.30); background: linear-gradient(180deg, rgba(245,197,66,0.07), rgba(18,24,38,0.40)); }
+        .final-cta { text-align: center; border-color: rgba(245,197,66,0.30); background: linear-gradient(180deg, rgba(245,197,66,0.10), rgba(18,24,38,0.5)); }
+
+        /* Card grid */
+        .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); gap: 16px; }
+        .panel {
+          background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 14px; padding: 22px; transition: transform .18s ease, border-color .18s ease, background .18s ease;
+        }
+        .panel:hover { transform: translateY(-3px); border-color: rgba(245,197,66,0.38); background: rgba(245,197,66,0.045); }
+        .panel h3 { margin: 0 0 8px; font-size: 1.06rem; font-weight: 700; color: #ffffff; }
+        .panel p { margin: 0; color: rgba(248,250,252,0.74); font-size: 0.96rem; }
+        .testimonial p { font-size: 1.06rem; font-style: italic; color: #ffffff; }
+        .testimonial span { display: block; margin-top: 10px; color: #F5C542; font-weight: 700; font-size: 0.9rem; }
+
+        @media (max-width: 760px) {
+          .page-shell { padding: 0 14px 56px; }
+          .hero { padding: 46px 18px 32px; border-radius: 18px; }
+          .dispatch-card { padding: 26px 18px; border-radius: 16px; }
+          .results-grid { grid-template-columns: 1fr; }
+          .hero .actions, .dispatch-card .actions, .final-cta .actions { flex-direction: column; align-items: stretch; }
+          .hero .actions a, .dispatch-card .actions a, .final-cta .actions a { width: 100%; }
+        }
+      `}</style>
 
       <style jsx>{`
         .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
