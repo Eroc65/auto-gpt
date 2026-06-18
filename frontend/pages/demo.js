@@ -84,7 +84,7 @@ const secondaryCtaStyle = {
             name: "GoFieldwise Demo",
             description: "See how GoFieldwise automates lead capture and dispatching.",
             thumbnailUrl: demoVideoThumbnailUrl,
-            uploadDate: "2026-04-12",
+            uploadDate: "2026-04-12T09:00:00-05:00",
             ...(isDirectVideoFile ? { contentUrl: demoVideoUrl } : { embedUrl: demoVideoUrl }),
           }
         : null;
