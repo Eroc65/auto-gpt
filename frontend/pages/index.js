@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 
-import { trackIntentClick } from "../lib/analytics";
+import { trackIntentClick, trackLeadConversion } from "../lib/analytics";
 import { getLatestPosts, formatPostDate } from "../lib/posts";
 
 export default function Home() {
@@ -41,6 +41,7 @@ export default function Home() {
         status: "success",
         message: payload.message || "You are subscribed to Field Notes.",
       });
+      trackLeadConversion("homepage_field_notes");
       setEmail("");
     } catch (error) {
       setSubscribeState({ status: "error", message: "Network error. Please retry." });
