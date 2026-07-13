@@ -217,6 +217,33 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="dispatch-card">
+          <h2>Free Lead-Gen Tools</h2>
+          <p>Run a fast report, spot your ranking gaps, and get email-only follow-up.</p>
+          <div className="results-grid">
+            <article className="panel">
+              <h3>Free SEO Audit</h3>
+              <p>Find the highest-impact SEO issues holding your site back.</p>
+              <Link href="/free-seo-audit" className="read-more">Open tool â†’</Link>
+            </article>
+            <article className="panel">
+              <h3>Free Rank Checker</h3>
+              <p>Check where your main service keyword likely ranks.</p>
+              <Link href="/free-rank-checker" className="read-more">Open tool â†’</Link>
+            </article>
+            <article className="panel">
+              <h3>Free GBP Check</h3>
+              <p>See if your Google Business Profile setup is costing visibility.</p>
+              <Link href="/free-gbp-check" className="read-more">Open tool â†’</Link>
+            </article>
+            <article className="panel">
+              <h3>Free Competitor Peek</h3>
+              <p>Get a snapshot of the local SEO gap between you and top competitors.</p>
+              <Link href="/free-competitor-peek" className="read-more">Open tool â†’</Link>
+            </article>
+          </div>
+        </section>
+
         <section className="dispatch-card field-notes-teaser">
           <div className="teaser-header">
             <h2>Field Notes</h2>
