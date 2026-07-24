@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { trackIntentClick } from "../lib/analytics";
+import Footer from "../components/Footer";
 
 const MODES = [
   {
@@ -308,12 +309,39 @@ export default function ConnectPage() {
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://gofieldwise.com/connect" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="GoFieldWise Connect | Keep Your CRM, Add an AI Front Office" />
+        <meta
+          property="og:description"
+          content="Explore GoFieldWise Connect modes and integrations. Click Sidecar, Hybrid, or Standalone to see how each connector works and what value it adds."
+        />
+        <meta property="og:url" content="https://gofieldwise.com/connect" />
         <meta property="og:image" content="https://gofieldwise.com/images/og/gofieldwise-og-connect.webp" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="GoFieldWise Connect — keep your CRM and add an AI front office" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="GoFieldWise Connect | Keep Your CRM, Add an AI Front Office" />
+        <meta
+          name="twitter:description"
+          content="Explore GoFieldWise Connect modes and integrations. Click Sidecar, Hybrid, or Standalone to see how each connector works and what value it adds."
+        />
         <meta name="twitter:image" content="https://gofieldwise.com/images/og/gofieldwise-og-connect.webp" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Service",
+              serviceType: "AI Front Office Integration",
+              name: "GoFieldWise Connect",
+              description:
+                "Explore GoFieldWise Connect modes and integrations. Click Sidecar, Hybrid, or Standalone to see how each connector works and what value it adds.",
+              provider: { "@type": "Organization", name: "GoFieldwise", url: "https://gofieldwise.com" },
+              url: "https://gofieldwise.com/connect",
+            }),
+          }}
+        />
       </Head>
 
       <main className="connect-shell">
@@ -1180,6 +1208,8 @@ export default function ConnectPage() {
           }
         }
       `}</style>
+
+      <Footer />
     </>
   );
 }

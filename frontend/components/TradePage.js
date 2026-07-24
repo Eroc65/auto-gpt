@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import Footer from "./Footer";
 
 export default function TradePage({
   title, description, canonical, ogTitle,
@@ -9,20 +10,44 @@ export default function TradePage({
   accent = "#F5C542", icon, ogImage,
 }) {
   const ogUrl = ogImage ? `https://gofieldwise.com${ogImage}` : null;
+  const pageName = ogTitle || title;
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: h1 || title,
+    name: pageName,
+    description,
+    provider: {
+      "@type": "Organization",
+      name: "GoFieldwise",
+      url: "https://gofieldwise.com",
+    },
+    areaServed: { "@type": "State", name: "Oklahoma" },
+    url: canonical,
+    ...(ogUrl ? { image: ogUrl } : {}),
+  };
   return (
     <>
       <Head>
         <title>{title}</title>
         {description && <meta name="description" content={description} />}
         {canonical && <link rel="canonical" href={canonical} />}
+        <meta property="og:type" content="website" />
         <meta property="og:title" content={ogTitle || title} />
+        {description && <meta property="og:description" content={description} />}
         {canonical && <meta property="og:url" content={canonical} />}
         {ogUrl && <meta property="og:image" content={ogUrl} />}
         {ogUrl && <meta property="og:image:width" content="1200" />}
         {ogUrl && <meta property="og:image:height" content="630" />}
         {ogUrl && <meta property="og:image:alt" content={ogTitle || title} />}
-        {ogUrl && <meta name="twitter:card" content="summary_large_image" />}
+        <meta name="twitter:card" content={ogUrl ? "summary_large_image" : "summary"} />
+        <meta name="twitter:title" content={ogTitle || title} />
+        {description && <meta name="twitter:description" content={description} />}
         {ogUrl && <meta name="twitter:image" content={ogUrl} />}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
       </Head>
 
       <main className="page-shell">
@@ -122,6 +147,8 @@ export default function TradePage({
           </div>
         )}
       </main>
+
+      <Footer />
     </>
   );
 }

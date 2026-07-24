@@ -11,6 +11,25 @@ export default function FreeGbpCheckPage() {
           name="description"
           content="Find out if your Google Business Profile is costing you leads. Get a free health check and practical next steps."
         />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Free Google Business Profile Health Check | GoFieldWise Oklahoma SEO"
+        />
+        <meta
+          property="og:description"
+          content="Find out if your Google Business Profile is costing you leads. Get a free health check and practical next steps."
+        />
+        <meta property="og:url" content="https://gofieldwise.com/free-gbp-check" />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:title"
+          content="Free Google Business Profile Health Check | GoFieldWise Oklahoma SEO"
+        />
+        <meta
+          name="twitter:description"
+          content="Find out if your Google Business Profile is costing you leads. Get a free health check and practical next steps."
+        />
         <link rel="canonical" href="https://gofieldwise.com/free-gbp-check" />
       </Head>
       <FreeSeoToolPage

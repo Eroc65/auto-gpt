@@ -20,14 +20,15 @@ export default function FieldNotePost({ post }) {
   const canonical = `https://gofieldwise.com/field-notes/${post.slug}`;
   const paragraphs = post.body.split("\n\n");
   const coverUrl = post.cover ? `https://gofieldwise.com${post.cover}` : null;
+  const pageTitle = `${post.title} — Field Notes | GoFieldwise`;
 
   return (
     <>
       <Head>
-        <title>{post.title} — Field Notes | GoFieldwise</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={post.summary} />
         <link rel="canonical" href={canonical} />
-        <meta property="og:title" content={`${post.title} — Field Notes | GoFieldwise`} />
+        <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={post.summary} />
         <meta property="og:url" content={canonical} />
         <meta property="og:type" content="article" />

@@ -1,4 +1,6 @@
+import Head from "next/head";
 import Link from "next/link";
+import Footer from "./Footer";
 import { useState } from "react";
 
 const TRADE_OPTIONS = ["HVAC", "Plumbing", "Electrical", "Roofing", "Cleaning", "Landscaping"];
@@ -41,6 +43,20 @@ export default function FreeSeoToolPage({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: badge || toolType,
+    name: `GoFieldWise ${badge || "SEO Tool"}`,
+    description: subhead,
+    provider: {
+      "@type": "Organization",
+      name: "GoFieldwise",
+      url: "https://gofieldwise.com",
+    },
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    url: canonical,
+  };
 
   const update = (key, value) => setForm((current) => ({ ...current, [key]: value }));
 
@@ -80,7 +96,27 @@ export default function FreeSeoToolPage({
   }
 
   return (
-    <main className="tool-page">
+    <>
+      <Head>
+        <meta
+          property="og:title"
+          content={`${badge || "GoFieldWise"} | GoFieldWise Oklahoma SEO`}
+        />
+        {subhead ? <meta property="og:description" content={subhead} /> : null}
+        {canonical ? <meta property="og:url" content={canonical} /> : null}
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:title"
+          content={`${badge || "GoFieldWise"} | GoFieldWise Oklahoma SEO`}
+        />
+        {subhead ? <meta name="twitter:description" content={subhead} /> : null}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
+      </Head>
+      <main className="tool-page">
       <nav>
         <div className="logo">
           <div className="logo-mark">G</div>
@@ -321,6 +357,9 @@ export default function FreeSeoToolPage({
           .form-grid, .metrics { grid-template-columns: 1fr; }
         }
       `}</style>
-    </main>
+
+      <Footer />
+      </main>
+    </>
   );
 }

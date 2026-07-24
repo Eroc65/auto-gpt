@@ -11,6 +11,19 @@ export default function FreeSeoAuditPage() {
           name="description"
           content="Get a free SEO audit for your local service business. See exactly what is holding you back from page 1 of Google."
         />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Free SEO Audit for Local Businesses | GoFieldWise Oklahoma SEO" />
+        <meta
+          property="og:description"
+          content="Get a free SEO audit for your local service business. See exactly what is holding you back from page 1 of Google."
+        />
+        <meta property="og:url" content="https://gofieldwise.com/free-seo-audit" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Free SEO Audit for Local Businesses | GoFieldWise Oklahoma SEO" />
+        <meta
+          name="twitter:description"
+          content="Get a free SEO audit for your local service business. See exactly what is holding you back from page 1 of Google."
+        />
         <link rel="canonical" href="https://gofieldwise.com/free-seo-audit" />
       </Head>
       <FreeSeoToolPage

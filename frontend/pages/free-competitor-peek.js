@@ -11,6 +11,19 @@ export default function FreeCompetitorPeekPage() {
           name="description"
           content="See who ranks above you on Google and what they are doing better. Free competitor analysis for local service businesses."
         />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Free Competitor SEO Check | GoFieldWise Oklahoma SEO" />
+        <meta
+          property="og:description"
+          content="See who ranks above you on Google and what they are doing better. Free competitor analysis for local service businesses."
+        />
+        <meta property="og:url" content="https://gofieldwise.com/free-competitor-peek" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Free Competitor SEO Check | GoFieldWise Oklahoma SEO" />
+        <meta
+          name="twitter:description"
+          content="See who ranks above you on Google and what they are doing better. Free competitor analysis for local service businesses."
+        />
         <link rel="canonical" href="https://gofieldwise.com/free-competitor-peek" />
       </Head>
       <FreeSeoToolPage

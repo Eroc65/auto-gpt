@@ -11,6 +11,19 @@ export default function FreeRankCheckerPage() {
           name="description"
           content="Check where your business ranks on Google for your most important keyword and get a practical ranking improvement plan."
         />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Free Google Keyword Rank Checker | GoFieldWise Oklahoma SEO" />
+        <meta
+          property="og:description"
+          content="Check where your business ranks on Google for your most important keyword and get a practical ranking improvement plan."
+        />
+        <meta property="og:url" content="https://gofieldwise.com/free-rank-checker" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Free Google Keyword Rank Checker | GoFieldWise Oklahoma SEO" />
+        <meta
+          name="twitter:description"
+          content="Check where your business ranks on Google for your most important keyword and get a practical ranking improvement plan."
+        />
         <link rel="canonical" href="https://gofieldwise.com/free-rank-checker" />
       </Head>
       <FreeSeoToolPage
