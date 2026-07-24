@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { trackIntentClick, trackLeadConversion } from "../lib/analytics";
 import { getLatestPosts, formatPostDate } from "../lib/posts";
+import Footer from "../components/Footer";
 
 export default function Home() {
   const facebookUrl = process.env.NEXT_PUBLIC_FACEBOOK_URL || "https://www.facebook.com";
@@ -53,14 +54,14 @@ export default function Home() {
       <Head>
         <title>AI Receptionist for HVAC, Plumbing & Home Service Businesses | GoFieldWise</title>
         <meta
-          name="description" content="GoFieldWise answers every call, books jobs, and follows up automatically â€” 24/7. Built for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No contracts."
+          name="description" content="GoFieldWise answers every call, books jobs, and follows up automatically — 24/7. Built for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No contracts."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://gofieldwise.com/" />
         <meta property="og:title" content="AI Receptionist for HVAC, Plumbing & Home Service Businesses | GoFieldWise" />
         <meta
           property="og:description"
-          content="GoFieldWise answers every call, books jobs, and follows up automatically â€” 24/7. Built for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No contracts."
+          content="GoFieldWise answers every call, books jobs, and follows up automatically — 24/7. Built for HVAC, plumbing, electrical, roofing, and cleaning businesses. $200/month flat. No contracts."
         />
         <meta property="og:url" content="https://gofieldwise.com/" />
         <meta property="og:type" content="website" />
@@ -125,8 +126,8 @@ export default function Home() {
         </section>
 
         <section className="dispatch-card connect-highlight">
-          <h2>GoFieldWise Connect â€” Keep Your CRM, Add an AI Front Office</h2>
-          <p>Already using Jobber, Housecall Pro, QuickBooks, or Google Calendar? GoFieldWise Connect layers AI answering, lead recovery, and automated follow-up on top of your existing tools â€” no rip-and-replace.</p>
+          <h2>GoFieldWise Connect — Keep Your CRM, Add an AI Front Office</h2>
+          <p>Already using Jobber, Housecall Pro, QuickBooks, or Google Calendar? GoFieldWise Connect layers AI answering, lead recovery, and automated follow-up on top of your existing tools — no rip-and-replace.</p>
           <div className="results-grid">
             <article className="panel"><h3>Sidecar Mode</h3><p>GoFieldWise answers calls and qualifies leads while your current CRM stays the system of record for jobs and invoices.</p></article>
             <article className="panel"><h3>Hybrid Mode</h3><p>AI call handling and missed-call recovery stack on top of your existing dispatch and invoicing workflow.</p></article>
@@ -213,7 +214,7 @@ export default function Home() {
             <article className="panel"><h3>Is there a contract?</h3><p>No. Month-to-month. Cancel anytime.</p></article>
             <article className="panel"><h3>Do I pay per user?</h3><p>No. Unlimited users are included.</p></article>
             <article className="panel"><h3>Can I keep my current tools?</h3><p>Yes. GoFieldwise can run alongside your existing setup as you transition.</p></article>
-            <article className="panel"><h3>What if AI canâ€™t handle a request?</h3><p>Escalation rules route complex issues to your team with full context.</p></article>
+            <article className="panel"><h3>What if AI can’t handle a request?</h3><p>Escalation rules route complex issues to your team with full context.</p></article>
           </div>
         </section>
 
@@ -224,22 +225,22 @@ export default function Home() {
             <article className="panel">
               <h3>Free SEO Audit</h3>
               <p>Find the highest-impact SEO issues holding your site back.</p>
-              <Link href="/free-seo-audit" className="read-more">Open tool â†’</Link>
+              <Link href="/free-seo-audit" className="read-more">Open tool →</Link>
             </article>
             <article className="panel">
               <h3>Free Rank Checker</h3>
               <p>Check where your main service keyword likely ranks.</p>
-              <Link href="/free-rank-checker" className="read-more">Open tool â†’</Link>
+              <Link href="/free-rank-checker" className="read-more">Open tool →</Link>
             </article>
             <article className="panel">
               <h3>Free GBP Check</h3>
               <p>See if your Google Business Profile setup is costing visibility.</p>
-              <Link href="/free-gbp-check" className="read-more">Open tool â†’</Link>
+              <Link href="/free-gbp-check" className="read-more">Open tool →</Link>
             </article>
             <article className="panel">
               <h3>Free Competitor Peek</h3>
               <p>Get a snapshot of the local SEO gap between you and top competitors.</p>
-              <Link href="/free-competitor-peek" className="read-more">Open tool â†’</Link>
+              <Link href="/free-competitor-peek" className="read-more">Open tool →</Link>
             </article>
           </div>
         </section>
@@ -247,7 +248,7 @@ export default function Home() {
         <section className="dispatch-card field-notes-teaser">
           <div className="teaser-header">
             <h2>Field Notes</h2>
-            <Link href="/field-notes" className="see-all">See all â†’</Link>
+            <Link href="/field-notes" className="see-all">See all →</Link>
           </div>
           <p>Short, practical playbooks for operators. New every week.</p>
           <div className="results-grid teaser-grid">
@@ -262,7 +263,7 @@ export default function Home() {
                 </h3>
                 <p>{post.summary}</p>
                 <Link href={`/field-notes/${post.slug}`} className="read-more">
-                  Read more â†’
+                  Read more →
                 </Link>
               </article>
             ))}
@@ -325,22 +326,9 @@ export default function Home() {
             <Link href="/website-design" style={{ color: "#F5C542", fontWeight: 600 }}>Websites</Link>
           </div>
         </section>
-
-        <section className="landing-social-footer">
-          <span>Follow GoFieldwise</span>
-          <div className="socials">
-            <a href={facebookUrl} target="_blank" rel="noreferrer" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M13.5 9H16V6h-2.5C10.9 6 9 7.9 9 10.5V13H7v3h2v5h3v-5h2.3l.7-3H12v-2.5c0-.8.7-1.5 1.5-1.5z" /></svg>
-            </a>
-            <a href={xUrl} target="_blank" rel="noreferrer" aria-label="X">
-              <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M18.2 3H21l-6.5 7.4L22 21h-6.2l-4.9-6.4L5.3 21H3l7-8L2 3h6.3l4.5 5.9L18.2 3zm-1.1 16h1.7L7.2 4.9H5.4L17.1 19z" /></svg>
-            </a>
-            <a href={twitterUrl} target="_blank" rel="noreferrer" aria-label="Twitter">
-              <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M22 5.9c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.2 1.7-2.2-.8.4-1.7.8-2.6.9A4 4 0 0 0 12 8.5c0 .3 0 .6.1.9-3.3-.2-6.3-1.8-8.2-4.3-.3.6-.5 1.2-.5 1.9 0 1.4.7 2.6 1.8 3.3-.7 0-1.3-.2-1.8-.5 0 1.9 1.3 3.5 3.1 3.8-.3.1-.7.1-1 .1-.2 0-.5 0-.8-.1.5 1.6 2 2.8 3.8 2.8A8 8 0 0 1 3 18.3 11.2 11.2 0 0 0 9.1 20c7.3 0 11.3-6.2 11.3-11.5v-.5c.8-.5 1.4-1.2 1.9-2.1z" /></svg>
-            </a>
-          </div>
-        </section>
       </main>
+
+      <Footer />
     </>
   );
 }
