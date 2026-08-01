@@ -6,6 +6,7 @@ import Link from "next/link";
 import { trackEvent } from "../lib/analytics";
 import { submitPublicIntentIntake, submitPublicSupportChat } from "../lib/api";
 import { getAttributionSnapshot } from "../lib/attribution";
+import Footer from "../components/Footer";
 
 const INTAKE_KEY = process.env.NEXT_PUBLIC_INTAKE_KEY || "";
 const LEGACY_INTAKE_ORG_ID = process.env.NEXT_PUBLIC_INTAKE_ORG_ID || "";
@@ -189,15 +190,15 @@ export default function SupportPage() {
   return (
     <>
       <Head>
-        <title>GoFieldwise Support</title>
+        <title>GoFieldWise Support | Setup Help for Contractors</title>
         <meta
           name="description"
-          content="Get help with your GoFieldwise account, setup, and troubleshooting."
+          content="Get GoFieldWise support for setup, onboarding, AI receptionist rollout, call handling, lead capture, workflows, and troubleshooting for contractors."
         />
-        <meta property="og:title" content="GoFieldwise Support" />
+        <meta property="og:title" content="GoFieldWise Support | Setup Help for Contractors" />
         <meta
           property="og:description"
-          content="Get help with your GoFieldwise account, setup, and troubleshooting."
+          content="Get support for setup, onboarding, AI receptionist rollout, call handling, lead capture, workflows, and troubleshooting."
         />
         <meta property="og:url" content="https://gofieldwise.com/support" />
         <meta property="og:image" content="https://gofieldwise.com/images/og/gofieldwise-og-support.webp" />
@@ -206,10 +207,10 @@ export default function SupportPage() {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="GoFieldwise support social preview" />
-        <meta name="twitter:title" content="GoFieldwise Support" />
+        <meta name="twitter:title" content="GoFieldWise Support | Setup Help for Contractors" />
         <meta
           name="twitter:description"
-          content="Get help with your GoFieldwise account, setup, and troubleshooting."
+          content="Get support for setup, onboarding, AI receptionist rollout, call handling, lead capture, workflows, and troubleshooting."
         />
         <meta name="twitter:image" content="https://gofieldwise.com/social/support-og.svg" />
         <meta name="twitter:image:alt" content="GoFieldwise support social preview" />
@@ -225,13 +226,24 @@ export default function SupportPage() {
           <p className="eyebrow">Support</p>
           <h1>Get help with setup, rollout, and troubleshooting.</h1>
           <p>
-            Reach the GoFieldwise team for onboarding questions, product support, and account help.
+            Reach the GoFieldWise team for onboarding questions, AI receptionist setup, call-flow
+            tuning, lead capture, workflow questions, and account help.
           </p>
           <div className="hero-actions">
             <a className="ghost-link" href="tel:+14692003331">Call Support</a>
             <a className="ghost-link" href="mailto:support@gofieldwise.com">Email Support</a>
             <Link className="ghost-link" href="/help">Open Help Center</Link>
           </div>
+        </section>
+
+        <section className="dispatch-card">
+          <h2>What support can help with</h2>
+          <p>
+            Support covers the practical rollout details contractors care about: getting calls routed,
+            setting intake questions, confirming customer messages, reviewing dispatch summaries,
+            connecting your current tools, and making sure the AI front office is ready before you rely
+            on it during busy service hours.
+          </p>
         </section>
 
         <section className="dispatch-card">
@@ -395,6 +407,8 @@ export default function SupportPage() {
         }
       `}</style>
       </main>
+
+      <Footer />
     </>
   );
 }

@@ -1,3 +1,5 @@
+import { formatServiceRegistryContext } from "./gofieldwise-service-registry";
+
 export const GOFIELDWISE_CONFIG_KB_VERSION = "2026-05-22";
 export const GOFIELDWISE_CONFIG_KB_DEFAULT_CONFIDENCE_THRESHOLD = 0.34;
 
@@ -78,6 +80,18 @@ const KB = [
     value:
       "Cuts scheduling back-and-forth for lean teams.",
     bestFor: "Small teams with lightweight dispatch",
+  },
+  {
+    id: "service-registry",
+    category: "service-management",
+    title: "GoFieldWise service registry",
+    tags: ["service registry", "seo services", "rank and rent", "website design", "connect", "lead-gen tools"],
+    body:
+      "Canonical inventory for GoFieldWise services and operational assets. Use this registry to manage what is live, what is in progress, and what belongs to rank-and-rent.\n\n" +
+      formatServiceRegistryContext(),
+    value:
+      "One canonical place to manage SEO services, lead-gen tools, rank-and-rent properties, and core platform offers.",
+    bestFor: "Advisor and operations management",
   },
   {
     id: "feature-call-answering",

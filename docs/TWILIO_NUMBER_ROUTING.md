@@ -31,6 +31,20 @@ For each Twilio voice number, set:
 - Voice webhook URL: `https://gofieldwise.com/api/webhooks/twilio`
 - HTTP method: `POST`
 
+## Rank & Rent whisper routes
+
+The Render deployment also supports dedicated whisper-forwarding routes for rank-and-rent numbers:
+
+- `https://auto-gpt-2ig0.onrender.com/api/twilio/voice/fort-worth`
+- `https://auto-gpt-2ig0.onrender.com/api/twilio/voice/el-paso`
+- `https://auto-gpt-2ig0.onrender.com/api/twilio/voice/arlington`
+
+Each route returns TwiML that:
+
+1. Answers the call.
+2. Dials `+14053782099`.
+3. Plays a short whisper announcement naming the market before connecting the forwarded call.
+
 ## Go-live checklist
 
 1. Set environment variables in Render frontend service.

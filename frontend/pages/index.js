@@ -76,15 +76,26 @@ export default function Home() {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "LocalBusiness",
+              "@type": "SoftwareApplication",
               name: "GoFieldWise",
               url: "https://gofieldwise.com",
+              applicationCategory: "BusinessApplication",
+              operatingSystem: "Web",
               description:
-                "Local SEO and website design for Oklahoma trades businesses including HVAC, plumbing, electrical, and cleaning companies.",
+                "AI receptionist and front-office automation for HVAC, plumbing, electrical, roofing, cleaning, and other home service businesses.",
               telephone: "+18552476985",
               email: "support@gofieldwise.com",
-              areaServed: { "@type": "State", name: "Oklahoma" },
-              serviceType: ["Local SEO", "Website Design", "Google Business Profile Optimization"],
+              offers: {
+                "@type": "Offer",
+                price: "200",
+                priceCurrency: "USD",
+                url: "https://gofieldwise.com/pricing",
+              },
+              publisher: {
+                "@type": "Organization",
+                name: "GoFieldWise",
+                url: "https://gofieldwise.com",
+              },
             }),
           }}
         />

@@ -17,6 +17,10 @@ const URLS = [
   { path: '/demo',            priority: '0.8', freq: 'monthly' },
   { path: '/support',         priority: '0.7', freq: 'monthly' },
   { path: '/connect',         priority: '0.7', freq: 'monthly' },
+  { path: '/free-seo-audit',   priority: '0.7', freq: 'monthly' },
+  { path: '/free-rank-checker', priority: '0.7', freq: 'monthly' },
+  { path: '/free-gbp-check',   priority: '0.7', freq: 'monthly' },
+  { path: '/free-competitor-peek', priority: '0.7', freq: 'monthly' },
   { path: '/field-notes',     priority: '0.7', freq: 'weekly'  },
 ];
 

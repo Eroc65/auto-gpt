@@ -9,7 +9,7 @@ export default function FieldNotesIndex() {
   return (
     <>
       <Head>
-        <title>Field Notes — Operator playbooks for home service teams | GoFieldwise</title>
+        <title>Field Notes for Home Service Operators | GoFieldWise</title>
         <meta
           name="description"
           content="Short, practical playbooks for home service operators: speed-to-lead fixes, dispatch process wins, and tool benchmarks from real shops."
@@ -17,7 +17,7 @@ export default function FieldNotesIndex() {
         <link rel="canonical" href="https://gofieldwise.com/field-notes" />
         <meta
           property="og:title"
-          content="Field Notes — Operator playbooks for home service teams | GoFieldwise"
+          content="Field Notes for Home Service Operators | GoFieldWise"
         />
         <meta
           property="og:description"
@@ -25,6 +25,23 @@ export default function FieldNotesIndex() {
         />
         <meta property="og:url" content="https://gofieldwise.com/field-notes" />
         <meta property="og:type" content="website" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Blog",
+              name: "GoFieldWise Field Notes",
+              url: "https://gofieldwise.com/field-notes",
+              description: "Operator playbooks for home service teams covering speed-to-lead, dispatch, AI receptionist workflows, and customer follow-up.",
+              publisher: {
+                "@type": "Organization",
+                name: "GoFieldWise",
+                url: "https://gofieldwise.com",
+              },
+            }),
+          }}
+        />
       </Head>
 
       <main className="page-shell">
@@ -45,6 +62,11 @@ export default function FieldNotesIndex() {
             Short, practical updates for home service teams: speed-to-lead fixes, call script
             upgrades, dispatch process wins, and lessons from the field. One update each week.
             No fluff.
+          </p>
+          <p>
+            These playbooks are written for owner-operators and small teams that need fewer missed
+            calls, cleaner dispatch notes, faster follow-up, and a front office workflow that does not
+            collapse when the phone rings during a job.
           </p>
         </section>
 

@@ -13,6 +13,10 @@ It is focused on:
 - `frontend/lib/gofieldwise-config-kb.js`
   - contains KB entries
   - includes retrieval helpers for query-based matching
+- `frontend/lib/gofieldwise-service-registry.js`
+  - canonical service inventory for SEO offers, lead-gen tools, core services, and rank-and-rent assets
+- `frontend/pages/api/help/service-registry.js`
+  - GET endpoint for the management-facing service inventory
 - `frontend/pages/api/help/kb-search.js`
   - POST endpoint for AI help agent lookup
 
@@ -130,6 +134,7 @@ Notes:
 
 ## Maintenance
 - Add or update entries in `frontend/lib/gofieldwise-config-kb.js`.
+- Add or update service inventory in `frontend/lib/gofieldwise-service-registry.js`.
 - Keep tags simple and keyword-oriented.
 - Keep each entry customer-readable and support-ready.
 - Update `GOFIELDWISE_CONFIG_KB_VERSION` on meaningful content changes.

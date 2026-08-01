@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 import { trackIntentClick } from "../lib/analytics";
+import Footer from "../components/Footer";
 
 const plans = [
   {
@@ -73,15 +74,15 @@ export default function PricingPage() {
   return (
     <>
       <Head>
-        <title>GoFieldwise Pricing</title>
+        <title>GoFieldWise Pricing | AI Receptionist for Contractors</title>
         <meta
           name="description"
-          content="One simple GoFieldwise plan with everything included for AI front-office operations."
+          content="GoFieldWise pricing is $200/month for an AI receptionist, missed-call capture, booking, customer messaging, workflows, and support for contractors."
         />
-        <meta property="og:title" content="GoFieldwise Pricing" />
+        <meta property="og:title" content="GoFieldWise Pricing | AI Receptionist for Contractors" />
         <meta
           property="og:description"
-          content="One simple GoFieldwise plan with everything included for AI front-office operations."
+          content="Flat $200/month pricing for AI call answering, lead capture, booking, messaging, workflows, and support for home service contractors."
         />
         <meta property="og:url" content="https://gofieldwise.com/pricing" />
         <meta property="og:image" content="https://gofieldwise.com/images/og/gofieldwise-og-pricing.webp" />
@@ -90,10 +91,10 @@ export default function PricingPage() {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="GoFieldwise pricing social preview" />
-        <meta name="twitter:title" content="GoFieldwise Pricing" />
+        <meta name="twitter:title" content="GoFieldWise Pricing | AI Receptionist for Contractors" />
         <meta
           name="twitter:description"
-          content="One simple GoFieldwise plan with everything included for AI front-office operations."
+          content="Flat $200/month pricing for AI call answering, lead capture, booking, messaging, workflows, and support for home service contractors."
         />
         <meta name="twitter:image" content="https://gofieldwise.com/social/pricing-og.svg" />
         <meta name="twitter:image:alt" content="GoFieldwise pricing social preview" />
@@ -113,7 +114,8 @@ export default function PricingPage() {
           <p className="eyebrow">GoFieldwise Pricing</p>
           <h1>One simple plan. Everything included.</h1>
           <p>
-            No per-lead fees. No per-seat pricing. One flat monthly rate.
+            No per-lead fees. No per-seat pricing. One flat monthly rate for contractors who want
+            every missed call answered, every job detail captured, and every customer followed up.
           </p>
           <div className="actions">
             <Link
@@ -140,6 +142,16 @@ export default function PricingPage() {
               </ul>
             </article>
           ))}
+        </section>
+
+        <section className="dispatch-card">
+          <h2>What is included in the $200/month plan?</h2>
+          <p>
+            GoFieldWise gives HVAC, plumbing, electrical, roofing, cleaning, and landscaping teams a
+            practical AI front office without hiring a full-time receptionist. The plan includes call
+            answering, SMS and web chat intake, lead qualification, booking support, customer reminders,
+            workflow automation, basic reporting, and account support.
+          </p>
         </section>
 
         <section className="dispatch-card">
@@ -219,6 +231,8 @@ export default function PricingPage() {
           text-align: center;
         }
       `}</style>
+
+      <Footer />
     </>
   );
 }

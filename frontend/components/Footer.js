@@ -1,10 +1,38 @@
 import Link from "next/link";
 import { useState } from "react";
 
+function isConfiguredSocialProfile(url) {
+  if (!/^https:\/\/.+\..+/.test(url)) return false;
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, "").toLowerCase();
+    const path = parsed.pathname.replace(/\/+$/, "");
+    if (["facebook.com", "x.com", "twitter.com"].includes(host) && !path) return false;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export default function Footer() {
-  const facebookUrl = process.env.NEXT_PUBLIC_FACEBOOK_URL || "https://www.facebook.com";
-  const xUrl = process.env.NEXT_PUBLIC_X_URL || "https://x.com";
-  const twitterUrl = "https://twitter.com";
+  const facebookUrl = process.env.NEXT_PUBLIC_FACEBOOK_URL || "";
+  const xUrl = process.env.NEXT_PUBLIC_X_URL || process.env.NEXT_PUBLIC_TWITTER_URL || "";
+  const socialLinks = [
+    {
+      key: "facebook",
+      href: facebookUrl,
+      label: "Facebook",
+      title: "Follow GoFieldWise on Facebook",
+      path: "M13.5 9H16V6h-2.5C10.9 6 9 7.9 9 10.5V13H7v3h2v5h3v-5h2.3l.7-3H12v-2.5c0-.8.7-1.5 1.5-1.5z",
+    },
+    {
+      key: "x",
+      href: xUrl,
+      label: "X",
+      title: "Follow GoFieldWise on X",
+      path: "M18.2 3H21l-6.5 7.4L22 21h-6.2l-4.9-6.4L5.3 21H3l7-8L2 3h6.3l4.5 5.9L18.2 3zm-1.1 16h1.7L7.2 4.9H5.4L17.1 19z",
+    },
+  ].filter((link) => isConfiguredSocialProfile(link.href));
   
   const [smsState, setSmsState] = useState({ phone: "", status: "idle", message: "" });
 
@@ -89,17 +117,17 @@ export default function Footer() {
           <div className="footer-column">
             <h4>GoFieldWise</h4>
             <p>AI receptionist and business management for home service teams.</p>
-            <div className="footer-socials">
-              <a href={facebookUrl} target="_blank" rel="noreferrer" aria-label="Facebook" title="Follow GoFieldWise on Facebook">
-                <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M13.5 9H16V6h-2.5C10.9 6 9 7.9 9 10.5V13H7v3h2v5h3v-5h2.3l.7-3H12v-2.5c0-.8.7-1.5 1.5-1.5z" /></svg>
-              </a>
-              <a href={xUrl} target="_blank" rel="noreferrer" aria-label="X" title="Follow GoFieldWise on X">
-                <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M18.2 3H21l-6.5 7.4L22 21h-6.2l-4.9-6.4L5.3 21H3l7-8L2 3h6.3l4.5 5.9L18.2 3zm-1.1 16h1.7L7.2 4.9H5.4L17.1 19z" /></svg>
-              </a>
-              <a href={twitterUrl} target="_blank" rel="noreferrer" aria-label="Twitter" title="Follow GoFieldWise on Twitter">
-                <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M22 5.9c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.2 1.7-2.2-.8.4-1.7.8-2.6.9A4 4 0 0 0 12 8.5c0 .3 0 .6.1.9-3.3-.2-6.3-1.8-8.2-4.3-.3.6-.5 1.2-.5 1.9 0 1.4.7 2.6 1.8 3.3-.7 0-1.3-.2-1.8-.5 0 1.9 1.3 3.5 3.1 3.8-.3.1-.7.1-1 .1-.2 0-.5 0-.8-.1.5 1.6 2 2.8 3.8 2.8A8 8 0 0 1 3 18.3 11.2 11.2 0 0 0 9.1 20c7.3 0 11.3-6.2 11.3-11.5v-.5c.8-.5 1.4-1.2 1.9-2.1z" /></svg>
-              </a>
-            </div>
+            {socialLinks.length ? (
+              <div className="footer-socials" aria-label="Social links">
+                {socialLinks.map((link) => (
+                  <a key={link.key} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} title={link.title}>
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true" width="18" height="18" focusable="false">
+                      <path d={link.path} />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
 
           {/* Column 2: Product */}

@@ -38,7 +38,10 @@ const nextConfig = {
     return [
       { source: '/help-center', destination: '/support', permanent: true },
       { source: '/help/articles', destination: '/support', permanent: true },
-      { source: '/help/articles/:slug*', destination: '/support', permanent: true }
+      { source: '/help/articles/:slug*', destination: '/support', permanent: true },
+      { source: '/privacy-policy', destination: '/privacy', permanent: true },
+      { source: '/terms-and-conditions', destination: '/terms', permanent: true },
+      { source: '/terms-conditions', destination: '/terms', permanent: true }
     ];
   }
 };
