@@ -82,7 +82,7 @@ export default function SmsOptIn() {
           <p className="last-updated">Last updated: August 27, 2026</p>
 
           <p>
-            GoFieldWise LLC sends text messages to customers and prospects who ask for them. Opting in is
+            GoFieldWise sends text messages to customers and prospects who ask for them. Opting in is
             always optional, is never a condition of purchase, and you can stop the messages at any time.
           </p>
 
@@ -114,7 +114,7 @@ export default function SmsOptIn() {
               />
               <span>
                 By checking this box, I agree to receive recurring automated marketing and service text
-                messages from GoFieldWise LLC at the mobile number provided. Consent is not a condition of
+                messages from GoFieldWise at the mobile number provided. Consent is not a condition of
                 purchase. Message frequency varies, up to 6 messages per month. Msg &amp; data rates may
                 apply. Reply HELP for help, STOP to cancel. See our{" "}
                 <Link href="/privacy">Privacy Policy</Link> and{" "}
@@ -136,7 +136,7 @@ export default function SmsOptIn() {
           <h2>Program details</h2>
           <ul>
             <li><strong>Program name:</strong> GoFieldWise SMS Alerts</li>
-            <li><strong>Sender:</strong> GoFieldWise LLC, (855) 247-6985</li>
+            <li><strong>Sender:</strong> GoFieldWise, (855) 247-6985</li>
             <li>
               <strong>Message types:</strong> appointment and job status updates, account and billing
               notices, and occasional marketing tips and offers for home-service businesses

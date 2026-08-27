@@ -57,7 +57,7 @@ export default function Privacy() {
           </ul>
 
           <h2>4. SMS Communications</h2>
-          <p><strong>SMS Opt-In:</strong> By opting into SMS communications, you consent to receive promotional and transactional messages from GoFieldWise LLC at the phone number you provide. Consent is not a condition of purchase. Message frequency varies, up to 6 messages per month. Msg &amp; data rates may apply. Reply HELP for help, STOP to cancel. Full program details are on our <Link href="/sms">SMS Alerts page</Link>.</p>
+          <p><strong>SMS Opt-In:</strong> By opting into SMS communications, you consent to receive promotional and transactional messages from GoFieldWise at the phone number you provide. Consent is not a condition of purchase. Message frequency varies, up to 6 messages per month. Msg &amp; data rates may apply. Reply HELP for help, STOP to cancel. Full program details are on our <Link href="/sms">SMS Alerts page</Link>.</p>
           <p><strong>Mobile information sharing:</strong> No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. All other categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</p>
           <p><strong>SMS Opt-Out:</strong> You can opt out of SMS communications at any time by:</p>
           <ul>

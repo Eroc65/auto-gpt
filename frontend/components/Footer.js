@@ -105,7 +105,7 @@ export default function Footer() {
           )}
           <p className="sms-disclaimer">
             By subscribing, you agree to receive recurring automated marketing and service text messages from
-            GoFieldWise LLC at the number provided. Consent is not a condition of purchase. Msg frequency
+            GoFieldWise at the number provided. Consent is not a condition of purchase. Msg frequency
             varies, up to 6 msgs/month. Msg &amp; data rates may apply. Reply HELP for help, STOP to cancel.
             See our <Link href="/privacy">Privacy Policy</Link>, <Link href="/terms">Terms</Link>, and{" "}
             <Link href="/sms">SMS Alerts page</Link>.

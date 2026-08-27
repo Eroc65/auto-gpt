@@ -136,7 +136,7 @@ export default function Terms() {
           <h2>16. SMS Terms</h2>
           <p>By opting into SMS communications:</p>
           <ul>
-            <li>You consent to receive recurring automated marketing and service text messages from GoFieldWise LLC at the number you provide, and consent is not a condition of purchase</li>
+            <li>You consent to receive recurring automated marketing and service text messages from GoFieldWise at the number you provide, and consent is not a condition of purchase</li>
             <li><strong>Message frequency varies, up to 6 messages per month</strong></li>
             <li>Msg &amp; data rates may apply</li>
             <li>You can opt out anytime by replying STOP to any message or updating your account settings</li>
