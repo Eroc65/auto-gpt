@@ -154,9 +154,8 @@ export default function SmsOptIn() {
 
           <h2>How to opt in</h2>
           <p>
-            You can opt in by checking the consent box in the form above and submitting your mobile number,
-            or by texting <strong>START</strong> to <strong>(855) 247-6985</strong>. After you opt in, we
-            send a confirmation message:
+            You can opt in by checking the consent box in the form above and submitting your mobile number.
+            That web form is the only way to join. After you opt in, we send a confirmation message:
           </p>
           <blockquote className="sample-message">
             GoFieldWise: You are now opted in to receive text messages. Msg frequency varies, up to 6
