@@ -75,11 +75,10 @@ export default async function handler(req, res) {
   }
 
   const rawBody = await readRawBody(req);
-  const verdict = verifySignature(
-    rawBody,
-    req.headers["x-retell-signature"],
-    process.env.RETELL_API_KEY || ""
-  );
+  // Retell signs with the API key. RETELL_WEBHOOK_KEY is honored first for
+  // setups that use a dedicated webhook secret.
+  const signingKey = process.env.RETELL_WEBHOOK_KEY || process.env.RETELL_API_KEY || "";
+  const verdict = verifySignature(rawBody, req.headers["x-retell-signature"], signingKey);
 
   if (!verdict.ok) {
     log("retell_webhook_rejected", { reason: verdict.reason });

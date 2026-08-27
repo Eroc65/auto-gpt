@@ -25,6 +25,10 @@ services:
       # webhook is rejected with 401.
       - key: RETELL_API_KEY
         sync: false
+      # Optional: used instead of RETELL_API_KEY to verify signatures when the
+      # Retell setup uses a dedicated webhook secret.
+      - key: RETELL_WEBHOOK_KEY
+        sync: false
       # JSON keyed by the number that was CALLED. Only numbers listed here
       # send texts, e.g.
       # {"+16029320967":{"businessName":"GoFieldWise","ownerSms":"+14055550123"}}
