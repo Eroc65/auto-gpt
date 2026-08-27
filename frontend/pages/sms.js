@@ -45,7 +45,7 @@ export default function SmsOptIn() {
       }
 
       setStatus("success");
-      setMessage("You're opted in. Check your phone for a confirmation message.");
+      setMessage(payload.message || "You're opted in.");
       setPhone("");
       setConsent(false);
     } catch (error) {

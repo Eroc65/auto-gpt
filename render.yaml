@@ -9,3 +9,14 @@ services:
     envVars:
       - key: ANTHROPIC_API_KEY
         sync: false
+      # SMS opt-in confirmation (pages/api/sms-optin.js). Without these the
+      # opt-in is still recorded, but no confirmation text is sent.
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      # Set either a Messaging Service SID or a single sending number.
+      - key: TWILIO_MESSAGING_SERVICE_SID
+        sync: false
+      - key: TWILIO_SMS_FROM
+        sync: false

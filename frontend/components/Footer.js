@@ -66,7 +66,7 @@ export default function Footer() {
       setSmsState(prev => ({
         ...prev,
         status: "success",
-        message: "Subscribed! Check your phone for a confirmation message.",
+        message: payload.message || "Subscribed!",
         phone: "",
       }));
 
