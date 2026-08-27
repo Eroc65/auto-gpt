@@ -3,6 +3,12 @@ import Link from "next/link";
 import { useState } from "react";
 import Footer from "../components/Footer";
 
+// Cloudflare's Email Address Obfuscation rewrites plain-text addresses into
+// "[email protected]" links. That is fine in prose, but the HELP sample below has
+// to render literally so it matches the help message filed with the toll-free
+// registration. These comments tell Cloudflare to leave the address alone.
+const SUPPORT_EMAIL_HTML = "<!--email_off-->support@gofieldwise.com<!--email_on-->";
+
 export async function getServerSideProps() {
   return { props: {} };
 }
@@ -159,11 +165,13 @@ export default function SmsOptIn() {
 
           <h2>How to get help</h2>
           <p>
-            Reply <strong>HELP</strong> to any message, or email support@gofieldwise.com. You will receive:
+            Reply <strong>HELP</strong> to any message, or email{" "}
+            <span dangerouslySetInnerHTML={{ __html: SUPPORT_EMAIL_HTML }} />. You will receive:
           </p>
           <blockquote className="sample-message">
-            GoFieldWise: Help at support@gofieldwise.com or (855) 247-6985. Msg frequency varies, up to 6
-            msgs/month. Msg &amp; data rates may apply. Reply STOP to cancel.
+            GoFieldWise: Help at <span dangerouslySetInnerHTML={{ __html: SUPPORT_EMAIL_HTML }} /> or (855)
+            247-6985. Msg frequency varies, up to 6 msgs/month. Msg &amp; data rates may apply. Reply STOP to
+            cancel.
           </blockquote>
 
           <h2>How to opt out</h2>
