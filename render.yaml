@@ -20,3 +20,17 @@ services:
         sync: false
       - key: TWILIO_SMS_FROM
         sync: false
+      # Post-call texts (pages/api/webhooks/retell-call-ended.js).
+      # RETELL_API_KEY also verifies the webhook signature — without it every
+      # webhook is rejected with 401.
+      - key: RETELL_API_KEY
+        sync: false
+      # JSON keyed by the number that was CALLED. Only numbers listed here
+      # send texts, e.g.
+      # {"+16029320967":{"businessName":"GoFieldWise","ownerSms":"+14055550123"}}
+      # Optional per-route: "mode":"unresolved" (owner alert only on unbooked
+      # calls) and "textCaller":false.
+      - key: CALL_ALERT_ROUTES
+        sync: false
+      - key: CALL_ALERT_TIMEZONE
+        value: America/Chicago
