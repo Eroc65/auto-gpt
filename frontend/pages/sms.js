@@ -15,7 +15,10 @@ export async function getServerSideProps() {
 
 export default function SmsOptIn() {
   const [phone, setPhone] = useState("");
+  // Service consent is required; marketing consent is separate and optional so
+  // each can be granted independently (one-to-one consent).
   const [consent, setConsent] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
 
@@ -40,7 +43,12 @@ export default function SmsOptIn() {
       const response = await fetch("/api/sms-optin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: trimmed, consent: true, source: "sms_optin_page" }),
+        body: JSON.stringify({
+          phone: trimmed,
+          consent: true,
+          marketingConsent,
+          source: "sms_optin_page",
+        }),
       });
       const payload = await response.json().catch(() => ({}));
 
@@ -54,6 +62,7 @@ export default function SmsOptIn() {
       setMessage(payload.message || "You're opted in.");
       setPhone("");
       setConsent(false);
+      setMarketingConsent(false);
     } catch (error) {
       setStatus("error");
       setMessage("Network error. Please retry.");
@@ -119,14 +128,32 @@ export default function SmsOptIn() {
                 required
               />
               <span>
-                By checking this box, I agree to receive recurring automated marketing and service text
-                messages from GoFieldWise at the mobile number provided. Consent is not a condition of
-                purchase. Message frequency varies, up to 6 messages per month. Msg &amp; data rates may
-                apply. Reply HELP for help, STOP to cancel. See our{" "}
-                <Link href="/privacy">Privacy Policy</Link> and{" "}
-                <Link href="/terms">Terms &amp; Conditions</Link>.
+                By checking this box, I agree to receive recurring automated service text messages from
+                GoFieldWise about my appointments, jobs, and account at the mobile number provided. Consent
+                is not a condition of purchase.
               </span>
             </label>
+
+            <label className="consent-row" htmlFor="sms-marketing-consent">
+              <input
+                id="sms-marketing-consent"
+                name="marketingConsent"
+                type="checkbox"
+                checked={marketingConsent}
+                onChange={(event) => setMarketingConsent(event.target.checked)}
+                disabled={status === "loading"}
+              />
+              <span>
+                <strong>Optional:</strong> I also agree to receive promotional and marketing text messages
+                from GoFieldWise. You can join without checking this box.
+              </span>
+            </label>
+
+            <p className="consent-disclosure">
+              Message frequency varies, up to 6 messages per month. Msg &amp; data rates may apply. Reply
+              HELP for help, STOP to cancel. See our <Link href="/privacy">Privacy Policy</Link> and{" "}
+              <Link href="/terms">Terms &amp; Conditions</Link>.
+            </p>
 
             <button type="submit" disabled={status === "loading"}>
               {status === "loading" ? "Subscribing..." : "Opt in to text messages"}
@@ -154,8 +181,10 @@ export default function SmsOptIn() {
 
           <h2>How to opt in</h2>
           <p>
-            You can opt in by checking the consent box in the form above and submitting your mobile number.
-            That web form is the only way to join. After you opt in, we send a confirmation message:
+            You can opt in by checking the service-message box in the form above and submitting your mobile
+            number. That web form is the only way to join. Promotional texts are a separate, optional box —
+            you can receive service messages without ever agreeing to marketing. After you opt in, we send a
+            confirmation message:
           </p>
           <blockquote className="sample-message">
             GoFieldWise: You are now opted in to receive text messages. Msg frequency varies, up to 6
@@ -235,6 +264,11 @@ export default function SmsOptIn() {
           gap: 10px;
           line-height: 1.55;
           font-size: 0.95rem;
+        }
+        .consent-disclosure {
+          font-size: 0.9rem;
+          line-height: 1.55;
+          margin: 0;
         }
         .consent-row input[type="checkbox"] {
           margin-top: 4px;

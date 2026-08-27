@@ -7,10 +7,19 @@ const CONFIRMATION_BODY =
   "Msg frequency varies, up to 6 msgs/month. Msg & data rates may apply. " +
   "Reply HELP for help, STOP to cancel.";
 
-const CONSENT_LANGUAGE =
-  "By checking this box, I agree to receive recurring automated marketing and service text " +
-  "messages from GoFieldWise at the mobile number provided. Consent is not a condition of " +
-  "purchase. Message frequency varies, up to 6 messages per month. Msg & data rates may apply. " +
+// Service and marketing consent are captured separately on /sms so each can be
+// granted independently. Both strings are recorded with the opt-in.
+const SERVICE_CONSENT_LANGUAGE =
+  "By checking this box, I agree to receive recurring automated service text messages from " +
+  "GoFieldWise about my appointments, jobs, and account at the mobile number provided. Consent " +
+  "is not a condition of purchase.";
+
+const MARKETING_CONSENT_LANGUAGE =
+  "Optional: I also agree to receive promotional and marketing text messages from GoFieldWise. " +
+  "You can join without checking this box.";
+
+const SHARED_DISCLOSURE =
+  "Message frequency varies, up to 6 messages per month. Msg & data rates may apply. " +
   "Reply HELP for help, STOP to cancel.";
 
 export default async function handler(req, res) {
@@ -19,7 +28,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
-  const { phone = "", consent = null, source = "gofieldwise_footer" } = req.body || {};
+  const {
+    phone = "",
+    consent = null,
+    marketingConsent = null,
+    source = "gofieldwise_footer",
+  } = req.body || {};
   const normalizedPhone = String(phone).trim().replace(/\D/g, "");
 
   if (normalizedPhone.length < 10) {
@@ -38,7 +52,10 @@ export default async function handler(req, res) {
       raw_phone: normalizedPhone,
       source: String(source),
       consent: consent === null ? "implied_by_form_submission" : Boolean(consent),
-      consent_language: CONSENT_LANGUAGE,
+      marketing_consent: marketingConsent === null ? "not_offered" : Boolean(marketingConsent),
+      service_consent_language: SERVICE_CONSENT_LANGUAGE,
+      marketing_consent_language: MARKETING_CONSENT_LANGUAGE,
+      disclosure: SHARED_DISCLOSURE,
       user_agent: req.headers["user-agent"] || null,
       ip: req.headers["x-forwarded-for"] || req.socket?.remoteAddress || null,
     })
