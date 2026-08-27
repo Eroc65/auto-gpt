@@ -22,6 +22,7 @@ const URLS = [
   { path: '/free-gbp-check',   priority: '0.7', freq: 'monthly' },
   { path: '/free-competitor-peek', priority: '0.7', freq: 'monthly' },
   { path: '/field-notes',     priority: '0.7', freq: 'weekly'  },
+  { path: '/sms',             priority: '0.5', freq: 'yearly'  },
 ];
 
 function sitemap(urls) {

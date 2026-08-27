@@ -57,7 +57,8 @@ export default function Privacy() {
           </ul>
 
           <h2>4. SMS Communications</h2>
-          <p><strong>SMS Opt-In:</strong> By opting into SMS communications, you consent to receive promotional and transactional messages from GoFieldWise at the phone number you provide. Standard message and data rates may apply.</p>
+          <p><strong>SMS Opt-In:</strong> By opting into SMS communications, you consent to receive promotional and transactional messages from GoFieldWise LLC at the phone number you provide. Consent is not a condition of purchase. Message frequency varies, up to 6 messages per month. Msg &amp; data rates may apply. Reply HELP for help, STOP to cancel. Full program details are on our <Link href="/sms">SMS Alerts page</Link>.</p>
+          <p><strong>Mobile information sharing:</strong> No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. All other categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</p>
           <p><strong>SMS Opt-Out:</strong> You can opt out of SMS communications at any time by:</p>
           <ul>
             <li>Replying STOP to any SMS message</li>
@@ -73,6 +74,7 @@ export default function Privacy() {
             <li><strong>Legal Requirements:</strong> Law enforcement or government agencies if required by law</li>
             <li><strong>Business Transfers:</strong> In the event of a merger, acquisition, or bankruptcy</li>
           </ul>
+          <p>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. All other categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties. Text messaging originator opt-in data is used solely to deliver the messages you requested.</p>
 
           <h2>6. Data Security</h2>
           <p>We implement industry-standard security measures, including encryption, secure API connections, and access controls, to protect your information. However, no method of transmission over the Internet is 100% secure. We are not liable for unauthorized disclosure due to factors beyond our reasonable control.</p>

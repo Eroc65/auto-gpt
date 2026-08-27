@@ -104,8 +104,11 @@ export default function Footer() {
             </p>
           )}
           <p className="sms-disclaimer">
-            By subscribing, you agree to receive SMS messages from GoFieldWise. Msg & data rates may apply. 
-            Reply STOP to unsubscribe.
+            By subscribing, you agree to receive recurring automated marketing and service text messages from
+            GoFieldWise LLC at the number provided. Consent is not a condition of purchase. Msg frequency
+            varies, up to 6 msgs/month. Msg &amp; data rates may apply. Reply HELP for help, STOP to cancel.
+            See our <Link href="/privacy">Privacy Policy</Link>, <Link href="/terms">Terms</Link>, and{" "}
+            <Link href="/sms">SMS Alerts page</Link>.
           </p>
         </div>
       </section>
@@ -160,6 +163,7 @@ export default function Footer() {
             <ul>
               <li><Link href="/privacy">Privacy Policy</Link></li>
               <li><Link href="/terms">Terms & Conditions</Link></li>
+              <li><Link href="/sms">SMS Alerts &amp; Opt-In</Link></li>
               <li><a href="mailto:support@gofieldwise.com">Contact Support</a></li>
               <li><a href="tel:+18552476985">(855) 247-6985</a></li>
             </ul>

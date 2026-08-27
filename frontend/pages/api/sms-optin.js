@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
-  const { phone = "" } = req.body || {};
+  const { phone = "", consent = null, source = "gofieldwise_footer" } = req.body || {};
   const normalizedPhone = String(phone)
     .trim()
     .replace(/\D/g, ""); // Remove non-digits
@@ -24,7 +24,12 @@ export default async function handler(req, res) {
       at: new Date().toISOString(),
       phone: formattedPhone,
       raw_phone: normalizedPhone,
-      source: "gofieldwise_footer",
+      source: String(source),
+      consent: consent === null ? "implied_by_form_submission" : Boolean(consent),
+      consent_language:
+        "By checking this box, I agree to receive recurring automated marketing and service text messages from GoFieldWise LLC at the mobile number provided. Consent is not a condition of purchase. Message frequency varies, up to 6 messages per month. Msg & data rates may apply. Reply HELP for help, STOP to cancel.",
+      user_agent: req.headers["user-agent"] || null,
+      ip: req.headers["x-forwarded-for"] || req.socket?.remoteAddress || null,
     })
   );
 
